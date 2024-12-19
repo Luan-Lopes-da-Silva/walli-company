@@ -1,0 +1,284 @@
+//#393738
+//#0091A4
+//#CCD360
+//#d00000
+//#323323
+//#535448
+//#A5A968
+
+
+@font-face {
+    font-family: 'Lis';
+    src: url('../../../public/fonts/Deutschlander.otf');
+}
+
+@font-face {
+    font-family: 'Titles';
+    src: url('../../../public/fonts/Merriweather-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Text';
+    src: url('../../../public/fonts/Queensides\ Medium.ttf');
+}
+
+.container{
+    width: 100%;
+    padding-bottom: 120px;
+    background-color: #CCD360;
+    position: relative;
+    
+    .button{
+        display: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        height: 50px;
+        border: 2px solid #4a4e69;
+        text-transform: uppercase;
+        color: #4a4e69;
+        background-color: transparent;
+        cursor: pointer;
+        transition: .4s;
+        position: fixed;
+        z-index: 7000;
+        right: 12px;
+        bottom: 12px;
+
+        &:hover{
+            color: #000;
+            border-color: #000;
+            background-color: #0091A4;
+        }
+    }
+
+    .header{
+        display: flex;
+        justify-content: center;
+        nav{
+            position: fixed;
+            z-index: 50000;
+            background-color: #393738;
+            border-radius: 16px;
+            width: 700px;
+            h1{
+                width: max-content;
+                font-size: 3rem;
+                font-family: 'Titles';
+            }
+
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            margin: 12px auto;
+            align-items: center;
+           
+            button{
+                padding: 12px 24px;
+                border-radius: 12px;
+                height: 50px;
+                border: 2px solid #4a4e69;
+                text-transform: uppercase;
+                color: #4a4e69;
+                background-color: transparent;
+                cursor: pointer;
+                transition: .4s;
+
+                &:hover{
+                    color: #000;
+                    border-color: #000;
+                    background-color: #0091A4;
+                }
+           }
+
+            ul{
+                display: flex;
+                align-items: center;
+                list-style: none;
+                
+                a{
+                    text-decoration: none;
+                }
+
+                li{
+                    margin: 0px 12px;
+                    font-size: 1.8rem;
+                    font-family: 'Lis';
+                    transition: .4s;
+                    color: #000;
+
+                    &:hover{
+                        text-decoration: underline;
+                        cursor: pointer;
+                        color: #FFF;
+                    }
+                }
+            }
+        }
+    }
+
+    main{
+        h1{
+            padding: 200px 20px;
+            padding-bottom:0px;
+            font-size: 3rem;
+            font-family: 'Titles';
+        }
+
+        h3{
+            font-family: 'Titles';
+            font-size: 1.5rem;
+            padding: 0px 20px;
+        }
+    }
+
+    .form{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        gap: 160px;
+        align-items: center;
+        padding: 0px 20px;
+
+
+        form{
+            label,
+            button{
+                display: block;
+            }
+
+            button{
+                padding: 12px 24px;
+                border-radius: 12px;
+                height: 50px;
+                border: 2px solid #4a4e69;
+                text-transform: uppercase;
+                color: #4a4e69;
+                background-color: transparent;
+                cursor: pointer;
+                transition: .4s;
+                margin-top: 32px;
+
+                &:hover{
+                    color: #000;
+                    border-color: #000;
+                    background-color: #0091A4;
+                }
+           } 
+
+            label{
+                font-size: 1.2rem;
+                font-family: 'Text';
+                margin-bottom: 4px;
+                margin-top: 20px;
+            }
+
+            input,textarea{
+                background-color: #535448;
+                border: 2px solid #323323;
+                color: #393738;
+                font-family: 'Text';
+                font-size: 1rem;
+
+                &::placeholder{
+                    font-family: 'Text';
+                    font-size: 1rem;
+                    color:#A5A968 ;
+                }
+
+                &:focus{
+                    background-color: #323323;
+                    border-color: #535448;
+                    color:#A5A968 ;
+                }
+            }
+
+            input,
+            textarea{
+                padding: 12px 4px;
+                border-radius: 12px;
+                width: 400px;
+            }
+
+            textarea{
+                height: 200px;
+            }
+        }
+    }
+
+    .infos{
+        padding: 20px;
+        background-color: #A5A968;
+        border-radius: 20px;
+
+        h2{
+            font-size: 2rem;
+            font-family: 'Titles';
+            margin-bottom: 60px;
+            color: #FFF;
+        }
+
+        .card{
+            margin-bottom: 24px;
+            background-color: #535448;
+            padding: 12px;
+            border-radius: 20px;
+
+            div{
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 8px;
+
+                span{
+                    font-family: 'Titles';
+                    font-size: 1.2rem;
+                }
+            }
+
+            p{
+                font-family: 'Text';
+                width: 550px;
+                text-align: justify;
+            }
+        }
+
+    }
+}
+
+@media(max-width:600px){
+    .container{
+        .header{
+            nav{
+                width: 350px;
+                border-radius: 0px;
+                margin: 0 auto;
+
+                button{
+                    display: none;
+                }
+
+                h1{
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        .form{
+            form{
+                input,
+                textarea{
+                    width: 270px;
+                }
+            }
+        }
+        .button{
+            display: block;
+        }
+    
+        .form
+
+    .infos{
+        display: none;
+    }
+    }
+}

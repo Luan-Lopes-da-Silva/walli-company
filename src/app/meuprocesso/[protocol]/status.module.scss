@@ -1,0 +1,220 @@
+//#393738
+//#0091A4
+//#CCD360
+//#d00000
+
+@font-face {
+    font-family: 'Lis';
+    src: url('../../../../public/fonts/Deutschlander.otf');
+}
+
+@font-face {
+    font-family: 'Titles';
+    src: url('../../../../public/fonts/Merriweather-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Text';
+    src: url('../../../../public/fonts/Queensides\ Medium.ttf');
+}
+
+
+.main{
+    width: 100%;
+    background-color: #CCD360;
+    padding-bottom: 60px;
+    .header{
+        display: flex;
+        justify-content: center;
+        nav{
+            position: fixed;
+            z-index: 50000;
+            background-color: #393738;
+            border-radius: 16px;
+            width: 700px;
+            h1{
+                width: max-content;
+                font-size: 3rem;
+                font-family: 'Titles';
+            }
+
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            margin: 12px auto;
+            align-items: center;
+           
+            button{
+                padding: 12px 24px;
+                border-radius: 12px;
+                height: 50px;
+                border: 2px solid #4a4e69;
+                text-transform: uppercase;
+                color: #4a4e69;
+                background-color: transparent;
+                cursor: pointer;
+                transition: .4s;
+
+                &:hover{
+                    color: #000;
+                    border-color: #000;
+                    background-color: #0091A4;
+                }
+           }
+
+            ul{
+                display: flex;
+                align-items: center;
+                list-style: none;
+                
+                a{
+                    text-decoration: none;
+                }
+
+                li{
+                    margin: 0px 12px;
+                    font-size: 1.8rem;
+                    font-family: 'Lis';
+                    transition: .4s;
+                    color: #000;
+
+                    &:hover{
+                        text-decoration: underline;
+                        cursor: pointer;
+                        color: #FFF;
+                    }
+                }
+            }
+        }
+    }
+
+    h1{
+        font-size: 5rem;
+        font-family: 'Titles';
+    }
+
+    h2{
+        font-size: 3rem;
+        width: 850px;
+        font-family: 'Titles';
+    }
+    
+    .container{
+        margin-top: 140px;
+        padding: 0px 20px;
+
+        section{
+            margin-bottom: 20px;
+            margin-top: 60px;
+        }
+
+        ul{
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            li{
+                list-style: none;
+                padding: 0px 12px;
+                font-size: 1.2rem;
+                font-family: 'Text';
+            }
+        }
+
+        .status{
+            .statusContainer{
+                display: flex;
+                gap: 60px;
+                justify-content: center;      
+                div{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 12px;
+                    position: relative;
+
+                    span{
+                        width: 100px;
+                        height: 8px;
+                        background-color: #000;
+                        position: absolute;
+                        top: 50%;
+                    }
+
+                    span:nth-child(1){
+                        margin-left: 290px;
+                    }
+
+                    p{
+                        font-size: 1rem;
+                        font-family: 'Text';
+                    }
+
+                    div{
+                        background-color: #0091A4;
+                            padding: 40px;
+                        border-radius: 50%;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+@media(max-width:600px){
+    .main{
+        .header{
+            nav{
+                width: 350px;
+                border-radius: 0px;
+                margin: 0 auto;
+
+                button{
+                    display: none;
+                }
+
+                h1{
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        h2{
+            width: 350px;
+        }
+
+        .container{
+            .status{
+                .statusContainer{
+                    flex-direction: column;
+                    gap: 12px;
+                    align-items: center;
+                    div{
+                        flex-direction: row;
+                        text-align: center;
+                        p{
+                            width: 150px;
+                        }
+                        
+                        span{
+                            top: 90%;
+                            transform: rotate(90deg);
+                        }
+    
+                        span:nth-child(1){
+                            margin-left: 165px;
+                        }
+    
+                        div{
+                            padding: 20px;
+                            img{
+                                width: 60px;
+                                height: 60px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

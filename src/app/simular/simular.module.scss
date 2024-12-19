@@ -1,0 +1,513 @@
+//#393738
+//#0091A4
+//#CCD360
+//#d00000
+//#323323
+//#535448
+//#A5A968
+//#146D79 focus step
+//#1A484E unfocus step
+//#FFF focus step real
+
+@font-face {
+    font-family: 'Lis';
+    src: url('../../../public/fonts/Deutschlander.otf');
+}
+
+@font-face {
+    font-family: 'Titles';
+    src: url('../../../public/fonts/Merriweather-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Text';
+    src: url('../../../public/fonts/Queensides\ Medium.ttf');
+}
+
+
+.box{
+    position: relative;
+    .container{
+        width: 100%;
+        padding-bottom: 120px;
+        background-color: #0091A4;
+    
+        .header{
+            display: flex;
+            justify-content: center;
+            nav{
+                position: fixed;
+                z-index: 50000;
+                background-color: #393738;
+                border-radius: 16px;
+                width: 700px;
+                h1{
+                    width: max-content;
+                    font-size: 3rem;
+                    font-family: 'Titles';
+                }
+    
+                padding: 20px;
+                display: flex;
+                justify-content: space-between;
+                margin: 12px auto;
+                align-items: center;
+               
+                button{
+                    padding: 12px 24px;
+                    border-radius: 12px;
+                    height: 50px;
+                    border: 2px solid #4a4e69;
+                    text-transform: uppercase;
+                    color: #4a4e69;
+                    background-color: transparent;
+                    cursor: pointer;
+                    transition: .4s;
+    
+                    &:hover{
+                        color: #000;
+                        border-color: #000;
+                        background-color: #0091A4;
+                    }
+               }
+    
+                ul{
+                    display: flex;
+                    align-items: center;
+                    list-style: none;
+                    
+                    a{
+                        text-decoration: none;
+                    }
+    
+                    li{
+                        margin: 0px 12px;
+                        font-size: 1.8rem;
+                        font-family: 'Lis';
+                        transition: .4s;
+                        color: #000;
+    
+                        &:hover{
+                            text-decoration: underline;
+                            cursor: pointer;
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .content{
+            padding: 200px 20px;
+
+            .containerPDF{
+                margin-top: 60px;
+                display: none;
+
+                .presentation{
+                    width: 100%;
+                    height: 400px;
+                    padding: 40px;
+                    display: flex;
+                    align-items: start;
+                    justify-content: space-between;
+                    background-color: #CCD360;
+
+                    span{
+                        text-transform: uppercase;
+                        font-family: 'Titles';
+                        color: #393738;
+                        font-size: 3rem;
+                        background-color: #0091A4;
+                        padding: 62px 24px;
+                        border-radius: 50%;
+                        border: 8px solid #393738;
+                    }
+
+                    h1{
+                        font-family: 'Titles';
+                        width: 300px;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                }
+
+                .datas{
+                    padding: 40px;
+                    background-color: #393738;
+                    width: 100%;
+
+                    .values{
+                        color: #FFFFFF;
+                        font-family: 'Text';
+                        font-size: 1.5rem;
+                        display: grid;
+                        grid-template-columns: repeat(2, 300px);
+                        gap: 20px;
+                        
+                        p:nth-child(2){
+                            color: #CCD360;
+                        }
+                    }
+                }
+            }
+    
+            h1{
+                font-size: 3rem;
+                font-family: 'Titles';
+            }
+    
+            h2{
+                font-size: 2rem;
+                font-family: 'Titles';
+                margin-bottom: 20px;
+            }
+    
+            .steps{
+                display: flex;
+                gap: 20px;
+                margin-bottom: 32px;
+    
+                div:nth-child(1){
+                    span{
+                        border-color: #FFF;
+                        color: #FFF;
+                    }
+    
+                    p{
+                        color: #FFF;
+                    }
+                }
+                
+                div{
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+    
+                    span{
+                        font-size: 3rem;
+                        font-family: 'Titles';
+                        border: 3px solid #1A484E;
+                        border-radius: 50%;
+                        padding: 6px 24px;
+                    }
+    
+                    p{
+                        font-family: 'Text';
+                        font-size: 1.2rem;
+                        color: #1A484E;
+                    }
+                }
+            }
+    
+            .firstForm{
+                label{
+                    display: block;
+                    font-size: 1.2rem;
+                    font-family: 'Text';
+                }
+    
+                input,select{
+                    margin-top: 4px;
+                    margin-bottom: 16px;
+                    font-family: 'Text';
+                    font-size: 1rem;
+                    width: 300px;
+                    padding: 8px 4px;
+                    background-color:#1b263b;
+                    border-radius: 12px;
+                    border: 2px solid #415a77;
+                    color: #0d1b2a;
+                    transition: .4s;
+    
+                    &:focus{
+                    border-color: #1b263b;
+                    background-color: #415a77;
+                    color: #778da9;
+                    }
+                }
+    
+                span{
+                    font-size: 0.825rem;
+                    font-family: 'Text';
+                    color: #c1121f;
+                    display: block;
+                    margin: 8px 0px;
+                }
+    
+                div{
+                    display: flex;
+                    gap: 12px;
+                    margin-top: 12px;
+    
+                    button{
+                        text-transform: uppercase;
+                        font-family: 'Text';
+                        width: 150px;
+                        cursor: pointer;
+                        padding: 6px 24px;
+                        border-radius: 4px;
+                        transition: .4s;
+                        border: 2px solid #023047;
+                        background-color: #219ebc;
+                        
+                        &:disabled{
+                            cursor: not-allowed;
+                            padding: 6px 24px;
+                            width: 150px;
+                            background-color: #1A484E;
+                            border: 2px solid #146D79;
+                            border-radius: 4px;
+                            color: inherit;
+    
+                            &:hover{
+                                color: #000;
+                                background-color: #1A484E;
+                                border: 2px solid #146D79;
+                            }
+                        }
+    
+                        &:hover{
+                            border-color: #FFF;
+                            background-color: #023047;
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+    
+            .secondForm{
+                display: none;
+                label{
+                    display: block;
+                    font-size: 1.2rem;
+                    font-family: 'Text';
+                }
+    
+                input,select{
+                    margin-top: 4px;
+                    margin-bottom: 16px;
+                    font-family: 'Text';
+                    font-size: 1rem;
+                    width: 300px;
+                    padding: 8px 4px;
+                    background-color:#1b263b;
+                    border-radius: 12px;
+                    border: 2px solid #415a77;
+                    color: #0d1b2a;
+                    transition: .4s;
+    
+                    &:focus{
+                    border-color: #1b263b;
+                    background-color: #415a77;
+                    color: #778da9;
+                    }
+                }
+    
+                span{
+                    font-size: 0.825rem;
+                    font-family: 'Text';
+                    color: #c1121f;
+                    display: block;
+                    margin: 8px 0px;
+                }
+    
+                div{
+                    display: flex;
+                    gap: 12px;
+                    margin-top: 12px;
+    
+                    button{
+                        text-transform: uppercase;
+                        font-family: 'Text';
+                        width: 150px;
+                        cursor: pointer;
+                        padding: 6px 24px;
+                        border-radius: 4px;
+                        transition: .4s;
+                        border: 2px solid #023047;
+                        background-color: #219ebc;
+                        
+                        &:hover{
+                            border-color: #FFF;
+                            background-color: #023047;
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .summary{
+            background-color: #CCD360;
+            width: 400px;
+            margin-top: 60px;
+            padding: 20px 40px;
+            display: none;
+    
+            button{
+                text-transform: uppercase;
+                font-family: 'Text';
+                width: max-content;
+                cursor: pointer;
+                padding: 6px 24px;
+                border-radius: 4px;
+                transition: .4s;
+                border: 2px solid #023047;
+                background-color: #219ebc;
+                margin-bottom: 20px;
+                
+                &:hover{
+                    border-color: #FFF;
+                    background-color: #023047;
+                    color: #FFF;
+                }
+            }
+    
+            h3{
+                font-size: 2rem;
+                font-family: 'Titles';
+                text-transform: uppercase;
+            }
+    
+            .infos{
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px;
+    
+                p{
+                    font-family: 'Text';
+                    font-size: 1.2rem;
+                }
+    
+                p:nth-child(odd){
+                    background-color: #0091A4;
+                    padding: 12px;
+                   
+                }
+    
+    
+            }
+        }
+    }
+
+    .modal{
+        position: absolute;
+        z-index: 8000000;
+        top: 40%;
+        left: 35%;
+        background-color: #023047;
+        width: 400px;
+        height: 400px;
+        text-align: center;
+        padding: 20px;
+        display: none;
+
+        button{
+            width: 36px;
+            height: 36px;
+            position: absolute;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            background-image: url('../../../public/assets/close_hover.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 36px;
+            transition: .4s;
+
+            &:hover{
+            background-image: url('../../../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg');
+            }
+        }
+
+        h1{
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: #FFF;
+            margin-top: 40px;
+        }
+
+        p{
+            width: 300px;
+            margin: auto auto;
+            text-align: justify;
+            font-size: 1.2rem;
+            font-family: 'Text';
+            color: #FFF;
+        }
+    }
+}
+
+
+@media(max-width:600px){
+    .box{
+        .container{
+            .header{
+                nav{
+                    width: 350px;
+                    border-radius: 0px;
+                    margin: 0 auto;
+    
+                    button{
+                        display: none;
+                    }
+    
+                    h1{
+                        font-size: 2rem;
+                    }
+                }
+            }
+    
+            .steps{
+                gap: 12px;
+            }
+
+            .summary{
+                background-color: #CCD360;
+                width: 350px;
+                margin-top: 60px;
+                padding: 20px ;
+                display: none;
+        
+                button{
+                    padding: 6px 12px;
+                }
+        
+             
+                .infos{
+                    padding: 0px;
+        
+                    p{
+                        font-family: 'Text';
+                        font-size: 1rem;
+                    }
+        
+                    p:nth-child(odd){
+                        background-color: #0091A4;
+                        padding: 12px;
+                    }
+                }
+            }
+
+        }
+    
+        .modal{
+            top: 40%;
+            left: 15%;
+            width: 300px;
+            height: max-content;
+            padding: 12px;
+          
+    
+            p{
+                width: 250px;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+

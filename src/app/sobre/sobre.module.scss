@@ -1,0 +1,204 @@
+@font-face {
+    font-family: 'Lis';
+    src: url('../../../public/fonts/Deutschlander.otf');
+}
+
+@font-face {
+    font-family: 'Titles';
+    src: url('../../../public/fonts/Merriweather-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Text';
+    src: url('../../../public/fonts/Queensides\ Medium.ttf');
+}
+
+
+.container{
+    width: 100%;
+    background-color: #0091A4;
+    position: relative;
+
+    .button{
+        display: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        height: 50px;
+        border: 2px solid #4a4e69;
+        text-transform: uppercase;
+        color: #4a4e69;
+        background-color: transparent;
+        cursor: pointer;
+        transition: .4s;
+        position: fixed;
+        z-index: 7000;
+        right: 12px;
+        bottom: 12px;
+
+        &:hover{
+            color: #000;
+            border-color: #000;
+            background-color: #0091A4;
+        }
+    }
+
+    .header{
+        display: flex;
+        justify-content: center;
+        nav{
+            position: fixed;
+            z-index: 50000;
+            background-color: #393738;
+            border-radius: 16px;
+            width: 700px;
+            h1{
+                width: max-content;
+                font-size: 3rem;
+                font-family: 'Titles';
+            }
+
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            margin: 12px auto;
+            align-items: center;
+           
+            button{
+                padding: 12px 24px;
+                border-radius: 12px;
+                height: 50px;
+                border: 2px solid #4a4e69;
+                text-transform: uppercase;
+                color: #4a4e69;
+                background-color: transparent;
+                cursor: pointer;
+                transition: .4s;
+
+                &:hover{
+                    color: #000;
+                    border-color: #000;
+                    background-color: #0091A4;
+                }
+           }
+
+            ul{
+                display: flex;
+                align-items: center;
+                list-style: none;
+                
+                a{
+                text-decoration: none;
+                }
+
+
+                li{
+                    margin: 0px 12px;
+                    font-size: 1.8rem;
+                    font-family: 'Lis';
+                    transition: .4s;
+                    color: #000;
+
+
+                    &:hover{
+                        text-decoration: underline;
+                        cursor: pointer;
+                        color: #FFF;
+                    }
+
+                    
+                }
+        
+            }
+        }
+    }
+
+    h1{
+        font-size: 3rem;
+        font-family: 'Titles';
+    }
+
+    p{
+        width: 450px;
+        font-size: 1.5rem;
+        margin: 20px 0px;
+        text-align: justify;
+        font-family: 'Text';
+    }
+
+    .contentContainer{
+        padding: 200px 20px;
+
+        .history,
+        .mission{
+            p{
+                width: 1200px;
+                text-align: justify;
+            }
+        }
+
+        .mission{
+            span{
+                font-family: 'Text';
+                font-size: 1.2rem;
+                margin-bottom: 8px;
+            }
+
+            ul{
+                padding: 4px 12px;
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                li{
+                    font-size: 1.1rem;
+                    font-family: 'Text';
+                    width: 450px;
+                }
+            }
+        }
+    }
+}
+
+
+@media(max-width:600px){
+    .container{
+        .button{
+            display: block;
+        }
+
+        .header{
+            nav{
+                width: 350px;
+                border-radius: 0px;
+                margin: 0 auto;
+
+                button{
+                    display: none;
+                }
+
+                h1{
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        .contentContainer{
+            padding: 140px 20px;
+            .history,
+            .mission{
+                p{
+                  width: 350px;  
+                }
+            }
+
+            .mission{
+                ul{
+                    li{
+                        width: 250px;
+                    }
+                }
+            }
+        }
+    }
+}
