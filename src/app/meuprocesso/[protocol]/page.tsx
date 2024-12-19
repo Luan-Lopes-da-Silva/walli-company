@@ -1,5 +1,5 @@
 'use client'
-import { Financement, Params } from "@/utils/types";
+import { Financement } from "@/utils/types";
 import { useEffect, useRef, useState } from "react";
 import style from './status.module.scss'
 import Link from "next/link";
@@ -11,7 +11,8 @@ import assignPapersSvg from '@/app/public/assets/documents-papers-svgrepo-com.sv
 
 
 
-export default function MeuProcesso({ params }:Params) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function MeuProcesso({ params }:any) {
   const [clientName,setClientName] = useState('')
   const [consultantName,setConsultantName] = useState('')
   const [consultantEmail,setConsultantEmail] = useState('')
