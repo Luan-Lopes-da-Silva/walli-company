@@ -93,6 +93,7 @@ export default function MeuProcesso({ params }:any) {
   return (
     <>
     <main className={style.main}>
+    <Link href={'/simular'}><button className={style.button}>Simular</button></Link>
     <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>

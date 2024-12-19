@@ -182,8 +182,6 @@ export default function Simular(){
 
             setFirstFormDatas(data)
         }
-
-        console.log(parcelNumber)
       }
 
       const formatToCustomDecimal = (value: string) => {
@@ -398,30 +396,29 @@ export default function Simular(){
 
 
                 <div ref={refPDF} className={style.containerPDF}>
-                    <div style={{width:"100%",height:400,padding:40,display:'flex',alignItems:'center',justifyContent:'space-between',backgroundColor:'#CCD360'}}>
-                    <span style={{textTransform:'uppercase',color:'#393738',
-                        padding:'62px 24px',fontSize:48,backgroundColor:'#0091A4',borderRadius:'50%',border:8,borderColor:'#393738'}}>
+                    <div className={style.header}>
+                    <span>
                         Logo
                     </span>
-                    <h1 style={{width:300,textAlign:'center',textTransform:'uppercase'}}>Sua simulação chegou</h1>
+                    <h1>Sua simulação chegou</h1>
                     </div>
-                    <div style={{padding:40,backgroundColor:'#393738',width:'100%'}}>
-                        <div style={{color:'#FFFFFF',fontSize:24,display:'grid',gridTemplateColumns:'repeat(2,300px)',gap:20}}>
+                    <div className={style.tableContainer}>
+                        <div className={style.headerTable}>
                             <div>
                                 <p>Valor do imovel</p>
-                                <p style={{color:'#CCD360'}}>{houseValue}</p>
+                                <p>{houseValue}</p>
                             </div>
                             <div>
                                 <p>Valor de entrada</p>
-                                <p style={{color:'#CCD360'}}>{prohibitedValue}</p>
+                                <p>{prohibitedValue}</p>
                             </div>
                             <div>
                                 <p>Numero de parcelas</p>
-                                <p style={{color:'#CCD360'}}>{parcelNumber}</p>
+                                <p>{parcelNumber}</p>
                             </div>
                             <div>
                                 <p>Tipo de amortização</p>
-                                <p style={{color:'#CCD360'}}>{amortization}</p>
+                                <p>{amortization}</p>
                             </div>
                         </div>
 

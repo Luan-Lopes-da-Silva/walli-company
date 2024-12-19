@@ -23,6 +23,30 @@
     width: 100%;
     background-color: #CCD360;
     padding-bottom: 60px;
+
+    .button{
+        display: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        height: 50px;
+        border: 2px solid #4a4e69;
+        text-transform: uppercase;
+        color: #4a4e69;
+        background-color: transparent;
+        cursor: pointer;
+        transition: .4s;
+        position: fixed;
+        z-index: 7000;
+        right: 12px;
+        bottom: 12px;
+
+        &:hover{
+            color: #000;
+            border-color: #000;
+            background-color: #0091A4;
+        }
+    }
+    
     .header{
         display: flex;
         justify-content: center;
@@ -163,6 +187,10 @@
 
 @media(max-width:600px){
     .main{
+        .button{
+            display: block;
+        }
+
         .header{
             nav{
                 width: 350px;

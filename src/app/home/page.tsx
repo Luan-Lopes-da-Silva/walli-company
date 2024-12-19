@@ -23,22 +23,12 @@ export default function Home(){
         const converseDb:Financement[]= await findInDb.json()
         const findProcess = converseDb.filter(p=>p.protocol === search)
         
-        if(window.location.href === 'http://localhost:3000/home'){
-            if(search === ''){
-                alert('Digite um numero de protocolo')
-               }else if(findProcess.length === 1){
-                window.location.href = `/meuprocesso/${findProcess[0].protocol}`
-               }else{
-                alert('Protocolo não encontrado')
-               }
-        }else{
-            if(search === ''){
-                alert('Digite um numero de protocolo')
-               }else if(findProcess.length === 1){
-                window.location.href = `/meuprocesso/${findProcess[0].protocol}.html`
-               }else{
-                alert('Protocolo não encontrado')
-            }
+        if(search === ''){
+            alert('Digite um numero de protocolo')
+           }else if(findProcess.length === 1){
+            window.location.href = `/meuprocesso/${findProcess[0].protocol}`
+           }else{
+            alert('Protocolo não encontrado')
         }
     }
 
