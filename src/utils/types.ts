@@ -21,3 +21,14 @@ export interface Params{
         protocol:string
     }
 }
+
+export type ProtocolPage={
+    clientname:string,
+    consultantname:string,
+    consultantemail:string,
+    consultantphone:string,
+    financementvalue:string,
+    prohibitedvalue:string,
+    valueimobille:string,
+    numberparcels:string
+}

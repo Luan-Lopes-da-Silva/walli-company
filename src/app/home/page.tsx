@@ -7,7 +7,7 @@ import phoneSvg from '../../../public/assets/call_24dp_E8EAED_FILL0_wght400_GRAD
 import hourSvg from '../../../public/assets/schedule_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import propertyImg from '../../../public/assets/tierra-mallorca-rgJ1J8SDEAY-unsplash (1) 1.svg'
 import propertyImg2 from '../../../public/assets/creditoImobiliario 1.svg'
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useRef } from 'react'
 import Link from 'next/link'
 import { Financement } from '@/utils/types'
 
@@ -17,24 +17,31 @@ export default function Home(){
     })
 
     const [search,setSearch] = useState('')
+    const refLoading = useRef<HTMLDivElement>(null)
+    const refContainer = useRef<HTMLDivElement>(null)
 
     async function searchProcess(){
         const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
         const converseDb:Financement[]= await findInDb.json()
         const findProcess = converseDb.filter(p=>p.protocol === search)
-        
+        console.log(findInDb.status)
         if(search === ''){
             alert('Digite um numero de protocolo')
-           }else if(findProcess.length === 1){
-            window.location.href = `/meuprocesso/${findProcess[0].protocol}`
+           }else if(findProcess.length>0 && findInDb.status==200 && refLoading.current && refContainer.current){
+            refLoading.current.style.display = 'block'
+            refContainer.current.style.filter = 'brightness(0.4)'
+            setTimeout(() => {
+                window.location.href = `/meuprocesso/${findProcess[0].protocol}`
+            }, 2000);
            }else{
             alert('Protocolo não encontrado')
         }
     }
 
-    return(
-        <div className={style.container}>
-            <header className={style.header}>
+    return(            
+            <div className={style.box}>
+                <div className={style.container} ref={refContainer}>
+                <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
                         <ul>
@@ -44,8 +51,9 @@ export default function Home(){
                         </ul>
                         <Link href={'/simular'}><button>simular</button></Link>
                     </nav>
-            </header>
-            <div className={style.input}>
+                </header>
+
+                <div className={style.input}>
                 <input 
                 type="text" 
                 value={search}
@@ -53,8 +61,9 @@ export default function Home(){
                 placeholder='Busque o seu processo'
                 />
                 <span onClick={searchProcess}></span>
-            </div>
-            <main>
+                </div>
+
+                <main>
                <div className={style.presentation}>
                     <div className={style.textPresentation}>
                     <h2>Inovação financeira para o seu imóvel dos sonhos</h2>
@@ -206,7 +215,13 @@ export default function Home(){
                     </div>
 
                </footer>
-            </main>
-        </div>
+                </main>
+            </div>
+
+            <div className={style.loading} ref={refLoading}>
+                <p>Carregando</p>
+                <div className={style.ldsRoller} ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
+            </div>
     )
 }

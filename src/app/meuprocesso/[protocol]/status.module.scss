@@ -24,6 +24,11 @@
     background-color: #CCD360;
     padding-bottom: 60px;
 
+    p{
+        font-size: 3rem;
+        font-family: 'Text';
+    }
+
     .button{
         display: none;
         padding: 12px 24px;
@@ -112,7 +117,7 @@
         }
     }
 
-    h1{
+    h1:nth-child(1){
         font-size: 5rem;
         font-family: 'Titles';
     }
@@ -126,6 +131,16 @@
     .container{
         margin-top: 140px;
         padding: 0px 20px;
+
+       .errorContainer{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            img{
+                margin: auto auto;
+            }
+       }
 
         section{
             margin-bottom: 20px;
@@ -187,6 +202,10 @@
 
 @media(max-width:600px){
     .main{
+        p{
+            font-size: 1.5rem;
+            width: 350px;
+        }
         .button{
             display: block;
         }

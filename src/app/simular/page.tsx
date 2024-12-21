@@ -69,6 +69,7 @@ export default function Simular(){
     const refSecondStep = useRef<HTMLDivElement>(null)
     const refSummary = useRef<HTMLDivElement>(null)
     const refModal = useRef<HTMLDivElement>(null)
+    const refLoading = useRef<HTMLDivElement>(null)
     const refContainer = useRef<HTMLElement>(null)
     const refTable = useRef<HTMLTableElement>(null)
     const [houseValue,setHouseValue] = useState('')
@@ -76,6 +77,7 @@ export default function Simular(){
     const [prohibitedValue,setProhibitedValue] = useState('')
     const [parcelNumber,setParcelNumber] = useState('')
     const [amortization,setAmortization] = useState('')
+    const [protocol,setProtocol] = useState('')
 
     const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
     const [secondFormDatas,setSecondFormDatas] = useState<secondFormData>(undefinedSecondForm)
@@ -107,23 +109,17 @@ export default function Simular(){
       }
 
     async function openModal(){
-        if(refModal.current && refContainer.current){
-            refModal.current.style.display = 'block'
-            refContainer.current.style.filter = 'blur(5px)'
-            refModal.current.focus()
-        }
-
-
         const converseImobileValue = firstFormDatas.imobilleValue.replace(/\D/g,"")
         const converseFinancedValue = firstFormDatas.financedValue.replace(/\D/g,"")
         const prohibitedValueConverse = Number(converseImobileValue) - Number(converseFinancedValue)
         const newProtocol = generateProtocol()
+        setProtocol(newProtocol)
 
         const createNewProcess = await fetch('https://walli-processdb.onrender.com/process',{
             method: 'POST',
             body:JSON.stringify(
                 {
-                   clientname: secondFormDatas.name,
+                   clientname: secondFormDatas.name.replace(/^[A-Z\s]+$/, (match)=> match.toLowerCase().replace(/\b\w/g,(char)=>char.toUpperCase())),
                    clientbirthday: secondFormDatas.birthday,
                    clientemail:secondFormDatas.email,
                    clientphone: secondFormDatas.phone,
@@ -144,11 +140,17 @@ export default function Simular(){
                 "Content-Type": "application/json"
             }   
         })
-
-        setTimeout(() => {
-            alert('Processo criado com sucesso')
-        }, 1000);
-        console.log(createNewProcess)
+        
+        if(refLoading.current && refModal.current && refContainer.current){
+            if(createNewProcess.status!==201){
+                refLoading.current.style.display = 'block'
+            }else{
+                refLoading.current.style.display = 'none'
+                refModal.current.style.display = 'block'
+                refContainer.current.style.filter = 'blur(5px)'
+                refModal.current.focus()
+            }
+        }
     }
 
     function closeModal(){
@@ -422,11 +424,11 @@ export default function Simular(){
                             </div>
                         </div>
 
-                        <table style={{marginTop:60,borderTop:'2px solid #CCD360'}} ref={refTable}>
+                        <table ref={refTable}>
                             <tbody>
                                 <tr style={{color:'#FFF'}}>
-                                    <th style={{fontSize:24, borderRight:'2px solid #CCD360',padding:24,textAlign:'center',borderBottom:'2px solid #CCD360',borderLeft:'2px solid #CCD360',}}>Numero da parcela</th>
-                                    <th style={{fontSize:24, borderRight:'2px solid #CCD360',padding:24,textAlign:'center',borderBottom:'2px solid #CCD360'}}>Valor da parcela</th>
+                                    <th>Numero da parcela</th>
+                                    <th>Valor da parcela</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -438,10 +440,15 @@ export default function Simular(){
         </main>
         <div className={style.modal} ref={refModal}>
                 <button onClick={closeModal}>
-                
                 </button>
                 <h1>Aviso importante</h1>
                 <p>Olá, informamos que o seu processo foi entregue a um de nossos consultores. Em breve, ele entrará em contato com você para dar continuidade ao atendimento. Agradecemos pela confiança em nossos serviços e estamos a disposição para qualquer dúvida.</p>
+                <p>O seu numero de protocolo é <span>{protocol}</span> guarde ele para futuramente acompanhar seu processo em nossa plataforma.</p>
+        </div>
+
+        <div className={style.loading} ref={refLoading}>
+            <p>Carregando</p>
+            <div className={style.ldsRoller} ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>
         </div>
 
