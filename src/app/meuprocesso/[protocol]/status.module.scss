@@ -231,6 +231,13 @@
         }
 
         .container{
+            .errorContainer{
+                margin-top: -60px;
+                img{
+                    width: 350px;
+                    height: 300px;
+                }
+            }
             .status{
                 .statusContainer{
                     flex-direction: column;
