@@ -3,7 +3,12 @@ import style from './status.module.scss'
 import Link from "next/link";
 import Image from "next/image";
 import errorImg from '../../../../public/assets/undraw_page-not-found_6wni.svg'
+import {Metadata} from 'next'
 
+export const metadata:Metadata={
+  title: 'Detalhes do seu processo',
+  description: 'Detalhes do processo de financiamento, dados para contato com consultor e status.'
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function MeuProcesso({ params }:any) {
@@ -24,9 +29,6 @@ export default async function MeuProcesso({ params }:any) {
     const getProcess = await fetch('https://walli-processdb.onrender.com/process')
     const converseProcess:Financement[] = await getProcess.json()
     const searchProcess = converseProcess.filter(p=>(p.protocol === params.protocol))
-
-    console.log(getProcess.status)
-   
 
     const newProtocol:ProtocolPage = {
       clientname: searchProcess[0].clientname,
