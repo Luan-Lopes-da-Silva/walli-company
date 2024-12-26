@@ -467,15 +467,51 @@
     .modal{
         position: absolute;
         z-index: 8000000;
-        top: 3%;
-        left: 35%;
-        background-color: #023047;
-        width: 400px;
+        top: 2%;
+        left: 30%;
+        background-color: #CCD360;
+        width: 600px;
         height: max-content;
         text-align: center;
         padding: 20px;
+        border: 12px double #393738;
+        border-radius: 40px;
         display: none;
 
+        .backStep{
+            position: absolute;
+            top: 200px;
+            left: 20px;
+            cursor: pointer;
+        }
+
+        .forwardStep{
+            position: absolute;
+            top: 200px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .steps{
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 12px;
+            
+            .step{
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 4px solid #393738;
+            }
+            .active{
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 4px solid #393738;
+                background-color: #0091A4;
+            }
+        }
         button{
             width: 36px;
             height: 36px;
@@ -630,7 +666,7 @@
 @media(max-width:600px){
     .box{
         .loading{
-            left: 25%;
+            left: 15%;
         }
         .container{
             .content{
@@ -717,16 +753,38 @@
         }
     
         .modal{
-            top: 3%;
-            left: 24%;
-            width: 300px;
+            top: 2.5%;
+            left: 20%;
+            width: 350px;
             height: max-content;
             padding: 12px;
+
+           .forwardStep,
+           .backStep{
+            width: 50px;
+           }
+
+           .forwardStep{
+            right: 4px;
+           }
+
+           .backStep{
+            left: 4px;
+           }
           
     
             p{
-                width: 250px;
+                width: 200px;
                 font-size: 1rem;
+            }
+
+            .steps{
+                margin-top: 12px;
+                .active,
+                .step{
+                    width: 16px;
+                    height: 16px;
+                }
             }
         }
     }

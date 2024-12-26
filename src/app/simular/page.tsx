@@ -7,6 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {useEffect, useRef, useState } from 'react'
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import forwardSvg from '@/../public/assets/Vector.svg'
+import backSvg from '@/../public/assets/Vector-1.svg'
+import backActiveSvg from '@/../public/assets/Vector2.svg'
+import Image from 'next/image'
 
 
 const createFinancementSchema = z.object({
@@ -61,7 +65,6 @@ export default function Simular(){
     useEffect(()=>{
         window.document.title = 'Simular'   
     })
-
     const refFirstForm = useRef<HTMLFormElement>(null)
     const refPDF = useRef<HTMLDivElement>(null)
     const refSecondForm = useRef<HTMLFormElement>(null)
@@ -78,6 +81,7 @@ export default function Simular(){
     const [parcelNumber,setParcelNumber] = useState('')
     const [amortization,setAmortization] = useState('')
     const [protocol,setProtocol] = useState('')
+    const [count,setCount] = useState(0)
 
     const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
     const [secondFormDatas,setSecondFormDatas] = useState<secondFormData>(undefinedSecondForm)
@@ -106,7 +110,19 @@ export default function Simular(){
         generatedProtocols.add(protocol);
       
         return protocol;
-      }
+    }
+
+    function nextStep(){
+        setCount(currentStep=>currentStep+1)
+        console.log('ola')
+        console.log(count)
+    }
+
+    function backStepModal(){
+        setCount(currentStep=>currentStep-1)
+        console.log('ola')
+        console.log(count)
+    }
 
     async function openModal(){
         const converseImobileValue = firstFormDatas.imobilleValue.replace(/\D/g,"")
@@ -141,13 +157,12 @@ export default function Simular(){
             }   
         })
         
-        if(refLoading.current && refModal.current && refContainer.current){
+        if(refLoading.current && refModal.current){
             if(createNewProcess.status!==201){
                 refLoading.current.style.display = 'block'
             }else{
                 refLoading.current.style.display = 'none'
                 refModal.current.style.display = 'block'
-                refContainer.current.style.filter = 'blur(5px)'
                 refModal.current.focus()
             }
         }
@@ -199,33 +214,46 @@ export default function Simular(){
       };
 
       async function createAndSavePDF(){
-        if(refPDF.current){
-            const element = refPDF.current
-            
-            const canvas = await html2canvas(element,{scale:1})
-            const imgData = canvas.toDataURL("image/jpeg", 1)
-
-           const pdf = new jsPDF("p", "mm", "a4")
-           
-           const pdfWidth = pdf.internal.pageSize.getWidth()
-           console.log(pdfWidth)
-           const imgWidth = pdfWidth
-           const pageHeight = 297
-           const imgHeight = (canvas.height * imgWidth) / canvas.width
-
-           let position = 0
-
-           pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight)
-            if(imgHeight>pageHeight){
-                let heightLeft = imgHeight - pageHeight
-                while(heightLeft>0){
-                    position = heightLeft - imgHeight
-                    pdf.addPage()
-                    pdf.addImage(imgData, "JPEG",0, position, imgWidth, imgHeight)
-                    heightLeft -= pageHeight
+        if(refLoading.current && refContainer.current){
+            refLoading.current.style.display='block'
+            refContainer.current.style.filter='brightness(40%)'
+        }
+        try {
+            if(refPDF.current){
+                const element = refPDF.current
+                
+                const canvas = await html2canvas(element,{scale:1})
+                const imgData = canvas.toDataURL("image/jpeg", 1)
+    
+               const pdf = new jsPDF("p", "mm", "a4")
+               
+               const pdfWidth = pdf.internal.pageSize.getWidth()
+               console.log(pdfWidth)
+               const imgWidth = pdfWidth
+               const pageHeight = 297
+               const imgHeight = (canvas.height * imgWidth) / canvas.width
+    
+               let position = 0
+    
+               pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight)
+                if(imgHeight>pageHeight){
+                    let heightLeft = imgHeight - pageHeight
+                    while(heightLeft>0){
+                        position = heightLeft - imgHeight
+                        pdf.addPage()
+                        pdf.addImage(imgData, "JPEG",0, position, imgWidth, imgHeight)
+                        heightLeft -= pageHeight
+                    }
                 }
+                pdf.save("simulation.pdf")
             }
-            pdf.save("simulation.pdf")
+        } catch (error) {
+            console.log(error)
+        }finally{
+            if(refLoading.current && refContainer.current){
+                refLoading.current.style.display='none'
+                refContainer.current.style.filter='brightness(100%)'
+            }
         }
       }
 
@@ -439,15 +467,66 @@ export default function Simular(){
            
         </main>
         <div className={style.modal} ref={refModal}>
-                <button onClick={closeModal}>
-                </button>
-                <h1>Aviso importante</h1>
-                <p>Olá, informamos que o seu processo foi entregue a um de nossos consultores. Em breve, ele entrará em contato com você para dar continuidade ao atendimento. Agradecemos pela confiança em nossos serviços e estamos a disposição para qualquer dúvida.</p>
-                <p>O seu numero de protocolo é <span>{protocol}</span> guarde ele para futuramente acompanhar seu processo em nossa plataforma.</p>
+                {count===0?(
+                     <p>Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!</p>
+                ):(
+                    <p>Durante o processo de financiamento, você receberá um número de protocolo exclusivo.{protocol}
+                     <br>Este</br>número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde-o com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário!</p>
+                )}
+                {count==0?(
+                   <div>
+                     <Image
+                    width={60}
+                    height={60}
+                    alt='Back svg'
+                    src={backSvg}
+                    className={style.backStep}
+                    />
+                    <Image
+                    width={60}
+                    height={60}
+                    alt='Forward svg'
+                    src={forwardSvg}
+                    className={style.forwardStep}
+                    onClick={nextStep}
+                    />
+                   </div>
+                ):(
+                    <div>
+                         <Image
+                        width={60}
+                    height={60}
+                    alt='Back svg'
+                    src={backActiveSvg}
+                    className={style.backStep}
+                    onClick={backStepModal}
+                    />
+                    <Image
+                    width={60}
+                    height={60}
+                    alt='Forward svg'
+                    src={forwardSvg}
+                    className={style.forwardStep}
+                    onClick={closeModal}
+                    />
+                    </div>
+                )}
+
+                {count==0?(
+                    <div className={style.steps}>
+                        <div className={style.active}></div>
+                        <div className={style.step}></div>
+                    </div>
+                ):(
+                    <div className={style.steps}>
+                        <div className={style.step}></div>
+                        <div className={style.active}></div>
+                    </div>
+                )}
         </div>
 
         <div className={style.loading} ref={refLoading}>
-            <p>Carregando</p>
+            <p>Baixando a sua simulação</p>
             <div className={style.ldsRoller} ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>
         </div>

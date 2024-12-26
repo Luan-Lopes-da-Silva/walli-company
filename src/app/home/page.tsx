@@ -24,7 +24,6 @@ export default function Home(){
         const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
         const converseDb:Financement[]= await findInDb.json()
         const findProcess = converseDb.filter(p=>p.protocol === search)
-        console.log(findInDb.status)
         if(search === ''){
             alert('Digite um numero de protocolo')
            }else if(findProcess.length>0 && findInDb.status==200 && refLoading.current && refContainer.current){
@@ -219,9 +218,9 @@ export default function Home(){
             </div>
 
             <div className={style.loading} ref={refLoading}>
-                <p>Carregando</p>
+                <p>Buscando o seu protocolo...</p>
                 <div className={style.ldsRoller} ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                </div>
+            </div>
             </div>
     )
 }
