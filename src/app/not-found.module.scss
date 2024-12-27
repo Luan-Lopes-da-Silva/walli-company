@@ -1,0 +1,72 @@
+
+@font-face {
+    font-family: 'Error';
+    src: url('../../public/fonts/Merriweather-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Text';
+    src: url('../../public/fonts/Queensides\ Medium.ttf');
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    place-content: center;
+    background-color: #CCD360;
+
+    .error{
+        display: flex;
+        font-family: 'Error';
+        justify-content: center;
+        color: #FFF;
+        gap: 0.5rem;
+        
+        h2{
+            font-size: 24rem;
+            text-align: center;
+        }
+
+        h2:nth-child(2){
+            margin-top: 13.75rem;
+        }
+    }
+
+    p{
+        font-family: 'Text';
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    button{
+        width: 300px;
+        margin: auto auto;
+        padding: 8px 40px;
+        text-transform: uppercase;
+        font-family: 'Text';
+        font-size: 1.5rem;
+        border: 4px solid #4A4E69;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: transparent;
+        transition: .7s;
+        
+        a{
+            text-decoration: none;
+            color: #4A4E69;
+            transition: .7s;
+        }
+
+            &:hover{
+                background-color: #4A4E69;
+                border-color: #FFF;
+                
+                a{
+                    color: #FFF;
+                }
+            }
+    }
+}
