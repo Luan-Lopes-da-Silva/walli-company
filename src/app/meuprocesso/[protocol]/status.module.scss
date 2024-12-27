@@ -22,7 +22,7 @@
 .main{
     width: 100%;
     background-color: #CCD360;
-    padding-bottom: 60px;
+    padding-bottom: 3.75rem;
 
     p{
         font-size: 3rem;
@@ -31,10 +31,10 @@
 
     .button{
         display: none;
-        padding: 12px 24px;
-        border-radius: 12px;
-        height: 50px;
-        border: 2px solid #4a4e69;
+        padding: .75rem 1.5rem;
+        border-radius: .75rem;
+        height: 3.125rem;
+        border: .125rem solid #4a4e69;
         text-transform: uppercase;
         color: #4a4e69;
         background-color: transparent;
@@ -42,8 +42,8 @@
         transition: .4s;
         position: fixed;
         z-index: 7000;
-        right: 12px;
-        bottom: 12px;
+        right: .75rem;
+        bottom: .75rem;
 
         &:hover{
             color: #000;
@@ -59,25 +59,25 @@
             position: fixed;
             z-index: 50000;
             background-color: #393738;
-            border-radius: 16px;
-            width: 700px;
+            border-radius: 1rem;
+            width: 43.75rem;
             h1{
                 width: max-content;
                 font-size: 3rem;
                 font-family: 'Titles';
             }
 
-            padding: 20px;
+            padding: 1.25rem;
             display: flex;
             justify-content: space-between;
-            margin: 12px auto;
+            margin: .75rem auto;
             align-items: center;
            
             button{
-                padding: 12px 24px;
-                border-radius: 12px;
-                height: 50px;
-                border: 2px solid #4a4e69;
+                padding: .75rem 1.5rem;
+                border-radius: .75rem;
+                height: 3.125rem;
+                border: .125rem solid #4a4e69;
                 text-transform: uppercase;
                 color: #4a4e69;
                 background-color: transparent;
@@ -101,7 +101,7 @@
                 }
 
                 li{
-                    margin: 0px 12px;
+                    margin: 0rem .75rem;
                     font-size: 1.8rem;
                     font-family: 'Lis';
                     transition: .4s;
@@ -124,13 +124,13 @@
 
     h2{
         font-size: 3rem;
-        width: 850px;
+        width: 53.125rem;
         font-family: 'Titles';
     }
     
     .container{
-        margin-top: 140px;
-        padding: 0px 20px;
+        margin-top: 8.75rem;
+        padding: 0rem 1.25rem;
 
        .errorContainer{
             width: 100%;
@@ -143,17 +143,17 @@
        }
 
         section{
-            margin-bottom: 20px;
-            margin-top: 60px;
+            margin-bottom: 1.25rem;
+            margin-top: 3.75rem;
         }
 
         ul{
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 1rem;
             li{
                 list-style: none;
-                padding: 0px 12px;
+                padding: 0rem .75rem;
                 font-size: 1.2rem;
                 font-family: 'Text';
             }
@@ -162,25 +162,25 @@
         .status{
             .statusContainer{
                 display: flex;
-                gap: 60px;
+                gap: 3.75rem;
                 justify-content: center;      
                 div{
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 12px;
+                    gap: .75rem;
                     position: relative;
 
                     span{
-                        width: 100px;
-                        height: 8px;
+                        width: 6.25rem;
+                        height: .5rem;
                         background-color: #000;
                         position: absolute;
                         top: 50%;
                     }
 
                     span:nth-child(1){
-                        margin-left: 290px;
+                        margin-left: 18.125rem;
                     }
 
                     p{
@@ -190,7 +190,7 @@
 
                     div{
                         background-color: #0091A4;
-                            padding: 40px;
+                            padding: 2.5rem;
                         border-radius: 50%;
                     }
                 }
@@ -205,7 +205,7 @@
         height: 100%;
         p{
             font-size: 1.5rem;
-            width: 350px;
+            width: 21.875rem;
         }
         .button{
             display: block;
@@ -213,8 +213,8 @@
 
         .header{
             nav{
-                width: 350px;
-                border-radius: 0px;
+                width: 21.875rem;
+                border-radius: 0rem;
                 margin: 0 auto;
 
                 button{
@@ -228,27 +228,27 @@
         }
 
         h2{
-            width: 350px;
+            width: 21.875rem;
         }
 
         .container{
             .errorContainer{
-                margin-top: -60px;
+                margin-top: -3.75rem;
                 img{
-                    width: 350px;
-                    height: 300px;
+                    width: 21.875rem;
+                    height: 18.75rem;
                 }
             }
             .status{
                 .statusContainer{
                     flex-direction: column;
-                    gap: 12px;
+                    gap: .75rem;
                     align-items: center;
                     div{
                         flex-direction: row;
                         text-align: center;
                         p{
-                            width: 150px;
+                            width: 9.375rem;
                         }
                         
                         span{
@@ -257,14 +257,14 @@
                         }
     
                         span:nth-child(1){
-                            margin-left: 165px;
+                            margin-left: 10.3125rem;
                         }
     
                         div{
-                            padding: 20px;
+                            padding: 1.25rem;
                             img{
-                                width: 60px;
-                                height: 60px;
+                                width: 3.75rem;
+                                height: 3.75rem;
                             }
                         }
                     }

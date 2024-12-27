@@ -24,16 +24,16 @@
 
 .container{
     width: 100%;
-    padding-bottom: 120px;
+    padding-bottom: 7.5rem;
     background-color: #CCD360;
     position: relative;
     
     .button{
         display: none;
-        padding: 12px 24px;
-        border-radius: 12px;
-        height: 50px;
-        border: 2px solid #4a4e69;
+        padding: .75rem 1.5rem;
+        border-radius: .75rem;
+        height: 3.125rem;
+        border: .125rem solid #4a4e69;
         text-transform: uppercase;
         color: #4a4e69;
         background-color: transparent;
@@ -41,8 +41,8 @@
         transition: .4s;
         position: fixed;
         z-index: 7000;
-        right: 12px;
-        bottom: 12px;
+        right: .75rem;
+        bottom: .75rem;
 
         &:hover{
             color: #000;
@@ -58,25 +58,25 @@
             position: fixed;
             z-index: 50000;
             background-color: #393738;
-            border-radius: 16px;
-            width: 700px;
+            border-radius: 1rem;
+            width: 43.75rem;
             h1{
                 width: max-content;
                 font-size: 3rem;
                 font-family: 'Titles';
             }
 
-            padding: 20px;
+            padding: 1.25rem;
             display: flex;
             justify-content: space-between;
-            margin: 12px auto;
+            margin: .75rem auto;
             align-items: center;
            
             button{
-                padding: 12px 24px;
-                border-radius: 12px;
-                height: 50px;
-                border: 2px solid #4a4e69;
+                padding: .75rem 1.5rem;
+                border-radius: .75rem;
+                height: 3.125rem;
+                border: .125rem solid #4a4e69;
                 text-transform: uppercase;
                 color: #4a4e69;
                 background-color: transparent;
@@ -100,7 +100,7 @@
                 }
 
                 li{
-                    margin: 0px 12px;
+                    margin: 0rem .75rem;
                     font-size: 1.8rem;
                     font-family: 'Lis';
                     transition: .4s;
@@ -118,8 +118,8 @@
 
     main{
         h1{
-            padding: 200px 20px;
-            padding-bottom:0px;
+            padding: 12.5rem 1.25rem;
+            padding-bottom:0rem;
             font-size: 3rem;
             font-family: 'Titles';
         }
@@ -127,7 +127,7 @@
         h3{
             font-family: 'Titles';
             font-size: 1.5rem;
-            padding: 0px 20px;
+            padding: 0rem 1.25rem;
         }
     }
 
@@ -135,9 +135,9 @@
         width: 100%;
         height: 100%;
         display: flex;
-        gap: 160px;
+        gap: 10rem;
         align-items: center;
-        padding: 0px 20px;
+        padding: 0rem 1.25rem;
 
 
         form{
@@ -147,16 +147,16 @@
             }
 
             button{
-                padding: 12px 24px;
-                border-radius: 12px;
-                height: 50px;
-                border: 2px solid #4a4e69;
+                padding: .75rem 1.5rem;
+                border-radius: .75rem;
+                height: 3.125rem;
+                border: .125rem solid #4a4e69;
                 text-transform: uppercase;
                 color: #4a4e69;
                 background-color: transparent;
                 cursor: pointer;
                 transition: .4s;
-                margin-top: 32px;
+                margin-top: 2rem;
 
                 &:hover{
                     color: #000;
@@ -168,13 +168,13 @@
             label{
                 font-size: 1.2rem;
                 font-family: 'Text';
-                margin-bottom: 4px;
-                margin-top: 20px;
+                margin-bottom: .25rem;
+                margin-top: 1.25rem;
             }
 
             input,textarea{
                 background-color: #535448;
-                border: 2px solid #323323;
+                border: .125rem solid #323323;
                 color: #393738;
                 font-family: 'Text';
                 font-size: 1rem;
@@ -194,40 +194,40 @@
 
             input,
             textarea{
-                padding: 12px 4px;
-                border-radius: 12px;
-                width: 400px;
+                padding: .75rem .25rem;
+                border-radius: .75rem;
+                width: 25rem;
             }
 
             textarea{
-                height: 200px;
+                height: 12.5rem;
             }
         }
     }
 
     .infos{
-        padding: 20px;
+        padding: 1.25rem;
         background-color: #A5A968;
-        border-radius: 20px;
+        border-radius: 1.25rem;
 
         h2{
             font-size: 2rem;
             font-family: 'Titles';
-            margin-bottom: 60px;
+            margin-bottom: 3.75rem;
             color: #FFF;
         }
 
         .card{
-            margin-bottom: 24px;
+            margin-bottom: 1.5rem;
             background-color: #535448;
-            padding: 12px;
-            border-radius: 20px;
+            padding: .75rem;
+            border-radius: 1.25rem;
 
             div{
                 display: flex;
                 align-items: center;
-                gap: 12px;
-                margin-bottom: 8px;
+                gap: .75rem;
+                margin-bottom: .5rem;
 
                 span{
                     font-family: 'Titles';
@@ -237,7 +237,7 @@
 
             p{
                 font-family: 'Text';
-                width: 550px;
+                width: 34.375rem;
                 text-align: justify;
             }
         }
@@ -249,8 +249,8 @@
     .container{
         .header{
             nav{
-                width: 350px;
-                border-radius: 0px;
+                width: 21.875rem;
+                border-radius: 0rem;
                 margin: 0 auto;
 
                 button{
@@ -267,7 +267,7 @@
             form{
                 input,
                 textarea{
-                    width: 270px;
+                    width: 16.875rem;
                 }
             }
         }

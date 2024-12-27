@@ -9,7 +9,7 @@
   .logo{
     color:#0091A4;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: .0938rem;
     font-size: 3rem;
 
     span{
@@ -37,29 +37,29 @@
     }
 
     form{
-      margin-top: 12px;
+      margin-top: .75rem;
       text-align: start;
 
       label{
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: .25rem;
         font-size: 1.2rem;
         color: white;
       }
 
       input{
-        padding: 8px 4px;
-        width: 500px;
-        border-radius: 8px;
+        padding: .5rem .25rem;
+        width: 31.25rem;
+        border-radius: .5rem;
         border: none;
       }
 
        button{
         display: block;
-        margin-top: 4px;
+        margin-top: .25rem;
         text-transform: uppercase;
-        padding: 12px 24px;
-        border-radius: 12px;
+        padding: .75rem 1.5rem;
+        border-radius: .75rem;
         border: none;
         cursor: pointer;
       }
@@ -71,22 +71,22 @@
 @media(max-width: 600px){
   .main{
     .container{
-      padding: 12px;
+      padding: .75rem;
   
       h1{
         font-size: 2rem;
       }
   
       p{
-        width: 250px;
+        width: 15.625rem;
         text-align: center;
         margin: auto;
       }
   
       form{
         input{
-          width: 250px;
-          padding: 12px 4px;
+          width: 15.625rem;
+          padding: .75rem .25rem;
         }
       }
   

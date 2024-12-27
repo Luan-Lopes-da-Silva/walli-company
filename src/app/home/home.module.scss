@@ -27,11 +27,11 @@
         z-index: 500000;
         left: 40%;
         text-transform: uppercase;
-        width: 300px;
+        width: 18.75rem;
         height: max-content;
         background-color: #0091A4;
         text-align: center;
-        padding: 20px;
+        padding: 1.25rem;
         color: #FFFFFF;
         display:none;
         
@@ -43,8 +43,8 @@
 .ldsRoller {
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
 }
 .ldsRoller div {
   animation: ldsRoller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -54,67 +54,67 @@
   content: " ";
   display: block;
   position: absolute;
-  width: 7.2px;
-  height: 7.2px;
+  width: .45rem;
+  height: .45rem;
   border-radius: 50%;
   background: currentColor;
-  margin: -3.6px 0 0 -3.6px;
+  margin: -0.225rem 0 0 --3.6px;
 }
 .ldsRoller div:nth-child(1) {
   animation-delay: -0.036s;
 }
 .ldsRoller div:nth-child(1):after {
-  top: 62.62742px;
-  left: 62.62742px;
+  top: 3.9142rem;
+  left: 3.9142rem;
 }
 .ldsRoller div:nth-child(2) {
   animation-delay: -0.072s;
 }
 .ldsRoller div:nth-child(2):after {
-  top: 67.71281px;
-  left: 56px;
+  top: 4.2321rem;
+  left: 3.5rem;
 }
 .ldsRoller div:nth-child(3) {
   animation-delay: -0.108s;
 }
 .ldsRoller div:nth-child(3):after {
-  top: 70.90963px;
-  left: 48.28221px;
+  top: 4.4319rem;
+  left: 3.0176rem;
 }
 .ldsRoller div:nth-child(4) {
   animation-delay: -0.144s;
 }
 .ldsRoller div:nth-child(4):after {
-  top: 72px;
-  left: 40px;
+  top: 4.5rem;
+  left: 2.5rem;
 }
 .ldsRoller div:nth-child(5) {
   animation-delay: -0.18s;
 }
 .ldsRoller div:nth-child(5):after {
-  top: 70.90963px;
-  left: 31.71779px;
+  top: 4.4319rem;
+  left: 1.9824rem;
 }
 .ldsRoller div:nth-child(6) {
   animation-delay: -0.216s;
 }
 .ldsRoller div:nth-child(6):after {
-  top: 67.71281px;
-  left: 24px;
+  top: 4.2321rem;
+  left: 1.5rem;
 }
 .ldsRoller div:nth-child(7) {
   animation-delay: -0.252s;
 }
 .ldsRoller div:nth-child(7):after {
-  top: 62.62742px;
-  left: 17.37258px;
+  top: 3.9142rem;
+  left: 1.0858rem;
 }
 .ldsRoller div:nth-child(8) {
   animation-delay: -0.288s;
 }
 .ldsRoller div:nth-child(8):after {
-  top: 56px;
-  left: 12.28719px;
+  top: 3.5rem;
+  left: .7679rem;
 }
 @keyframes ldsRoller {
   0% {
@@ -133,25 +133,25 @@
                 position: fixed;
                 z-index: 50000;
                 background-color: #393738;
-                border-radius: 16px;
-                width: 700px;
+                border-radius: 1rem;
+                width: 43.75rem;
                 h1{
                     width: max-content;
                     font-size: 3rem;
                     font-family: 'Titles';
                 }
         
-                padding: 20px;
+                padding: 1.25rem;
                 display: flex;
                 justify-content: space-between;
-                margin: 12px auto;
+                margin: .75rem auto;
                 align-items: center;
                
                 button{
-                    padding: 12px 24px;
-                    border-radius: 12px;
-                    height: 50px;
-                    border: 2px solid #4a4e69;
+                    padding: .75rem 1.5rem;
+                    border-radius: .75rem;
+                    height: 3.125rem;
+                    border: .125rem solid #4a4e69;
                     text-transform: uppercase;
                     color: #4a4e69;
                     background-color: transparent;
@@ -175,7 +175,7 @@
                     }
         
                     li{
-                        margin: 0px 12px;
+                        margin: 0rem .75rem;
                         font-size: 1.8rem;
                         font-family: 'Lis';
                         transition: .4s;
@@ -196,19 +196,19 @@
                     position: relative;
                     z-index: 20000;
                     margin: auto auto;
-                    top: 120px;
+                    top: 7.5rem;
                     width: max-content;
             
                     span{
                         transition: .4s;
                         background-image: url('../../../public/assets/search-test.svg');
-                        width: 34px;
-                        height: 34px;
+                        width: 2.125rem;
+                        height: 2.125rem;
                         background-position: center;
                         background-repeat: no-repeat;
                         position: absolute;
-                        margin-left: -38px;
-                        margin-top: 5px;
+                        margin-left: -2.375rem;
+                        margin-top: .3125rem;
                         z-index: 70000;
                         cursor: pointer;
                     }
@@ -217,11 +217,11 @@
                     input{
                         font-family: 'Text';
                         font-size: 1rem;
-                        width: 500px;
-                        padding: 8px 8px;
+                        width: 31.25rem;
+                        padding: .5rem .5rem;
                         background-color:#1b263b;
-                        border-radius: 12px;
-                        border: 2px solid #415a77;
+                        border-radius: .75rem;
+                        border: .125rem solid #415a77;
                         color: #0d1b2a;
                         transition: .4s;
                      
@@ -243,11 +243,11 @@
                     width: 100%;
                     z-index: 10000;
                     .textPresentation{
-                        padding:200px 20px;
+                        padding:12.5rem 1.25rem;
             
                         h2{
                             font-size: 4rem;
-                            width: 850px;
+                            width: 53.125rem;
                             font-family: 'Titles';
                         }
             
@@ -257,20 +257,20 @@
                         }
             
                         p{
-                            width: 450px;
+                            width: 28.125rem;
                             font-size: 1.5rem;
-                            margin: 20px auto;
+                            margin: 1.25rem auto;
                             text-align: justify;
                             font-family: 'Text';
                         }
             
                         button{
-                            margin-top: 20px;
-                            padding: 12px 24px;
-                            border-radius: 12px;
-                            width: 150px;
-                            height: 50px;
-                            border: 2px solid #4a4e69;
+                            margin-top: 1.25rem;
+                            padding: .75rem 1.5rem;
+                            border-radius: .75rem;
+                            width: 9.375rem;
+                            height: 3.125rem;
+                            border: .125rem solid #4a4e69;
                             text-transform: uppercase;
                             color: #4a4e69;
                             background-color: transparent;
@@ -287,38 +287,38 @@
                 }
             
                 .modalitys{
-                    margin-top: 1150px;
-                    padding: 60px 20px;
+                    margin-top: 71.875rem;
+                    padding: 3.75rem 1.25rem;
                     background-color: #0091A4;
             
                     img{
                         width: 100%;
-                        height: 800px;
+                        height: 50rem;
                     }
             
                     .secondImage{
                         width: 100%;
-                        height: 800px;
+                        height: 50rem;
                     }
             
                     h2{
                         font-size:3rem;
                         font-family: 'Titles';
-                        margin: 20px 4px;
+                        margin: 1.25rem .25rem;
                     }
             
                     p{
                         font-size: 1.5rem;
-                        width: 650px;
-                        margin: 12px auto;
+                        width: 40.625rem;
+                        margin: .75rem auto;
                         text-align: justify;
                         font-family: 'Text';
                     }
             
                     .benefitsContainer{
                         display: flex;
-                        margin-top: 60px;
-                        gap: 60px;
+                        margin-top: 3.75rem;
+                        gap: 3.75rem;
                         justify-content: center;
             
                         h3{
@@ -331,17 +331,17 @@
                         span{
                             font-family: 'Text';
                             display: block;
-                            width: 350px;
+                            width: 21.875rem;
                             text-align: justify;
                         }
             
                         .benefits{
                             background-color: #CCD360;
-                            padding: 12px 24px;
-                            border-radius: 12px;
+                            padding: .75rem 1.5rem;
+                            border-radius: .75rem;
                             display: flex;
                             flex-direction: column;
-                            gap: 12px;
+                            gap: .75rem;
             
                             span{
                                 color: #FFF;
@@ -358,17 +358,17 @@
                         div:nth-child(2){
                             h3{
                                 color: #D00000;
-                                margin-bottom: 12px;
+                                margin-bottom: .75rem;
                             }
                         }
             
                         .negatives{
                             background-color: #D00000;
-                            padding: 12px 24px;
-                            border-radius: 12px;
+                            padding: .75rem 1.5rem;
+                            border-radius: .75rem;
                             display: flex;
                             flex-direction: column;
-                            gap: 12px;
+                            gap: .75rem;
             
                             span{
                                 color: #FFF;
@@ -379,13 +379,13 @@
             
                 .footer{
                     background-color:#393738;
-                    padding: 30px 20px;
-                    height: 300px;
+                    padding: 1.875rem 1.25rem;
+                    height: 18.75rem;
             
                     h1{
                         width: max-content;
                         font-size: 3rem;
-                        margin-bottom: 60px;
+                        margin-bottom: 3.75rem;
                         font-family: 'Titles';
                     }
             
@@ -397,7 +397,7 @@
                     .infos{
                         display: flex;
                         flex-direction: column;
-                        gap: 20px;
+                        gap: 1.25rem;
                         
                         span{
                             font-family: 'Text';
@@ -406,21 +406,21 @@
             
                         .infoContainer{
                             display: flex;
-                            gap: 4px;
+                            gap: .25rem;
                         }
                     }
             
                     .socialMedias{
                         display: flex;
-                        gap: 40px;
+                        gap: 2.5rem;
             
                         div{
-                            border: 2px solid #4a4e69;
-                            padding: 12px;
-                            border-radius: 12px;
+                            border: .125rem solid #4a4e69;
+                            padding: .75rem;
+                            border-radius: .75rem;
                             transition: .4s;
-                            width: 56px;
-                            height: 56px;
+                            width: 3.5rem;
+                            height: 3.5rem;
             
                             &:hover{
                                 cursor: pointer;
@@ -431,7 +431,7 @@
                         a:nth-child(1){
                             div{
                                 background-image: url('../../../public/assets/fb-icon1.svg');
-                                background-size: 32px 32px;
+                                background-size: 2rem 2rem;
                                 background-position: center;
                                 background-repeat: no-repeat;
                 
@@ -444,7 +444,7 @@
                         a:nth-child(2){
                             div{
                                 background-image: url('../../../public/assets/ig-icon1.svg');
-                                background-size: 32px 32px;
+                                background-size: 2rem 2rem;
                                 background-position: center;
                                 background-repeat: no-repeat;
             
@@ -458,7 +458,7 @@
                         a:nth-child(3){
                             div{
                                 background-image: url('../../../public/assets/tt-icon1.svg');
-                                background-size: 32px 32px;
+                                background-size: 2rem 2rem;
                                 background-position: center;
                                 background-repeat: no-repeat;
             
@@ -472,7 +472,7 @@
                         a:nth-child(4){
                             div{
                                 background-image: url('../../../public/assets/wpp-icon1.svg');
-                                background-size: 32px 32px;
+                                background-size: 2rem 2rem;
                                 background-position: center;
                                 background-repeat: no-repeat;
             
@@ -500,8 +500,8 @@
         .container{
             .header{
                 nav{
-                    width: 350px;
-                    border-radius: 0px;
+                    width: 21.875rem;
+                    border-radius: 0rem;
                     margin: 0 auto;
     
                     button{
@@ -516,7 +516,7 @@
     
             .input{
                 input{
-                    width: 350px;
+                    width: 21.875rem;
                 }
             }
     
@@ -524,37 +524,37 @@
                 .textPresentation{
                     h2{
                         font-size: 2.5rem;
-                        width: 350px;
+                        width: 21.875rem;
                     }
     
                     p{
-                        width: 350px;
+                        width: 21.875rem;
                     }
                 }
             }
     
             .modalitys{
-                margin-top: 1400px;
+                margin-top: 87.5rem;
                 h2{
                     font-size: 2.5rem;
-                    margin-top: 60px;
+                    margin-top: 3.75rem;
                 }
                 img,
                 .secondImage{
-                    height: 300px;
+                    height: 18.75rem;
                 }
     
                 
     
                 p{
-                    width: 350px;
+                    width: 21.875rem;
                 }
     
                 .benefitsContainer{
                     flex-direction: column;
     
                     span{
-                        width: 300px;
+                        width: 18.75rem;
                     }
                 }
             }
@@ -563,13 +563,13 @@
                 .footerContainer{
                     .infos{
                         span{
-                            width: 200px;
+                            width: 12.5rem;
                         }
                     }
                     .socialMedias{
                         display: grid;
-                        grid-template-columns: repeat(2,48px);
-                        gap: 16px;
+                        grid-template-columns: repeat(2,3rem);
+                        gap: 1rem;
                     }
                 }
             }

@@ -29,7 +29,7 @@
     position: relative;
     .container{
         width: 100%;
-        padding-bottom: 120px;
+        padding-bottom: 7.5rem;
         background-color: #0091A4;
         height: max-content;
       
@@ -41,25 +41,25 @@
                 position: fixed;
                 z-index: 50000;
                 background-color: #393738;
-                border-radius: 16px;
-                width: 700px;
+                border-radius: 1rem;
+                width: 43.75rem;
                 h1{
                     width: max-content;
                     font-size: 3rem;
                     font-family: 'Titles';
                 }
     
-                padding: 20px;
+                padding: 1.25rem;
                 display: flex;
                 justify-content: space-between;
-                margin: 12px auto;
+                margin: .75rem auto;
                 align-items: center;
                
                 button{
-                    padding: 12px 24px;
-                    border-radius: 12px;
-                    height: 50px;
-                    border: 2px solid #4a4e69;
+                    padding: .75rem 1.5rem;
+                    border-radius: .75rem;
+                    height: 3.125rem;
+                    border: .125rem solid #4a4e69;
                     text-transform: uppercase;
                     color: #4a4e69;
                     background-color: transparent;
@@ -83,7 +83,7 @@
                     }
     
                     li{
-                        margin: 0px 12px;
+                        margin: 0rem .75rem;
                         font-size: 1.8rem;
                         font-family: 'Lis';
                         transition: .4s;
@@ -100,48 +100,48 @@
         }
     
         .content{
-            padding: 200px 20px;
+            padding: 12.5rem 1.25rem;
 
             .containerPDF{
-                margin-top: 60px;
+                margin-top: 3.75rem;
                 display: none;
                 
                 .tableContainer{
-                    padding:40px;
+                    padding:2.5rem;
                     background-color:#393738;
                     width:100%;
 
                     table{
-                        margin-top: 60px;
-                        border-top: 2px solid #CCD360;
+                        margin-top: 3.75rem;
+                        border-top: .125rem solid #CCD360;
 
                         tr{
                             color: #FFFFFF;
 
                             th:nth-child(1){
-                                font-size: 24px;
-                                border-right:2px solid #CCD360;
-                                padding: 24px;
+                                font-size: 1.5rem;
+                                border-right:.125rem solid #CCD360;
+                                padding: 1.5rem;
                                 text-align: center;
-                                border-bottom:2px solid #CCD360;
-                                border-left:2px solid #CCD360;
+                                border-bottom:.125rem solid #CCD360;
+                                border-left:.125rem solid #CCD360;
                             }
 
                             th:nth-child(2){
-                                font-size: 24px;
-                                border-right:2px solid #CCD360;
-                                padding: 24px;
+                                font-size: 1.5rem;
+                                border-right:.125rem solid #CCD360;
+                                padding: 1.5rem;
                                 text-align: center;
-                                border-bottom: 2px solid #CCD360;
+                                border-bottom: .125rem solid #CCD360;
                             }
                         }
                     }
 
                     .headerTable{
-                        font-size:24px;
+                        font-size:1.5rem;
                         display:grid;
-                        grid-template-columns:repeat(2,300px);
-                        gap:20px;
+                        grid-template-columns:repeat(2,18.75rem);
+                        gap:1.25rem;
 
                         div{
                             p:nth-child(1){
@@ -157,8 +157,8 @@
                 
                 .header{
                 width:100%;
-                height:400px;
-                padding:40px;
+                height:25rem;
+                padding:2.5rem;
                 background-color:#CCD360;
                 display: flex;
                 align-items: center;
@@ -167,19 +167,19 @@
                     span{
                         text-transform:uppercase;
                         color:#393738;
-                        padding:62px 24px;
-                        font-size:48px;
+                        padding:3.875rem 1.5rem;
+                        font-size:3rem;
                         background-color:#0091A4;
                         border-radius:50%;
-                        border:8px;
+                        border:.5rem;
                         border-color:#393738;
                     }
                 }
 
                 .presentation{
                     width: 100%;
-                    height: 400px;
-                    padding: 40px;
+                    height: 25rem;
+                    padding: 2.5rem;
                     display: flex;
                     align-items: start;
                     justify-content: space-between;
@@ -191,21 +191,21 @@
                         color: #393738;
                         font-size: 3rem;
                         background-color: #0091A4;
-                        padding: 62px 24px;
+                        padding: 3.875rem 1.5rem;
                         border-radius: 50%;
-                        border: 8px solid #393738;
+                        border: .5rem solid #393738;
                     }
 
                     h1{
                         font-family: 'Titles';
-                        width: 300px;
+                        width: 18.75rem;
                         text-align: center;
                         text-transform: uppercase;
                     }
                 }
 
                 .datas{
-                    padding: 40px;
+                    padding: 2.5rem;
                     background-color: #393738;
                     width: 100%;
 
@@ -214,8 +214,8 @@
                         font-family: 'Text';
                         font-size: 1.5rem;
                         display: grid;
-                        grid-template-columns: repeat(2, 300px);
-                        gap: 20px;
+                        grid-template-columns: repeat(2, 18.75rem);
+                        gap: 1.25rem;
                         
                         p:nth-child(2){
                             color: #CCD360;
@@ -232,13 +232,13 @@
             h2{
                 font-size: 2rem;
                 font-family: 'Titles';
-                margin-bottom: 20px;
+                margin-bottom: 1.25rem;
             }
     
             .steps{
                 display: flex;
-                gap: 20px;
-                margin-bottom: 32px;
+                gap: 1.25rem;
+                margin-bottom: 2rem;
     
                 div:nth-child(1){
                     span{
@@ -254,14 +254,14 @@
                 div{
                     display: flex;
                     align-items: center;
-                    gap: 4px;
+                    gap: .25rem;
     
                     span{
                         font-size: 3rem;
                         font-family: 'Titles';
-                        border: 3px solid #1A484E;
+                        border: .1875rem solid #1A484E;
                         border-radius: 50%;
-                        padding: 6px 24px;
+                        padding: .375rem 1.5rem;
                     }
     
                     p{
@@ -280,15 +280,15 @@
                 }
     
                 input,select{
-                    margin-top: 4px;
-                    margin-bottom: 16px;
+                    margin-top: .25rem;
+                    margin-bottom: 1rem;
                     font-family: 'Text';
                     font-size: 1rem;
-                    width: 300px;
-                    padding: 8px 4px;
+                    width: 18.75rem;
+                    padding: .5rem .25rem;
                     background-color:#1b263b;
-                    border-radius: 12px;
-                    border: 2px solid #415a77;
+                    border-radius: .75rem;
+                    border: .125rem solid #415a77;
                     color: #0d1b2a;
                     transition: .4s;
     
@@ -304,38 +304,38 @@
                     font-family: 'Text';
                     color: #c1121f;
                     display: block;
-                    margin: 8px 0px;
+                    margin: .5rem 0rem;
                 }
     
                 div{
                     display: flex;
-                    gap: 12px;
-                    margin-top: 12px;
+                    gap: .75rem;
+                    margin-top: .75rem;
     
                     button{
                         text-transform: uppercase;
                         font-family: 'Text';
-                        width: 150px;
+                        width: 9.375rem;
                         cursor: pointer;
-                        padding: 6px 24px;
-                        border-radius: 4px;
+                        padding: .375rem 1.5rem;
+                        border-radius: .25rem;
                         transition: .4s;
-                        border: 2px solid #023047;
+                        border: .125rem solid #023047;
                         background-color: #219ebc;
                         
                         &:disabled{
                             cursor: not-allowed;
-                            padding: 6px 24px;
-                            width: 150px;
+                            padding: .375rem 1.5rem;
+                            width: 9.375rem;
                             background-color: #1A484E;
-                            border: 2px solid #146D79;
-                            border-radius: 4px;
+                            border: .125rem solid #146D79;
+                            border-radius: .25rem;
                             color: inherit;
     
                             &:hover{
                                 color: #000;
                                 background-color: #1A484E;
-                                border: 2px solid #146D79;
+                                border: .125rem solid #146D79;
                             }
                         }
     
@@ -357,15 +357,15 @@
                 }
     
                 input,select{
-                    margin-top: 4px;
-                    margin-bottom: 16px;
+                    margin-top: .25rem;
+                    margin-bottom: 1rem;
                     font-family: 'Text';
                     font-size: 1rem;
-                    width: 300px;
-                    padding: 8px 4px;
+                    width: 18.75rem;
+                    padding: .5rem .25rem;
                     background-color:#1b263b;
-                    border-radius: 12px;
-                    border: 2px solid #415a77;
+                    border-radius: .75rem;
+                    border: .125rem solid #415a77;
                     color: #0d1b2a;
                     transition: .4s;
     
@@ -381,23 +381,23 @@
                     font-family: 'Text';
                     color: #c1121f;
                     display: block;
-                    margin: 8px 0px;
+                    margin: .5rem 0rem;
                 }
     
                 div{
                     display: flex;
-                    gap: 12px;
-                    margin-top: 12px;
+                    gap: .75rem;
+                    margin-top: .75rem;
     
                     button{
                         text-transform: uppercase;
                         font-family: 'Text';
-                        width: 150px;
+                        width: 9.375rem;
                         cursor: pointer;
-                        padding: 6px 24px;
-                        border-radius: 4px;
+                        padding: .375rem 1.5rem;
+                        border-radius: .25rem;
                         transition: .4s;
-                        border: 2px solid #023047;
+                        border: .125rem solid #023047;
                         background-color: #219ebc;
                         
                         &:hover{
@@ -412,9 +412,9 @@
     
         .summary{
             background-color: #CCD360;
-            width: 400px;
-            margin-top: 60px;
-            padding: 20px 40px;
+            width: 25rem;
+            margin-top: 3.75rem;
+            padding: 1.25rem 2.5rem;
             display: none;
     
             button{
@@ -422,12 +422,12 @@
                 font-family: 'Text';
                 width: max-content;
                 cursor: pointer;
-                padding: 6px 24px;
-                border-radius: 4px;
+                padding: .375rem 1.5rem;
+                border-radius: .25rem;
                 transition: .4s;
-                border: 2px solid #023047;
+                border: .125rem solid #023047;
                 background-color: #219ebc;
-                margin-bottom: 20px;
+                margin-bottom: 1.25rem;
                 
                 &:hover{
                     border-color: #FFF;
@@ -445,8 +445,8 @@
             .infos{
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
-                padding: 12px;
+                gap: .75rem;
+                padding: .75rem;
     
                 p{
                     font-family: 'Text';
@@ -455,7 +455,7 @@
     
                 p:nth-child(odd){
                     background-color: #0091A4;
-                    padding: 12px;
+                    padding: .75rem;
                    
                 }
     
@@ -470,60 +470,60 @@
         top: 2%;
         left: 30%;
         background-color: #CCD360;
-        width: 600px;
+        width: 37.5rem;
         height: max-content;
         text-align: center;
-        padding: 20px;
-        border: 12px double #393738;
-        border-radius: 40px;
+        padding: 1.25rem;
+        border: .75rem double #393738;
+        border-radius: 2.5rem;
         display: none;
 
         .backStep{
             position: absolute;
-            top: 200px;
-            left: 20px;
+            top: 12.5rem;
+            left: 1.25rem;
             cursor: pointer;
         }
 
         .forwardStep{
             position: absolute;
-            top: 200px;
-            right: 20px;
+            top: 12.5rem;
+            right: 1.25rem;
             cursor: pointer;
         }
 
         .steps{
             display: flex;
-            gap: 12px;
+            gap: .75rem;
             justify-content: center;
-            margin-top: 12px;
+            margin-top: .75rem;
             
             .step{
-                width: 24px;
-                height: 24px;
+                width: 1.5rem;
+                height: 1.5rem;
                 border-radius: 50%;
-                border: 4px solid #393738;
+                border: .25rem solid #393738;
             }
             .active{
-                width: 24px;
-                height: 24px;
+                width: 1.5rem;
+                height: 1.5rem;
                 border-radius: 50%;
-                border: 4px solid #393738;
+                border: .25rem solid #393738;
                 background-color: #0091A4;
             }
         }
         button{
-            width: 36px;
-            height: 36px;
+            width: 2.25rem;
+            height: 2.25rem;
             position: absolute;
-            right: 10px;
+            right: .625rem;
             background-color: transparent;
             border: none;
             cursor: pointer;
             background-image: url('../../../public/assets/close_hover.svg');
             background-position: center;
             background-repeat: no-repeat;
-            background-size: 36px;
+            background-size: 2.25rem;
             transition: .4s;
 
             &:hover{
@@ -534,13 +534,13 @@
         h1{
             font-size: 2rem;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            margin-bottom: .75rem;
             color: #FFF;
-            margin-top: 40px;
+            margin-top: 2.5rem;
         }
 
         p{
-            width: 300px;
+            width: 18.75rem;
             margin: auto auto;
             text-align: justify;
             font-size: 1.2rem;
@@ -559,11 +559,11 @@
         z-index: 500000;
         left: 40%;
         text-transform: uppercase;
-        width: 300px;
+        width: 18.75rem;
         height: max-content;
         background-color: #CCD360;
         text-align: center;
-        padding: 20px;
+        padding: 1.25rem;
         color: #FFFFFF;
         display: none;
         
@@ -576,78 +576,78 @@
 .ldsRoller {
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
 }
 .ldsRoller div {
   animation: ldsRoller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  transform-origin: 40px 40px;
+  transform-origin: 2.5rem 2.5rem;
 }
 .ldsRoller div:after {
   content: " ";
   display: block;
   position: absolute;
-  width: 7.2px;
-  height: 7.2px;
+  width: .45rem;
+  height: .45rem;
   border-radius: 50%;
   background: currentColor;
-  margin: -3.6px 0 0 -3.6px;
+  margin: -0.225rem 0 0 -0.225rem;
 }
 .ldsRoller div:nth-child(1) {
   animation-delay: -0.036s;
 }
 .ldsRoller div:nth-child(1):after {
-  top: 62.62742px;
-  left: 62.62742px;
+  top: 3.9142rem;
+  left: 3.9142rem;
 }
 .ldsRoller div:nth-child(2) {
   animation-delay: -0.072s;
 }
 .ldsRoller div:nth-child(2):after {
-  top: 67.71281px;
-  left: 56px;
+  top: 4.2321rem;
+  left: 3.5rem
 }
 .ldsRoller div:nth-child(3) {
   animation-delay: -0.108s;
 }
 .ldsRoller div:nth-child(3):after {
-  top: 70.90963px;
-  left: 48.28221px;
+  top: 4.4319rem;
+  left: 3.0176rem;
 }
 .ldsRoller div:nth-child(4) {
   animation-delay: -0.144s;
 }
 .ldsRoller div:nth-child(4):after {
-  top: 72px;
-  left: 40px;
+  top: 4.5rem;
+  left: 2.5rem;
 }
 .ldsRoller div:nth-child(5) {
   animation-delay: -0.18s;
 }
 .ldsRoller div:nth-child(5):after {
-  top: 70.90963px;
-  left: 31.71779px;
+  top: 4.4319rem;
+  left: 1.9824rem;
 }
 .ldsRoller div:nth-child(6) {
   animation-delay: -0.216s;
 }
 .ldsRoller div:nth-child(6):after {
-  top: 67.71281px;
-  left: 24px;
+  top: 4.2321rem;
+  left: 1.5rem;
 }
 .ldsRoller div:nth-child(7) {
   animation-delay: -0.252s;
 }
 .ldsRoller div:nth-child(7):after {
-  top: 62.62742px;
-  left: 17.37258px;
+  top: 3.9142rem;
+  left: 1.0858rem;
 }
 .ldsRoller div:nth-child(8) {
   animation-delay: -0.288s;
 }
 .ldsRoller div:nth-child(8):after {
-  top: 56px;
-  left: 12.28719px;
+  top: 3.5rem;
+  left: .7679rem;
 }
 @keyframes ldsRoller {
   0% {
@@ -674,28 +674,28 @@
 
                     .tableContainer{
                         .headerTable{
-                            grid-template-columns: repeat(2,200px);
+                            grid-template-columns: repeat(2,12.5rem);
                         }
                     }
                    
                     .presentation{
-                        width: 300px;
+                        width: 18.75rem;
                     }
 
                     .header{
                         width: max-content;
-                        padding: 81px;
-                        gap: 30px;
+                        padding: 5.0625rem;
+                        gap: 1.875rem;
                         
                         h1{
-                            width:150px;
+                            width:9.375rem;
                             text-align:center;
                             text-transform:uppercase;
                             font-size: 2rem;
                         }
 
                         span{
-                            padding:62px 24px;
+                            padding:3.875rem 1.5rem;
                             font-family: 2rem;
                         }
                     }
@@ -705,8 +705,8 @@
 
             .header{
                 nav{
-                    width: 350px;
-                    border-radius: 0px;
+                    width: 21.875rem;
+                    border-radius: 0rem;
                     margin: 0 auto;
     
                     button{
@@ -720,23 +720,23 @@
             }
     
             .steps{
-                gap: 12px;
+                gap: .75rem;
             }
 
             .summary{
                 background-color: #CCD360;
-                width: 350px;
-                margin-top: 60px;
-                padding: 20px ;
+                width: 21.875rem;
+                margin-top: 3.75rem;
+                padding: 1.25rem;
                 display: none;
         
                 button{
-                    padding: 6px 12px;
+                    padding: .375rem .75rem;
                 }
         
              
                 .infos{
-                    padding: 0px;
+                    padding: 0rem;
         
                     p{
                         font-family: 'Text';
@@ -745,7 +745,7 @@
         
                     p:nth-child(odd){
                         background-color: #0091A4;
-                        padding: 12px;
+                        padding: .75rem;
                     }
                 }
             }
@@ -755,35 +755,35 @@
         .modal{
             top: 2.5%;
             left: 20%;
-            width: 350px;
+            width: 21.875rem;
             height: max-content;
-            padding: 12px;
+            padding: .75rem;
 
            .forwardStep,
            .backStep{
-            width: 50px;
+            width: 3.125rem;
            }
 
            .forwardStep{
-            right: 4px;
+            right: .25rem;
            }
 
            .backStep{
-            left: 4px;
+            left: .25rem;
            }
           
     
             p{
-                width: 200px;
+                width: 12.5rem;
                 font-size: 1rem;
             }
 
             .steps{
-                margin-top: 12px;
+                margin-top: .75rem;
                 .active,
                 .step{
-                    width: 16px;
-                    height: 16px;
+                    width: 1rem;
+                    height: 1rem;
                 }
             }
         }
