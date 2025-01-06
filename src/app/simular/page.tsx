@@ -112,13 +112,13 @@ export default function Simular(){
     }
 
     function nextStep(){
-        setCount(currentStep=>currentStep+1)
+        setCount(1)
         console.log('ola')
         console.log(count)
     }
 
     function backStepModal(){
-        setCount(currentStep=>currentStep-1)
+        setCount(0)
         console.log('ola')
         console.log(count)
     }
