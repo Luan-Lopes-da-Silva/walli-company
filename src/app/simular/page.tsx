@@ -80,7 +80,6 @@ export default function Simular(){
     const [prohibitedValue,setProhibitedValue] = useState('')
     const [parcelNumber,setParcelNumber] = useState('')
     const [amortization,setAmortization] = useState('')
-    const [protocol,setProtocol] = useState('')
     const [count,setCount] = useState(0)
 
     const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
@@ -129,7 +128,6 @@ export default function Simular(){
         const converseFinancedValue = firstFormDatas.financedValue.replace(/\D/g,"")
         const prohibitedValueConverse = Number(converseImobileValue) - Number(converseFinancedValue)
         const newProtocol = generateProtocol()
-        setProtocol(newProtocol)
 
         const createNewProcess = await fetch('https://walli-processdb.onrender.com/process',{
             method: 'POST',
@@ -470,7 +468,7 @@ export default function Simular(){
                 {count===0?(
                      <p>Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!</p>
                 ):(
-                    <p>Durante o processo de financiamento, você receberá um número de protocolo exclusivo.{protocol}
+                    <p>Durante o processo de financiamento, você receberá um número de protocolo exclusivo
                      <br>Este</br>número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde-o com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário!</p>
                 )}
                 {count==0?(
