@@ -80,8 +80,15 @@ export default function Simular(){
     const [prohibitedValue,setProhibitedValue] = useState('')
     const [parcelNumber,setParcelNumber] = useState('')
     const [amortization,setAmortization] = useState('')
+    const refFirstStepCircle = useRef<HTMLDivElement>(null)
+    const refSecondStepCircle = useRef<HTMLDivElement>(null)
+    const refText = useRef<HTMLParagraphElement>(null)
     const [count,setCount] = useState(0)
+    const refBackStepImg = useRef<HTMLImageElement>(null)
+    const refNextStepImg = useRef<HTMLImageElement>(null)
+    const [protocol,setProtocol] = useState('')
 
+    
     const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
     const [secondFormDatas,setSecondFormDatas] = useState<secondFormData>(undefinedSecondForm)
 
@@ -113,14 +120,24 @@ export default function Simular(){
 
     function nextStep(){
         setCount(1)
-        console.log('ola')
         console.log(count)
+        if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refNextStepImg.current && refBackStepImg.current){
+            refFirstStepCircle.current.style.backgroundColor = 'transparent'
+            refSecondStepCircle.current.style.backgroundColor = '#0091A4'
+            refText.current.innerText = `Durante o processo de financiamento, você receberá um número de protocolo exclusivo ${protocol}. Este número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário`
+            refBackStepImg.current.src = backActiveSvg.src
+        }
     }
 
     function backStepModal(){
         setCount(0)
-        console.log('ola')
-        console.log(count)
+        if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refBackStepImg.current && refNextStepImg.current ){
+            refFirstStepCircle.current.style.backgroundColor = '#0091A4'
+            refSecondStepCircle.current.style.backgroundColor = 'transparent'
+            refText.current.innerText = 'Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!.'
+            refNextStepImg.current.addEventListener('click', nextStep)
+            refBackStepImg.current.src = backSvg.src
+        }
     }
 
     async function openModal(){
@@ -128,6 +145,11 @@ export default function Simular(){
         const converseFinancedValue = firstFormDatas.financedValue.replace(/\D/g,"")
         const prohibitedValueConverse = Number(converseImobileValue) - Number(converseFinancedValue)
         const newProtocol = generateProtocol()
+        setProtocol(newProtocol)
+
+        if(refFirstStepCircle.current){
+            refFirstStepCircle.current.style.backgroundColor = '#0091A4'  
+        }
 
         const createNewProcess = await fetch('https://walli-processdb.onrender.com/process',{
             method: 'POST',
@@ -163,13 +185,6 @@ export default function Simular(){
                 refModal.current.style.display = 'block'
                 refModal.current.focus()
             }
-        }
-    }
-
-    function closeModal(){
-        if(refModal.current && refContainer.current){
-            refModal.current.style.display = 'none'
-            refContainer.current.style.filter = 'none'
         }
     }
 
@@ -254,6 +269,8 @@ export default function Simular(){
             }
         }
       }
+
+      
 
     
 
@@ -465,13 +482,7 @@ export default function Simular(){
            
         </main>
         <div className={style.modal} ref={refModal}>
-                {count===0?(
-                     <p>Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!</p>
-                ):(
-                    <p>Durante o processo de financiamento, você receberá um número de protocolo exclusivo
-                     <br>Este</br>número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde-o com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário!</p>
-                )}
-                {count==0?(
+                     <p ref={refText}>Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!</p>
                    <div>
                      <Image
                     width={60}
@@ -479,6 +490,8 @@ export default function Simular(){
                     alt='Back svg'
                     src={backSvg}
                     className={style.backStep}
+                    onClick={backStepModal}
+                    ref={refBackStepImg}
                     />
                     <Image
                     width={60}
@@ -487,40 +500,14 @@ export default function Simular(){
                     src={forwardSvg}
                     className={style.forwardStep}
                     onClick={nextStep}
+                    ref={refNextStepImg}
                     />
                    </div>
-                ):(
-                    <div>
-                         <Image
-                        width={60}
-                    height={60}
-                    alt='Back svg'
-                    src={backActiveSvg}
-                    className={style.backStep}
-                    onClick={backStepModal}
-                    />
-                    <Image
-                    width={60}
-                    height={60}
-                    alt='Forward svg'
-                    src={forwardSvg}
-                    className={style.forwardStep}
-                    onClick={closeModal}
-                    />
-                    </div>
-                )}
 
-                {count==0?(
                     <div className={style.steps}>
-                        <div className={style.active}></div>
-                        <div className={style.step}></div>
+                        <div className={style.step} ref={refFirstStepCircle}></div>
+                        <div className={style.step} ref={refSecondStepCircle}></div>
                     </div>
-                ):(
-                    <div className={style.steps}>
-                        <div className={style.step}></div>
-                        <div className={style.active}></div>
-                    </div>
-                )}
         </div>
 
         <div className={style.loading} ref={refLoading}>
