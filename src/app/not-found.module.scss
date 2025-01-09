@@ -78,4 +78,21 @@ $btn-secondary:#D3D664;
                 }
             }
     }
+
+    .logo{
+        width: 100%;
+        display: flex;
+        place-content: end;
+
+        h2{
+            font-family: 'Text';
+            background-color: $btn-primary;
+            padding: 3rem 2rem;
+            margin-right: 2rem;
+            border-radius: 50%;
+            text-transform: uppercase;
+            color: $btn-secondary;
+        }
+  
+    }
 }

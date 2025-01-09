@@ -18,6 +18,9 @@ export default function Custom404(){
             <p>Página não encontrada</p>
             <p>Cheque a url fornecida</p>
             <button><Link href={'/home'}>Home</Link></button>
+            <div className={style.logo}>
+                <h2>Logo</h2>
+            </div>
         </div>
     )
 }
