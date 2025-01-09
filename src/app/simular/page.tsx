@@ -364,6 +364,7 @@ export default function Simular(){
             <section className={style.content}>
                 <h1>Simule seu financiamento</h1>
                 <h2>Encontre a melhor opção para realizar o sonho da casa própria em poucas minutos</h2>
+                <h2>Olá</h2>
                 <div className={style.steps}>
                     <div ref={refFirstStep}>
                     <span>1</span>
