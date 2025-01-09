@@ -1,27 +1,33 @@
+$main-color:#868686;
+$text-color:#FFFFFF;
+$btn-primary:#028DA5;
+$btn-secondary:#D3D664;
 
 @font-face {
     font-family: 'Error';
     src: url('../../public/fonts/Merriweather-Bold.ttf');
 }
 
+
 @font-face {
     font-family: 'Text';
-    src: url('../../public/fonts/Queensides\ Medium.ttf');
+    src: url('../../public/fonts/Neris-Light.otf');
 }
 
 .container{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
     justify-content: center;
     place-content: center;
-    background-color: #CCD360;
+    background-color: $main-color;
+    padding: 2rem 0rem;
 
     .error{
         display: flex;
         font-family: 'Error';
         justify-content: center;
-        color: #FFF;
+        color: $text-color;
         gap: 0.5rem;
         
         h2{
@@ -30,7 +36,7 @@
         }
 
         h2:nth-child(2){
-            margin-top: 13.75rem;
+            margin-top: 20.75rem;
         }
     }
 
@@ -38,34 +44,37 @@
         font-family: 'Text';
         font-size: 3rem;
         text-align: center;
-        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+        color: $text-color;
     }
 
     button{
         width: 18.75rem;
         margin: auto auto;
+        margin-top: 2rem;
         padding: .5rem 2.5rem;
         text-transform: uppercase;
         font-family: 'Text';
         font-size: 1.5rem;
-        border: .25rem solid #4A4E69;
+        background-color: $btn-secondary;
+        border: .25rem solid $btn-secondary;
         border-radius: .5rem;
         cursor: pointer;
-        background-color: transparent;
+        background-color: $btn-primary;
         transition: .7s;
         
         a{
             text-decoration: none;
-            color: #4A4E69;
+            color: $btn-secondary;
             transition: .7s;
         }
 
             &:hover{
-                background-color: #4A4E69;
-                border-color: #FFF;
+                background-color: $btn-secondary;
+                border-color: $btn-primary;
                 
                 a{
-                    color: #FFF;
+                    color: $btn-primary;
                 }
             }
     }
