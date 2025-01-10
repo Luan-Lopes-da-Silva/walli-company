@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import style from './simular.module.scss'
 import {  useForm } from 'react-hook-form'
 import {z} from 'zod'
