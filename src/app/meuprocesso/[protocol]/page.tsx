@@ -67,17 +67,7 @@ export default async function MeuProcesso({ params }:any) {
       {getDatas.clientname==''?(
         <main className={style.main} style={{height:'100vh'}}>
         <Link href={'/simular'}><button className={style.button}>Simular</button></Link>
-        <header className={style.header}>
-                        <nav>
-                        <h1>LOGO</h1>
-                            <ul>
-                                <Link href={'/home'}><li>Inicio</li></Link>
-                                <Link href={'/sobre'}><li>Sobre</li></Link>
-                                <Link href={'/contato'}><li>Contate-nos</li></Link>
-                            </ul>
-                            <Link href={'/simular'}><button>simular</button></Link>
-                        </nav>
-          </header>
+        
           <div className={style.container}>
             <div className={style.errorContainer}>
               <Image

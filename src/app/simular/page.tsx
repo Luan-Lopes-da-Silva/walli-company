@@ -344,23 +344,9 @@ export default function Simular(){
             }
         }
       }
-
-
     return(
         <div className={style.box}>
         <main className={style.container} ref={refContainer}>
-            <header className={style.header}>
-                    <nav>
-                    <h1>LOGO</h1>
-                        <ul>
-                            <Link href={'/home'}><li>Inicio</li></Link>
-                            <Link href={'/sobre'}><li>Sobre</li></Link>
-                            <Link href={'/contato'}><li>Contate-nos</li></Link>
-                        </ul>
-                            <Link href={'/simular'}><button>Simular</button></Link>
-                    </nav>
-            </header>
-
             <section className={style.content}>
                 <h1>Simule seu financiamento</h1>
                 <h2>Encontre a melhor opção para realizar o sonho da casa própria em poucas minutos</h2>
