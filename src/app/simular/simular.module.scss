@@ -1,27 +1,35 @@
-//#393738
-//#0091A4
-//#CCD360
-//#d00000
-//#323323
-//#535448
-//#A5A968
-//#146D79 focus step
-//#1A484E unfocus step
-//#FFF focus step real
+$primary-color: #D3D664;
+$secondary-color: #028DA5;
+$primary-grey: #ECECEC;
+$secondary-grey: #868686;
+$white: #FFFFFF;
+$black: #000000;
+
+
 
 @font-face {
     font-family: 'Lis';
-    src: url('../../../public/fonts/Deutschlander.otf');
+    src: url('../../../public/fonts/Neris-SemiBold.otf');
 }
 
 @font-face {
     font-family: 'Titles';
-    src: url('../../../public/fonts/Merriweather-Bold.ttf');
+    src: url('../../../public/fonts/Neris-Black.otf');
+}
+
+@font-face {
+    font-family: 'Alternative-Titles';
+    src: url('../../../public/fonts/Diamonds-Regular.otf');
 }
 
 @font-face {
     font-family: 'Text';
-    src: url('../../../public/fonts/Queensides\ Medium.ttf');
+    src: url('../../../public/fonts/Neris-Thin.otf');
+}
+
+@font-face {
+    font-family: 'Label';
+    src: url('../../../public/fonts/Neris-SemiBold.otf');
 }
 
 
@@ -30,49 +38,56 @@
     .container{
         width: 100%;
         padding-bottom: 7.5rem;
-        background-color: #0091A4;
+        background-color: $primary-color;
         height: max-content;
       
 
         .header{
             display: flex;
-            justify-content: center;
+            
             nav{
                 position: fixed;
                 z-index: 50000;
-                background-color: #393738;
-                border-radius: 1rem;
-                width: 43.75rem;
+                background-color: $secondary-grey ;
+                width: 100%;
+                height: 12.5rem;
+                box-shadow: 0px 4px 4px rgba(0,0,0,0.5);
+    
                 h1{
                     width: max-content;
-                    font-size: 3rem;
+                    font-size:3rem;
                     font-family: 'Titles';
+                    background-color: $secondary-color;
+                    color: $primary-color;
+                    padding: 3.25rem 1.5rem;
+                    border-radius: 50%;
                 }
-    
+        
                 padding: 1.25rem;
                 display: flex;
                 justify-content: space-between;
-                margin: .75rem auto;
                 align-items: center;
                
                 button{
                     padding: .75rem 1.5rem;
                     border-radius: .75rem;
-                    height: 3.125rem;
-                    border: .125rem solid #4a4e69;
+                    height: max-content;
+                    border: .125rem solid $secondary-color;
                     text-transform: uppercase;
-                    color: #4a4e69;
-                    background-color: transparent;
+                    color: $secondary-color;
+                    background-color: $primary-color;
                     cursor: pointer;
                     transition: .4s;
+                    font-size: 1.5rem;
+                    font-family: 'Titles';
     
                     &:hover{
-                        color: #000;
-                        border-color: #000;
-                        background-color: #0091A4;
+                        color: $primary-color;
+                        border-color:$primary-color;
+                        background-color: $secondary-color;
                     }
                }
-    
+        
                 ul{
                     display: flex;
                     align-items: center;
@@ -81,27 +96,87 @@
                     a{
                         text-decoration: none;
                     }
-    
+        
                     li{
                         margin: 0rem .75rem;
-                        font-size: 1.8rem;
+                        font-size: 2rem;
                         font-family: 'Lis';
                         transition: .4s;
-                        color: #000;
-    
+                        color: $white;
+        
                         &:hover{
                             text-decoration: underline;
                             cursor: pointer;
-                            color: #FFF;
+                            color: $black;
                         }
                     }
                 }
             }
-        }
     
-        .content{
-            padding: 12.5rem 1.25rem;
+            .input{
+                position: fixed;
+                z-index: 200000;
+                width: 100%;
+                margin-top: 138px;
+                left: 47%;
 
+                span{
+                    transition: .4s;
+                    background-image: url('../../../public/assets/search-test.svg');
+                    width: 2.125rem;
+                    height: 2.125rem;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    position: absolute;
+                    margin-top: .3125rem;
+                    z-index: 70000;
+                    cursor: pointer;
+                    margin-left: 1rem;
+                }
+        
+        
+                input{
+                    font-family: 'Text';
+                    font-size: 1rem;
+                    padding: .5rem .5rem;
+                    background-color:#1b263b;
+                    border-radius: .75rem;
+                    border: .125rem solid #415a77;
+                    color: #0d1b2a;
+                    transition: .4s;
+                    width: 75px;
+                   
+                    &:focus{
+                        border-color: #1b263b;
+                        background-color: #415a77;
+                        color: #778da9;
+                        animation: 1s width forwards;
+                    }
+                }
+            }
+        }
+
+        .content{
+            padding: 15.5rem 5rem;
+
+           span:nth-child(1){
+            font-size: 4rem;
+            display: block;
+            font-family: 'Alternative-Titles';
+            line-height: 1;
+           }
+
+           span:nth-child(2){
+            font-size: 2rem;
+            display: block;
+            font-family: 'Alternative-Titles';
+            line-height: 1;
+            margin-top: -0.3rem;
+            margin-bottom: 1rem;
+           }
+
+          
+           
             .containerPDF{
                 margin-top: 3.75rem;
                 display: none;
@@ -241,24 +316,45 @@
                 margin-bottom: 2rem;
     
                 div:nth-child(1){
-                    span{
-                        border-color: #FFF;
-                        color: #FFF;
+                    display: flex;
+                    align-items: center;
+                    gap: .75rem;
+
+                    .circle{
+                        border: 2px solid $secondary-color;
+                        border-radius: 50%;
+                        width: 100px;
+                        height: 100px;
+                        position: relative;
+                        
+
+                        span{
+                            color: $secondary-color;
+                            font-family: 'Alternative-Titles';
+                            line-height: 1;
+                            vertical-align: center;
+                            position: absolute;
+                            left: 40%;
+                            top: 40%;
+                        }
                     }
     
                     p{
-                        color: #FFF;
+                        color: $secondary-color;
+                        font-family: 'Alternative-Titles';
+                        line-height: 1;
+                        font-size: 1.2rem;
                     }
                 }
                 
-                div{
+                div:nth-child(2){
                     display: flex;
                     align-items: center;
                     gap: .25rem;
     
                     span{
                         font-size: 3rem;
-                        font-family: 'Titles';
+                        font-family: 'Alternative-Titles';
                         border: .1875rem solid #1A484E;
                         border-radius: 50%;
                         padding: .375rem 1.5rem;
@@ -787,6 +883,15 @@
                 }
             }
         }
+    }
+}
+
+@keyframes width{
+    50%{
+        width: 6.25rem;
+    }
+    100%{
+        width: 14.50rem;
     }
 }
 

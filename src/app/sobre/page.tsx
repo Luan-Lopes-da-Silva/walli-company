@@ -2,37 +2,122 @@
 
 import Link from 'next/link'
 import style from './sobre.module.scss'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import Image from 'next/image'
+import svgTech from '@/../public/assets/computer.svg'
 
 export default function Sobre(){
     useEffect(()=>{
         window.document.title = 'Sobre'   
     })
 
+    const refSpan = useRef<HTMLSpanElement>(null)
+
     return(
         <div className={style.container}>
             <Link href={'/simular'}><button className={style.button}>Simular</button></Link>
-            
+            <header className={style.header}>
+                    <nav>
+                    <h1>LOGO</h1>
+                        <ul>
+                            <Link href={'/home'}><li>Inicio</li></Link>
+                            <Link href={'/sobre'}><li>Sobre</li></Link>
+                            <Link href={'/contato'}><li>Contate-nos</li></Link>
+                        </ul>
+                        <div className={style.input}>
+                <div className={style.input}>
+                <input 
+                type="text" 
+                placeholder='Pesquise pelo seu protocolo ...'
+                onFocus={()=>{
+                    if (refSpan.current) {
+                        refSpan.current.style.marginLeft = '-30px'
+                    }
+                }}
+                onBlur={()=>{
+                    if (refSpan.current) {
+                        refSpan.current.style.marginLeft = '0px'
+                    }
+                }}
+                />
+
+                <span ref={refSpan}></span>
+                </div>
+                
+                </div>
+                        <Link href={'/simular'}><button>simular</button></Link>
+                    </nav>
+
+                 
+                </header>
 
             <main className={style.contentContainer}>
-            <div className={style.history}>
-                <h1>Nossa história</h1>
-                <p>Em 2021, em uma pequena sala em São Paulo, um grupo de amigos de infância, apaixonados por tecnologia e finanças, se reuniram para discutir um problema que enfrentavam em comum: a dificuldade de acessar e entender os processos de financiamento imobiliário. Sabiam que muitas pessoas compartilhavam dessa mesma frustração, o que os levou a imaginar uma solução que pudesse revolucionar o setor. Desses encontros nasceu a [Nome da Empresa]. Combinando suas habilidades em tecnologia, análise de dados e finanças, eles criaram uma plataforma inovadora que simplificava todo o processo de financiamento imobiliário, tornando-o mais transparente e acessível para todos. Desde o início, a missão da empresa foi clara: transformar o mercado imobiliário, proporcionando às pessoas as ferramentas e informações necessárias para tomar decisões financeiras mais informadas e seguras. Em poucos meses, a plataforma ganhou tração, atraindo a atenção de investidores e parceiros estratégicos. A equipe expandiu, e a pequena sala em São Paulo deu lugar a um moderno escritório, cheio de energia e inovação. Hoje, a [Nome da Empresa] continua a crescer, impactando positivamente a vida de milhares de pessoas que buscam realizar o sonho da casa própria.</p>
-            </div>
+                <div className={style.presentation}>
+                    <span>Nome da empresa</span>
+                    <p>Transformando o Mercado Imobiliário com Automação e Transparência</p>
+                    <p>A [Nome da Empresa] tem como missão transformar a experiência de financiamento imobiliário e crédito com garantia de imóvel por meio de soluções inovadoras e automatizadas. Nosso objetivo é oferecer aos nossos clientes um processo mais rápido, seguro e transparente, com condições financeiras personalizadas e acessíveis, sempre com o suporte de uma plataforma digital intuitiva.</p>
+                </div>
 
-            <div className={style.mission}>
-                <h1>Nossa missão</h1>
-                <p>Na [Nome da Empresa], acreditamos que todos têm o direito de acessar o mercado imobiliário de maneira simples e eficiente. Nosso principal objetivo é descomplicar o financiamento imobiliário, proporcionando uma experiência digital intuitiva e transparente.</p>
-                <span>Queremos:</span>
-                <ul>
-                    <li>1. Simplificar Processos: Tornar o financiamento imobiliário um processo descomplicado e acessível, utilizando tecnologia de ponta para eliminar burocracias desnecessárias.</li>
-                    <li>2. Empoderar Usuários: Oferecer ferramentas e informações que permitam aos nossos clientes tomar decisões financeiras com confiança e segurança.</li>
-                    <li>3.Promover a Transparência: Garantir que todos os aspectos do financiamento sejam claros e compreensíveis, sem surpresas ou custos ocultos.</li>
-                    <li>4. Facilitar o Acesso: Democratizar o acesso ao financiamento imobiliário, permitindo que mais pessoas realizem o sonho da casa própria, independentemente de sua situação financeira inicial.</li>
-                    <li>5. Inovar Constantemente: Manter um ambiente de inovação contínua, sempre buscando novas formas de melhorar e facilitar a jornada do financiamento imobiliário para nossos clientes.</li>
-                </ul>
-            </div>
+                <div className={style.coreContainer}>
+                    <span>Nossos pilares</span>
+                    
+                    <div className={style.flex}>
+                    <div>
+                        <p>Técnologia e inovação</p>
+                        <Image
+                        width={50}
+                        height={50}
+                        alt='Computer image'
+                        src={svgTech}
+                        />
+                        <p>ANome da Empresautiliza tecnologia de ponta para automatizar todo o processo de financiamento e crédito com garantia de imóvel, oferecendo soluções rápidas, precisas e personalizadas.</p>
+                    </div>
+                    <div>
+                        <p>Técnologia e inovação</p>
+                        <Image
+                        width={50}
+                        height={50}
+                        alt='Computer image'
+                        src={svgTech}
+                        />
+                        <p>A [Nome da Empresa] utiliza tecnologia de ponta para automatizar todo o processo de financiamento e crédito com garantia de imóvel, oferecendo soluções rápidas, precisas e personalizadas.</p>
+                    </div>
+                    <div>
+                        <p>Técnologia e inovação</p>
+                        <Image
+                        width={50}
+                        height={50}
+                        alt='Computer image'
+                        src={svgTech}
+                        />
+                        <p>A [Nome da Empresa] utiliza tecnologia de ponta para automatizar todo o processo de financiamento e crédito com garantia de imóvel, oferecendo soluções rápidas, precisas e personalizadas.</p>
+                    </div>
+                    </div>
+                </div>
             </main>
+
+            <footer className={style.footer}>
+               <span className={style.logo}>LOGO</span>
+              
+
+                <div className={style.infos}>
+                    <div className={style.medias}>
+                        <span>Redes Sociais</span>
+
+                        <div className={style.containerMedias}>
+                           <div></div>
+                           <div></div>
+                           <div></div>
+                           <div></div>
+                        </div>
+                    </div>
+
+                    <div className={style.rules}>
+                        <span>Legislações</span>
+                    </div>
+                </div>
+
+               </footer>
         </div>
     )
 }

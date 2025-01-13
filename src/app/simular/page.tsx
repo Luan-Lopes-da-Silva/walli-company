@@ -10,6 +10,7 @@ import forwardSvg from '@/../public/assets/Vector.svg'
 import backSvg from '@/../public/assets/Vector-1.svg'
 import backActiveSvg from '@/../public/assets/Vector2.svg'
 import Image from 'next/image'
+import Link from 'next/link';
 
 
 const createFinancementSchema = z.object({
@@ -86,6 +87,7 @@ export default function Simular(){
     const refBackStepImg = useRef<HTMLImageElement>(null)
     const refNextStepImg = useRef<HTMLImageElement>(null)
     const [protocol,setProtocol] = useState('')
+    const refSpan = useRef<HTMLSpanElement>(null)
 
     
     const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
@@ -346,18 +348,49 @@ export default function Simular(){
     return(
         <div className={style.box}>
         <main className={style.container} ref={refContainer}>
+        <header className={style.header}>
+                    <nav>
+                    <h1>LOGO</h1>
+                        <ul>
+                            <Link href={'/home'}><li>Inicio</li></Link>
+                            <Link href={'/sobre'}><li>Sobre</li></Link>
+                            <Link href={'/contato'}><li>Contate-nos</li></Link>
+                        </ul>
+                        <Link href={'/simular'}><button>Simular</button></Link>
+                    </nav>
+
+                    <div className={style.input}>
+                        <input 
+                        type="text" 
+                        placeholder='Pesquise pelo seu protocolo ...'
+                        onFocus={()=>{
+                            if (refSpan.current) {
+                                refSpan.current.style.marginLeft = '-30px'
+                            }
+                        }}
+                        onBlur={()=>{
+                            if (refSpan.current) {
+                                refSpan.current.style.marginLeft = '0px'
+                            }
+                        }}
+                        />
+                        <span ref={refSpan}></span>
+                    </div>
+            </header>
+            
             <section className={style.content}>
-                <h1>Simule seu financiamento</h1>
-                <h2>Encontre a melhor opção para realizar o sonho da casa própria em poucas minutos</h2>
-                <h2>Olá</h2>
+                <span>Simule seu financiamento</span>
+                <span>Encontre a melhor opção para realizar o sonho da casa própria em poucas minutos</span>
                 <div className={style.steps}>
                     <div ref={refFirstStep}>
-                    <span>1</span>
+                        <div className={style.circle}><span>1</span></div>
                     <p>Dados de financiamento</p>
                     </div>
 
                     <div ref={refSecondStep}>
-                    <span>2</span>
+                        <div className={style.circle}>
+                        <span>2</span>
+                        </div>
                     <p>Dados pessoais</p>
                     </div>
                 </div>

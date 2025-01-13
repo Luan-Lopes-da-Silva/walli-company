@@ -52,7 +52,7 @@ export default function Home(){
                 type="text" 
                 value={search}
                 onChange={(ev)=>setSearch(ev.currentTarget.value)}
-                placeholder='Busque o seu processo'
+                placeholder='Pesquise pelo seu protocolo ...'
                 onFocus={()=>{
                     if(refSpan.current){
                         refSpan.current.style.marginLeft = '-30px'
@@ -113,7 +113,7 @@ export default function Home(){
                             alt='Financiamento imobiliario foto'
                             src={financementImg}
                             />
-                            <button>Ver mais</button>
+                            <button><Link href={'/financiamento'}>Ver mais</Link></button>
                         </div>
                         
                         <div>
@@ -124,7 +124,7 @@ export default function Home(){
                             alt='Crédito com garantia de imóvel foto'
                             src={creditImg}
                             />
-                            <button>Ver mais</button>
+                            <button><Link href={'/credito'}>Ver mais</Link></button>
                         </div>
                     </div>
 
