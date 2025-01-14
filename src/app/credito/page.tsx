@@ -4,7 +4,8 @@ import style from './credito.module.scss'
 import homeSvg from '@/../public/assets/homeSvg.svg'
 import lowTaxsSvg from '@/../public/assets/lowTaxs.svg'
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Financement } from '@/utils/types'
 
 export default function Credito(){
     useEffect(()=>{
@@ -12,10 +13,35 @@ export default function Credito(){
     })
 
     const refSpan = useRef<HTMLSpanElement>(null)
+    const refLoading = useRef<HTMLDivElement>(null)
+    const refContainer = useRef<HTMLDivElement>(null)
+    const [search,setSearch] = useState('')
+
+    async function getProcess() {
+        const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
+                const converseDb:Financement[]= await findInDb.json()
+                const findProcess = converseDb.filter(p=>p.protocol === search)
+                if(search === ''){
+                    alert('Digite um numero de protocolo')
+                   }else if(findProcess.length>0 && findInDb.status==200 && refLoading.current && refContainer.current){
+                    refLoading.current.style.display = 'block'
+                    refContainer.current.style.filter = 'brightness(0.4)'
+                    setTimeout(() => {
+                        window.location.href = `/meuprocesso/${findProcess[0].protocol}`
+                    }, 2000);
+                   }else{
+                    alert('Protocolo não encontrado')
+                }
+    }
 
     return(
         <>
             <div className={style.container}>
+                <div className={style.loading} ref={refLoading}>
+                    <span></span>
+                    <p>Buscando seu numero de protocolo</p>
+                </div>
+                <div className={style.content} ref={refContainer}>
                 <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
@@ -31,6 +57,8 @@ export default function Credito(){
                         <input 
                         type="text" 
                         placeholder='Pesquise pelo seu protocolo ...'
+                        onChange={(ev)=>setSearch(ev.currentTarget.value)}
+                        value={search}
                         onFocus={()=>{
                             if (refSpan.current) {
                                 refSpan.current.style.marginLeft = '-30px'
@@ -43,7 +71,7 @@ export default function Credito(){
                         }}
                         />
 
-                        <span ref={refSpan}></span>
+                        <span ref={refSpan} onClick={getProcess}></span>
                     </div>
                 </header>
                 <main>
@@ -86,6 +114,7 @@ export default function Credito(){
                         <span>Duvidas</span>
                     </div>
                 </main>
+                </div>
             </div>
         </>
     )

@@ -157,8 +157,8 @@ export default function Home(){
             </div>
 
             <div className={style.loading} ref={refLoading}>
-                <p>Buscando o seu protocolo...</p>
-                <div className={style.ldsRoller} ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    <span></span>
+                    <p>Buscando seu numero de protocolo</p>
             </div>
             </div>
     )

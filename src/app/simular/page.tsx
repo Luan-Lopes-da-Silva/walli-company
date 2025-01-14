@@ -11,6 +11,7 @@ import backSvg from '@/../public/assets/Vector-1.svg'
 import backActiveSvg from '@/../public/assets/Vector2.svg'
 import Image from 'next/image'
 import Link from 'next/link';
+import { Financement } from '@/utils/types';
 
 
 const createFinancementSchema = z.object({
@@ -65,6 +66,25 @@ export default function Simular(){
     useEffect(()=>{
         window.document.title = 'Simular'   
     })
+
+      async function getProcess() {
+                const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
+                        const converseDb:Financement[]= await findInDb.json()
+                        const findProcess = converseDb.filter(p=>p.protocol === search)
+                        if(search === ''){
+                            alert('Digite um numero de protocolo')
+                           }else if(findProcess.length>0 && findInDb.status==200 && refSearch.current && refContainer.current){
+                            refSearch.current.style.display = 'block'
+                            refContainer.current.style.filter = 'brightness(0.4)'
+                            setTimeout(() => {
+                                window.location.href = `/meuprocesso/${findProcess[0].protocol}`
+                            }, 2000);
+                           }else{
+                            alert('Protocolo não encontrado')
+                        }
+    }
+
+    const refSearch = useRef<HTMLDivElement>(null)
     const refFirstForm = useRef<HTMLFormElement>(null)
     const refPDF = useRef<HTMLDivElement>(null)
     const refSecondForm = useRef<HTMLFormElement>(null)
@@ -88,6 +108,7 @@ export default function Simular(){
     const refNextStepImg = useRef<HTMLImageElement>(null)
     const [protocol,setProtocol] = useState('')
     const refSpan = useRef<HTMLSpanElement>(null)
+    const [search,setSearch] = useState('') 
 
     
     const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
@@ -122,9 +143,7 @@ export default function Simular(){
     function nextStep(){
         setCount(1)
         console.log(count)
-        if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refNextStepImg.current && refBackStepImg.current){
-            refFirstStepCircle.current.style.backgroundColor = 'transparent'
-            refSecondStepCircle.current.style.backgroundColor = '#0091A4'
+        if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refNextStepImg.current && refBackStepImg.current){ 
             refText.current.innerText = `Durante o processo de financiamento, você receberá um número de protocolo exclusivo ${protocol}. Este número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário`
             refBackStepImg.current.src = backActiveSvg.src
         }
@@ -191,26 +210,25 @@ export default function Simular(){
 
 
     function onSubmit(data:firstFormData){
-        if(refFirstForm.current && refSecondForm.current && refFirstStep && refSecondStep){
+        if(refFirstForm.current && refSecondForm.current && refFirstStep.current && refSecondStep.current){
             refFirstForm.current.style.display = 'none'
             refSecondForm.current.style.display = 'block'
+            const p = refFirstStep.current.querySelector('p')
+            const span = refFirstStep.current.querySelector('span')
+            const div = refFirstStep.current.querySelector('div')
+            const secondP = refSecondStep.current.querySelector('p')
+            const secondSpan = refSecondStep.current.querySelector('span')
+            const secondDiv = refSecondStep.current.querySelector('div')
+            
+            if(p && span && div && secondP && secondSpan && secondDiv){
+                div.style.borderColor = '#868686'
+                p.style.color = '#868686'
+                span.style.color = '#868686'
 
-            const refFirstStepDiv = refFirstStep
-            const firstSpan = refFirstStepDiv.current?.querySelector('span')
-            const firstP = refFirstStepDiv.current?.querySelector('p')
-            const refSecondStepDiv = refSecondStep
-            const secondSpan = refSecondStepDiv.current?.querySelector('span')
-            const secondP = refSecondStepDiv.current?.querySelector('p')
-
-            if(firstSpan && secondSpan && firstP && secondP){
-                firstSpan.style.borderColor = '#1A484E'
-                firstSpan.style.color = '#1A484E'
-                firstP.style.color = '#1A484E'
-                secondSpan.style.borderColor = '#FFFFFF'
-                secondSpan.style.color = '#FFFFFF'
-                secondP.style.color = '#FFFFFF'
+                secondDiv.style.borderColor = '#028DA5'
+                secondP.style.color = '#028DA5'
+                secondSpan.style.color = '#028DA5'
             }
-
             setFirstFormDatas(data)
         }
       }
@@ -324,29 +342,39 @@ export default function Simular(){
       }
 
       function backStep(){
-        if(refFirstForm.current && refSecondForm.current && refFirstStep && refSecondStep){
+        if(refFirstForm.current && refSecondForm.current && refFirstStep.current && refSecondStep.current){
             refFirstForm.current.style.display = 'block'
             refSecondForm.current.style.display = 'none'
 
-            const refFirstStepDiv = refFirstStep
-            const firstSpan = refFirstStepDiv.current?.querySelector('span')
-            const firstP = refFirstStepDiv.current?.querySelector('p')
-            const refSecondStepDiv = refSecondStep
-            const secondSpan = refSecondStepDiv.current?.querySelector('span')
-            const secondP = refSecondStepDiv.current?.querySelector('p')
+            const button = refFirstForm.current.querySelector('button')
+            const p = refFirstStep.current.querySelector('p')
+            const span = refFirstStep.current.querySelector('span')
+            const div = refFirstStep.current.querySelector('div')
+            const secondP = refSecondStep.current.querySelector('p')
+            const secondSpan = refSecondStep.current.querySelector('span')
+            const secondDiv = refSecondStep.current.querySelector('div')
+            
+            if(p && span && div && secondP && secondSpan && secondDiv && button){
+                button.disabled = true
+                button.removeEventListener('click', backStep)
+                div.style.borderColor = '#028DA5'
+                p.style.color = '#028DA5'
+                span.style.color = '#028DA5'
 
-            if(firstSpan && secondSpan && firstP && secondP){
-                firstSpan.style.borderColor = '#FFFFFF'
-                firstSpan.style.color = '#FFFFFF'
-                firstP.style.color = '#FFFFFF'
-                secondSpan.style.borderColor = '#1A484E'
-                secondSpan.style.color = '#1A484E'
-                secondP.style.color = '#1A484E'
+                secondDiv.style.borderColor = '#868686'
+                secondP.style.color = '#868686'
+                secondSpan.style.color = '#868686'
             }
         }
       }
+
+
     return(
         <div className={style.box}>
+            <div className={style.searchLoading} ref={refSearch}>
+                <span></span>
+                <p>Buscando seu numero de protocolo</p>
+            </div>
         <main className={style.container} ref={refContainer}>
         <header className={style.header}>
                     <nav>
@@ -363,6 +391,8 @@ export default function Simular(){
                         <input 
                         type="text" 
                         placeholder='Pesquise pelo seu protocolo ...'
+                        value={search}
+                        onChange={(ev)=>setSearch(ev.currentTarget.value)}
                         onFocus={()=>{
                             if (refSpan.current) {
                                 refSpan.current.style.marginLeft = '-30px'
@@ -374,7 +404,7 @@ export default function Simular(){
                             }
                         }}
                         />
-                        <span ref={refSpan}></span>
+                        <span ref={refSpan} onClick={getProcess}></span>
                     </div>
             </header>
             
@@ -383,7 +413,7 @@ export default function Simular(){
                 <span>Encontre a melhor opção para realizar o sonho da casa própria em poucas minutos</span>
                 <div className={style.steps}>
                     <div ref={refFirstStep}>
-                        <div className={style.circle}><span>1</span></div>
+                    <div className={style.circle}><span>1</span></div>
                     <p>Dados de financiamento</p>
                     </div>
 

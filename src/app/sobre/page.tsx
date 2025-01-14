@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import style from './sobre.module.scss'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import svgTech from '@/../public/assets/computer.svg'
+import { Financement } from '@/utils/types'
 
 export default function Sobre(){
     useEffect(()=>{
@@ -12,9 +13,34 @@ export default function Sobre(){
     })
 
     const refSpan = useRef<HTMLSpanElement>(null)
+    const refLoading = useRef<HTMLDivElement>(null)
+    const refContainer = useRef<HTMLDivElement>(null)
+    const [search, setSearch] = useState('')
+
+      async function getProcess() {
+            const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
+                    const converseDb:Financement[]= await findInDb.json()
+                    const findProcess = converseDb.filter(p=>p.protocol === search)
+                    if(search === ''){
+                        alert('Digite um numero de protocolo')
+                       }else if(findProcess.length>0 && findInDb.status==200 && refLoading.current && refContainer.current){
+                        refLoading.current.style.display = 'block'
+                        refContainer.current.style.filter = 'brightness(0.4)'
+                        setTimeout(() => {
+                            window.location.href = `/meuprocesso/${findProcess[0].protocol}`
+                        }, 2000);
+                       }else{
+                        alert('Protocolo não encontrado')
+                    }
+    }
 
     return(
         <div className={style.container}>
+            <div className={style.loading} ref={refLoading}>
+                    <span></span>
+                    <p>Buscando seu numero de protocolo</p>
+            </div>
+            <div className={style.content} ref={refContainer}>
             <Link href={'/simular'}><button className={style.button}>Simular</button></Link>
             <header className={style.header}>
                     <nav>
@@ -29,6 +55,8 @@ export default function Sobre(){
                 <input 
                 type="text" 
                 placeholder='Pesquise pelo seu protocolo ...'
+                value={search}
+                onChange={(ev)=>setSearch(ev.currentTarget.value)}
                 onFocus={()=>{
                     if (refSpan.current) {
                         refSpan.current.style.marginLeft = '-30px'
@@ -40,8 +68,7 @@ export default function Sobre(){
                     }
                 }}
                 />
-
-                <span ref={refSpan}></span>
+                <span ref={refSpan} onClick={getProcess}></span>
                 </div>
                 
                 </div>
@@ -119,5 +146,8 @@ export default function Sobre(){
 
                </footer>
         </div>
+
+        </div>    
+        
     )
 }

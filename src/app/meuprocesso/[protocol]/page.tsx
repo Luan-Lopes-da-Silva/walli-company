@@ -60,6 +60,7 @@ export default async function MeuProcesso({ params }:any) {
   }
 
   const getDatas = await getInfos()
+  console.log(getDatas)
   
 
   return (
@@ -96,17 +97,16 @@ export default async function MeuProcesso({ params }:any) {
                         <Link href={'/simular'}><button>simular</button></Link>
                     </nav>
       </header>
-      <div className={style.container}>
-        
-        <h1>{getDatas?.clientname}</h1>
+      <div className={style.container}>  
+        <p className={style.client}>{getDatas?.clientname}</p>
           {getDatas.consultantname==''?(
              <section className={style.consultant}>
-              <h2>Dados do consultor</h2>
+              <span>Dados do consultor</span>
              <p>No momento seu processo não foi repassado para nenhum consultor aguarde e seu processo sera iniciado.</p>
              </section>
           ):(
           <section className={style.consultant}>
-            <h2>Dados do consultor</h2>
+            <span>Dados do consultor</span>
               <ul>
                 <li>Nome: {getDatas?.consultantname}</li>
                 <li>Email: {getDatas?.consultantemail}</li>
@@ -116,7 +116,7 @@ export default async function MeuProcesso({ params }:any) {
           )}
           
         <section className={style.imobille}>
-          <h2>Dados do imóvel</h2>
+          <span>Dados do imóvel</span>
           <ul>
             <li>Valor do imóvel: R$ {getDatas?.valueimobille}</li>
             <li>Valor de entrada: R$ {getDatas?.prohibitedvalue}</li>
@@ -126,12 +126,12 @@ export default async function MeuProcesso({ params }:any) {
         </section>
         {getDatas.consultantname==''?(
           <section className={style.status}>
-            <h2>Status</h2>
+            <span>Status</span>
             <p>Aguardando aceite de um consultor para dar inicio.</p>
           </section>
         ):(
           <section className={style.status}>
-            <h2>Status</h2>
+            <span>Status</span>
               <div className={style.statusContainer}>
 
               </div>

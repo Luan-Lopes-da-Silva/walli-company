@@ -35,6 +35,36 @@ $black: #000000;
 
 .box{
     position: relative;
+
+    .searchLoading{
+            position: absolute;
+            z-index: 700000;
+            background-color: $primary-color;
+            left: 44%;
+            top: 20%;
+            height: max-content;
+            padding: 24px;
+            display: none;
+    
+            span{
+                width: 50px;
+                height: 4px;
+                background-color: $secondary-color;
+                display: block;        
+                animation: 1s infinite loading;
+                margin: auto auto;
+            }
+    
+            p{
+                font-size: 1.4rem;
+                font-family: 'Text';
+                margin-top: 30px;
+                width: 150px;
+                text-align: center;
+            }
+    }
+
+
     .container{
         width: 100%;
         padding-bottom: 7.5rem;
@@ -352,27 +382,38 @@ $black: #000000;
                     align-items: center;
                     gap: .25rem;
     
-                    span{
-                        font-size: 3rem;
-                        font-family: 'Alternative-Titles';
-                        border: .1875rem solid #1A484E;
-                        border-radius: 50%;
-                        padding: .375rem 1.5rem;
-                    }
-    
-                    p{
-                        font-family: 'Text';
-                        font-size: 1.2rem;
-                        color: #1A484E;
-                    }
+                   .circle{
+                    border: 2px solid $secondary-grey;
+                    border-radius: 50%;
+                    width: 100px;
+                    height: 100px;
+                    position: relative;
+                   }
+
+                   span{
+                    color: $secondary-grey;
+                    font-family: 'Alternative-Titles';
+                    line-height: 1;
+                    vertical-align: center;
+                    position: absolute;
+                    left: 30%;
+                    top: 40%;
+                   }
+
+                   p{
+                    color: $secondary-grey;
+                    font-family: 'Alternative-Titles';
+                    line-height: 1;
+                    font-size: 1.2rem;
+                }
                 }
             }
     
             .firstForm{
                 label{
                     display: block;
-                    font-size: 1.2rem;
-                    font-family: 'Text';
+                    font-size: 1.5rem;
+                    font-family: 'Label';
                 }
     
                 input,select{
@@ -382,16 +423,16 @@ $black: #000000;
                     font-size: 1rem;
                     width: 18.75rem;
                     padding: .5rem .25rem;
-                    background-color:#1b263b;
+                    background-color:$secondary-grey;
                     border-radius: .75rem;
-                    border: .125rem solid #415a77;
-                    color: #0d1b2a;
+                    border: .125rem solid $secondary-color;
+                    color: $secondary-color;
                     transition: .4s;
     
                     &:focus{
-                    border-color: #1b263b;
-                    background-color: #415a77;
-                    color: #778da9;
+                    border-color: $secondary-grey;
+                    background-color: $secondary-color;
+                    color: $secondary-grey;
                     }
                 }
     
@@ -416,29 +457,32 @@ $black: #000000;
                         padding: .375rem 1.5rem;
                         border-radius: .25rem;
                         transition: .4s;
-                        border: .125rem solid #023047;
-                        background-color: #219ebc;
+                        border: .125rem solid $primary-grey;
+                        background-color: $secondary-color;
+                        font-family: 'Titles';
+                        color: $primary-grey;
+                        font-size: 1.2rem;
                         
                         &:disabled{
                             cursor: not-allowed;
                             padding: .375rem 1.5rem;
                             width: 9.375rem;
-                            background-color: #1A484E;
-                            border: .125rem solid #146D79;
+                            background-color: $secondary-grey;
+                            border: .125rem solid $primary-grey;
                             border-radius: .25rem;
-                            color: inherit;
-    
+                            color: $primary-grey;
+
                             &:hover{
-                                color: #000;
-                                background-color: #1A484E;
-                                border: .125rem solid #146D79;
+                                border-color: $primary-grey;
+                                background-color: $secondary-grey;
+                                color: $primary-grey;
                             }
                         }
     
                         &:hover{
-                            border-color: #FFF;
-                            background-color: #023047;
-                            color: #FFF;
+                            border-color: $secondary-color;
+                            background-color: $primary-grey;
+                            color: $secondary-color;
                         }
                     }
                 }
@@ -446,29 +490,30 @@ $black: #000000;
     
             .secondForm{
                 display: none;
+                
                 label{
                     display: block;
-                    font-size: 1.2rem;
-                    font-family: 'Text';
+                    font-size: 1.5rem;
+                    font-family: 'Label';
                 }
     
-                input,select{
+                input{
                     margin-top: .25rem;
                     margin-bottom: 1rem;
                     font-family: 'Text';
                     font-size: 1rem;
                     width: 18.75rem;
                     padding: .5rem .25rem;
-                    background-color:#1b263b;
+                    background-color:$secondary-grey;
                     border-radius: .75rem;
-                    border: .125rem solid #415a77;
-                    color: #0d1b2a;
+                    border: .125rem solid $secondary-color;
+                    color: $secondary-color;
                     transition: .4s;
     
                     &:focus{
-                    border-color: #1b263b;
-                    background-color: #415a77;
-                    color: #778da9;
+                    border-color: $secondary-grey;
+                    background-color: $secondary-color;
+                    color: $secondary-grey;
                     }
                 }
     
@@ -493,13 +538,16 @@ $black: #000000;
                         padding: .375rem 1.5rem;
                         border-radius: .25rem;
                         transition: .4s;
-                        border: .125rem solid #023047;
-                        background-color: #219ebc;
-                        
+                        border: .125rem solid $primary-grey;
+                        background-color: $secondary-color;
+                        font-family: 'Titles';
+                        color: $primary-grey;
+                        font-size: 1.2rem;
+    
                         &:hover{
-                            border-color: #FFF;
-                            background-color: #023047;
-                            color: #FFF;
+                            border-color: $secondary-color;
+                            background-color: $primary-grey;
+                            color: $secondary-color;
                         }
                     }
                 }
@@ -895,3 +943,12 @@ $black: #000000;
     }
 }
 
+@keyframes loading {
+    0%{
+        margin-left: 0px;
+    }
+
+    100%{
+        margin-left: 100px;
+    }
+}
