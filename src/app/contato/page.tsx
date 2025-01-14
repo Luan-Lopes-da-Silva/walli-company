@@ -2,11 +2,8 @@
 
 import Link from 'next/link'
 import style from './contato.module.scss'
-import Image from 'next/image'
-import emailSvg from '../../../public/assets/email-icon.svg'
-import phoneSvg from '../../../public/assets/phone-icon.svg'
-import wppSvg from '../../../public/assets/wpp-icon1.svg'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Financement } from '@/utils/types'
 
 export default function Contate(){
     useEffect(()=>{
@@ -14,11 +11,37 @@ export default function Contate(){
     })
 
     const refSpan = useRef<HTMLSpanElement>(null)
+    const refContentContainer = useRef<HTMLDivElement>(null)
+    const refLoading = useRef<HTMLDivElement>(null)
+    const [search,setSearch] = useState('')
+
+     async function getProcess() {
+                    const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
+                            const converseDb:Financement[]= await findInDb.json()
+                            const findProcess = converseDb.filter(p=>p.protocol === search)
+                            if(search === ''){
+                                alert('Digite um numero de protocolo')
+                               }else if(findProcess.length>0 && findInDb.status==200 && refLoading.current && refContentContainer.current){
+                                refLoading.current.style.display = 'block'
+                                refContentContainer.current.style.filter = 'brightness(0.4)'
+                                setTimeout(() => {
+                                    window.location.href = `/meuprocesso/${findProcess[0].protocol}`
+                                }, 2000);
+                               }else{
+                                alert('Protocolo não encontrado')
+                            }
+    }
+
 
     return(
-        <div className={style.container}>
+        <div className={style.box}>
             <Link href={'/simular'}><button className={style.button}>Simular</button></Link>
-             <header className={style.header}>
+            <div className={style.loading} ref={refLoading}>
+                <span></span>
+                <p>Buscando seu numero de protocolo</p>
+            </div>
+            <div ref={refContentContainer} className={style.contentContainer}>
+            <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
                         <ul>
@@ -33,6 +56,8 @@ export default function Contate(){
                         <input 
                         type="text" 
                         placeholder='Pesquise pelo seu protocolo ...'
+                        value={search}
+                        onChange={(ev)=>setSearch(ev.currentTarget.value)}
                         onFocus={()=>{
                             if(refSpan.current){
                                 refSpan.current.style.marginLeft = '-30px'
@@ -44,7 +69,7 @@ export default function Contate(){
                             }
                         }}
                         />
-                        <span ref={refSpan}></span>
+                        <span ref={refSpan} onClick={getProcess}></span>
                     </div>
             </header>
 
@@ -73,6 +98,7 @@ export default function Contate(){
                     <button>Enviar</button>
                 </form>
             </main>
+            </div>
         </div>
     )
 }
