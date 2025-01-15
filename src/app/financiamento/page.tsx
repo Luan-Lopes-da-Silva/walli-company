@@ -7,8 +7,6 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import { Financement } from '@/utils/types'
-import { useToast } from '@/hooks/use-toast'
-import { ToastAction } from '@/components/ui/toast'
 
 
 export default function Financiamento(){
