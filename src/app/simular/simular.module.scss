@@ -838,6 +838,11 @@ $black: #000000;
         .container{
             .content{
                 .containerPDF{
+                    display: none;
+
+                    @media print{
+                        display: block;
+                    }
 
                     .tableContainer{
                         .headerTable{

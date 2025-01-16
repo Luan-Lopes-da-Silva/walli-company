@@ -4,8 +4,10 @@ import Link from 'next/link'
 import style from './contato.module.scss'
 import { useEffect, useRef, useState } from 'react'
 import { Financement } from '@/utils/types'
+import {useReactToPrint} from 'react-to-print'
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import Image from 'next/image'
+
 
 export default function Contate(){
     useEffect(()=>{
@@ -17,6 +19,8 @@ export default function Contate(){
     const refError = useRef<HTMLDivElement>(null)
     const refLoading = useRef<HTMLDivElement>(null)
     const [search,setSearch] = useState('')
+    const refTest = useRef<HTMLDivElement>(null)
+    const reactToPrintFN = useReactToPrint({contentRef:refTest})
 
     async function searchProcess(){
         const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
@@ -106,6 +110,14 @@ export default function Contate(){
 
             <main>
                 <span>Contate-nos</span>
+
+                <button onClick={()=>reactToPrintFN()}>PDF</button>
+
+                <div ref={refTest} className={style.pdfContent}>
+                    <p style={{
+                        color:'red'
+                    }}>Teste de pdf</p>
+                </div>
 
                 <form>
                     <label htmlFor="name">Nome</label>

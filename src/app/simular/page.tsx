@@ -322,8 +322,7 @@ export default function Simular(){
       
       async function onSubmitSecondForm(data:secondFormData){
         setSecondFormDatas(data)
-        if(refSummary.current && refPDF.current && refTable.current){
-            refPDF.current.style.display = 'block'
+        if(refSummary.current && refTable.current){
             refSummary.current.style.display = 'block'
             setHouseValue(firstFormDatas.imobilleValue)
             setFinancementValue(firstFormDatas.financedValue)

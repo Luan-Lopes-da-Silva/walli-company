@@ -231,6 +231,14 @@ $black: #000000;
         }
     
         main{
+            .pdfContent{
+               display: none; 
+
+               @media print{
+                display: block;
+               }
+            }
+
             span{
                 display: block;
                 padding: 15.5rem 5rem;
