@@ -558,6 +558,7 @@ export default function Simular(){
 
            
         </main>
+        
         <div className={style.modal} ref={refModal}>
                      <p ref={refText}>Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!</p>
                    <div>

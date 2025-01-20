@@ -1,0 +1,87 @@
+$primary-color: #D3D664;
+$secondary-color: #028DA5;
+$primary-grey: #ECECEC;
+$secondary-grey: #868686;
+$white: #FFFFFF;
+$black: #000000;
+
+
+
+@font-face {
+    font-family: 'Lis';
+    src: url('../../../../public/fonts/Neris-SemiBold.otf');
+}
+
+@font-face {
+    font-family: 'Titles';
+    src: url('../../../../public/fonts/Neris-Black.otf');
+}
+
+@font-face {
+    font-family: 'Alternative-Titles';
+    src: url('../../../../public/fonts/Diamonds-Regular.otf');
+}
+
+@font-face {
+    font-family: 'Text';
+    src: url('../../../../public/fonts/Neris-Thin.otf');
+}
+
+@font-face {
+    font-family: 'Label';
+    src: url('../../../../public/fonts/Neris-SemiBold.otf');
+}
+
+
+
+.container{
+    width: 100%;
+    height: 100vh;
+    background-color: $secondary-grey;
+    padding: 60px 20px;
+
+    .summary{
+        display: flex;
+        gap: 42px;
+
+        table{
+            margin: 20px 0px;
+            font-family: 'Alternative-Titles';
+            width: 500px;
+            
+
+         tr:nth-child(1){
+            div{
+                padding: 16px;
+                width: 100%;
+                background-color: $primary-color;
+                display: flex;
+                justify-content: space-between;
+            }
+         }
+         
+         tr:nth-child(2){
+            div{
+                margin-top: -2px;
+                padding: 16px;
+                width: 100%;
+                background-color: $secondary-color;
+                display: flex;
+                justify-content: space-between;
+                text-align: center;
+            }
+         }
+
+         tr:nth-child(3){
+            div{
+                background-color: blue;
+            }
+         }
+
+         
+        
+        }
+    
+        
+    }
+}
