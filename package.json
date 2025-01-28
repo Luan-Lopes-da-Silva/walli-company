@@ -20,6 +20,8 @@
     "jspdf": "^2.5.2",
     "lucide-react": "^0.471.1",
     "next": "15.1.2",
+    "nextjs-pdf": "^0.2.0",
+    "pspdfkit": "^2024.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.1",

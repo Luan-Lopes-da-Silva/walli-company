@@ -4,8 +4,6 @@ import {  useForm } from 'react-hook-form'
 import {z} from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import {useEffect, useRef, useState } from 'react'
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import forwardSvg from '@/../public/assets/Vector.svg'
 import backSvg from '@/../public/assets/Vector-1.svg'
 import backActiveSvg from '@/../public/assets/Vector2.svg'
@@ -264,47 +262,12 @@ export default function Simular(){
       };
 
       async function createAndSavePDF(){
-        if(refLoading.current && refContainer.current){
-            refLoading.current.style.display='block'
-            refContainer.current.style.filter='brightness(40%)'
-        }
-        try {
-            if(refPDF.current){
-                const element = refPDF.current
-                
-                const canvas = await html2canvas(element,{scale:1})
-                const imgData = canvas.toDataURL("image/jpeg", 1)
-    
-               const pdf = new jsPDF("p", "mm", "a4")
-               
-               const pdfWidth = pdf.internal.pageSize.getWidth()
-               console.log(pdfWidth)
-               const imgWidth = pdfWidth
-               const pageHeight = 297
-               const imgHeight = (canvas.height * imgWidth) / canvas.width
-    
-               let position = 0
-    
-               pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight)
-                if(imgHeight>pageHeight){
-                    let heightLeft = imgHeight - pageHeight
-                    while(heightLeft>0){
-                        position = heightLeft - imgHeight
-                        pdf.addPage()
-                        pdf.addImage(imgData, "JPEG",0, position, imgWidth, imgHeight)
-                        heightLeft -= pageHeight
-                    }
-                }
-                pdf.save("simulation.pdf")
-            }
-        } catch (error) {
-            console.log(error)
-        }finally{
-            if(refLoading.current && refContainer.current){
-                refLoading.current.style.display='none'
-                refContainer.current.style.filter='brightness(100%)'
-            }
-        }
+        const formatImobilleValue = houseValue.replace('.','')
+        const formatImobilleValue2 = formatImobilleValue.replace(',','')
+        const formatFinancementValue = financementValue.replace(',','')
+        const formatFinancementValue2 = formatFinancementValue.replace('.','')
+        const expanseValue = (5*Number(formatImobilleValue2))/100
+        window.open(`/api/generate-pdf?imobillevalue=${formatImobilleValue2}&financementvalue=${formatFinancementValue2}&parcels=${Number(parcelNumber)}&expanse=${expanseValue}&amortization=${amortization}`, '_blank')
       }
 
       
