@@ -55,6 +55,34 @@ $text-color:#000000;
     }
 }
 
+@media(max-width:600px){
+  .main{     
+    .container{
+      h1{
+        font-size: 1.2rem;
+        width: max-content;
+        margin: 60px auto;
+      }
+      
+      img{
+        width: 150px;
+        height: 150px;
+      }   
+    }
+
+    .logo{
+      div{
+        width: 4rem;
+        height: 4rem;
+
+        h2{
+          font-size:1rem ;
+        }
+      }
+    }
+  }
+}
+
 
  
 
