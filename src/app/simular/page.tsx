@@ -4,8 +4,6 @@ import {  useForm } from 'react-hook-form'
 import {z} from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import {useEffect, useRef, useState } from 'react'
-import forwardSvg from '@/../public/assets/Vector.svg'
-import backSvg from '@/../public/assets/Vector-1.svg'
 import backActiveSvg from '@/../public/assets/Vector2.svg'
 import Image from 'next/image'
 import Link from 'next/link';
@@ -108,7 +106,6 @@ export default function Simular(){
     const refFirstStep = useRef<HTMLDivElement>(null)
     const refSecondStep = useRef<HTMLDivElement>(null)
     const refSummary = useRef<HTMLDivElement>(null)
-    const refModal = useRef<HTMLDivElement>(null)
     const refLoading = useRef<HTMLDivElement>(null)
     const refContainer = useRef<HTMLElement>(null)
     const refTable = useRef<HTMLTableElement>(null)
@@ -129,7 +126,6 @@ export default function Simular(){
     const refError = useRef<HTMLDivElement>(null)
     const refMenuContainer = useRef<HTMLDivElement>(null)
     const refMenu = useRef<HTMLUListElement>(null)
-    const [countMenu,setCountMenu] = useState(0)
     const refContent = useRef<HTMLElement>(null)
 
     
@@ -165,6 +161,8 @@ export default function Simular(){
     function nextStep(){
         setCount(1)
         console.log(count)
+        console.log(firstFormDatas,secondFormDatas)
+        const protocol = generateProtocol()
         if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refNextStepImg.current && refBackStepImg.current){ 
             refText.current.innerText = `Durante o processo de financiamento, você receberá um número de protocolo exclusivo ${protocol}. Este número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário`
             refBackStepImg.current.src = backActiveSvg.src
