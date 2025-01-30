@@ -8,6 +8,7 @@ import { useEffect, useState,useRef } from 'react'
 import Link from 'next/link'
 import { Financement } from '@/utils/types'
 import closeImg from '../../../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 
 export default function Home(){
     useEffect(()=>{
@@ -60,7 +61,17 @@ export default function Home(){
                 <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
+
+                    <div className={style.menu}>
+                                <Image
+                                    width={24}
+                                    height={24}
+                                    alt='Menu icon'
+                                    src={menuImg}
+                                />
+                            </div>
                         <ul>
+                            
                             <Link href={'/home'}><li>Inicio</li></Link>
                             <Link href={'/sobre'}><li>Sobre</li></Link>
                             <Link href={'/contato'}><li>Contate-nos</li></Link>
