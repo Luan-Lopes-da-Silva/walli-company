@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import { Financement } from '@/utils/types'
+import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+
 
 
 export default function Financiamento(){
@@ -18,7 +20,10 @@ export default function Financiamento(){
     const refContainer = useRef<HTMLDivElement>(null)
     const refError = useRef<HTMLDivElement>(null)
     const refLoading = useRef<HTMLDivElement>(null)
-    
+    const refMenuContainer = useRef<HTMLDivElement>(null)
+    const refMenu = useRef<HTMLUListElement>(null)
+    const [count,setCount] = useState(0)
+    const refContent = useRef<HTMLElement>(null)
     const [search,setSearch] = useState('')
    
 
@@ -55,6 +60,22 @@ export default function Financiamento(){
             }
         }
 
+        function showMenu(){
+            setCount(prevCount=>prevCount+1)
+            if(count%2==1 && refMenuContainer.current && refContent.current && refMenu.current){
+                refMenuContainer.current.style.backgroundColor='#028DA5'
+                refContent.current.style.filter='brightness(0.5)'
+                refMenu.current.style.display='block'
+            }else{
+                if(refMenuContainer.current && refContent.current && refMenu.current ){
+                    refMenuContainer.current.style.backgroundColor='transparent'
+                    refContent.current.style.filter='brightness(1)'
+                    refMenu.current.style.display='none'
+                }
+    
+            }
+        }
+
     return(
         <div className={style.box}>
               <div className={style.loading} ref={refLoading}>
@@ -77,7 +98,16 @@ export default function Financiamento(){
                 <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
-                        <ul>
+                    <div className={style.menu} ref={refMenuContainer}>
+                                <Image
+                                    width={24}
+                                    height={24}
+                                    alt='Menu icon'
+                                    src={menuImg}
+                                    onClick={showMenu}
+                                />
+                    </div>
+                        <ul ref={refMenu}>
                             <Link href={'/home'}><li>Inicio</li></Link>
                             <Link href={'/sobre'}><li>Sobre</li></Link>
                             <Link href={'/contato'}><li>Contate-nos</li></Link>
@@ -106,7 +136,7 @@ export default function Financiamento(){
                         <span ref={refSpan} onClick={searchProcess}></span>
                     </div>
                 </header>
-                <main>
+                <main ref={refContent}>
                     <span>Financiamento imobiliario</span>
                     <p>O financiamento imobiliário é uma forma de crédito voltada para a compra de um imóvel. Ele é comumente oferecido por bancos e financeiras, sendo uma das opções mais populares para quem deseja adquirir um imóvel residencial ou comercial.</p>
                 

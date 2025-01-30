@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { Financement } from '@/utils/types'
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+
 
 export default function Credito(){
     useEffect(()=>{
@@ -18,6 +20,10 @@ export default function Credito(){
     const refContainer = useRef<HTMLDivElement>(null)
     const refError = useRef<HTMLDivElement>(null)
     const [search,setSearch] = useState('')
+    const refMenuContainer = useRef<HTMLDivElement>(null)
+    const refMenu = useRef<HTMLUListElement>(null)
+    const [count,setCount] = useState(0)
+    const refContent = useRef<HTMLElement>(null)
 
     async function searchProcess(){
         const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
@@ -52,6 +58,22 @@ export default function Credito(){
         }
     }
 
+    function showMenu(){
+        setCount(prevCount=>prevCount+1)
+        if(count%2==1 && refMenuContainer.current && refContent.current && refMenu.current){
+            refMenuContainer.current.style.backgroundColor='#028DA5'
+            refContent.current.style.filter='brightness(0.5)'
+            refMenu.current.style.display='block'
+        }else{
+            if(refMenuContainer.current && refContent.current && refMenu.current ){
+                refMenuContainer.current.style.backgroundColor='transparent'
+                refContent.current.style.filter='brightness(1)'
+                refMenu.current.style.display='none'
+            }
+
+        }
+    }
+
     return(
         <>
             <div className={style.container}>
@@ -75,7 +97,16 @@ export default function Credito(){
                 <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
-                        <ul>
+                    <div className={style.menu} ref={refMenuContainer}>
+                                <Image
+                                    width={24}
+                                    height={24}
+                                    alt='Menu icon'
+                                    src={menuImg}
+                                    onClick={showMenu}
+                                />
+                    </div>
+                        <ul ref={refMenu}>
                             <Link href={'/home'}><li>Inicio</li></Link>
                             <Link href={'/sobre'}><li>Sobre</li></Link>
                             <Link href={'/contato'}><li>Contate-nos</li></Link>
@@ -104,7 +135,7 @@ export default function Credito(){
                         <span ref={refSpan} onClick={searchProcess}></span>
                     </div>
                 </header>
-                <main>
+                <main ref={refContent} className={style.contentContainer}>
                     <span>Crédito com garantia de imóvel</span>
                     <p>O financiamento com garantia de imóvel, também conhecido como crédito com garantia de imóvel ou empréstimo com penhor imobiliário, é uma modalidade de crédito onde o tomador oferece um imóvel como garantia para obter um empréstimo. O valor do crédito geralmente é maior do que outras modalidades, pois a garantia oferece segurança ao banco ou instituição financeira.</p>
                 
