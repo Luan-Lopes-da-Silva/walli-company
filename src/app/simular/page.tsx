@@ -162,7 +162,9 @@ export default function Simular(){
         setCount(1)
         console.log(count)
         console.log(firstFormDatas,secondFormDatas)
-        const protocol = generateProtocol()
+        const protocol2 = generateProtocol()
+        setProtocol(protocol2)
+        console.log(protocol)
         if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refNextStepImg.current && refBackStepImg.current){ 
             refText.current.innerText = `Durante o processo de financiamento, você receberá um número de protocolo exclusivo ${protocol}. Este número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário`
             refBackStepImg.current.src = backActiveSvg.src
