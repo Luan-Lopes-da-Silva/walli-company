@@ -11,6 +11,8 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { Financement } from '@/utils/types';
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+
 
 
 const createFinancementSchema = z.object({
@@ -125,6 +127,10 @@ export default function Simular(){
     const refSpan = useRef<HTMLSpanElement>(null)
     const [search,setSearch] = useState('') 
     const refError = useRef<HTMLDivElement>(null)
+    const refMenuContainer = useRef<HTMLDivElement>(null)
+    const refMenu = useRef<HTMLUListElement>(null)
+    const [countMenu,setCountMenu] = useState(0)
+    const refContent = useRef<HTMLElement>(null)
 
     
     const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
@@ -348,6 +354,22 @@ export default function Simular(){
         }
       }
 
+      function showMenu(){
+        setCount(prevCount=>prevCount+1)
+        if(count%2==1 && refMenuContainer.current && refContent.current && refMenu.current){
+            refMenuContainer.current.style.backgroundColor='#028DA5'
+            refContent.current.style.filter='brightness(0.5)'
+            refMenu.current.style.display='block'
+        }else{
+            if(refMenuContainer.current && refContent.current && refMenu.current ){
+                refMenuContainer.current.style.backgroundColor='transparent'
+                refContent.current.style.filter='brightness(1)'
+                refMenu.current.style.display='none'
+            }
+
+        }
+    }
+
 
     return(
         <div className={style.box}>
@@ -370,7 +392,16 @@ export default function Simular(){
         <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
-                        <ul>
+                    <div className={style.menu} ref={refMenuContainer}>
+                                <Image
+                                    width={24}
+                                    height={24}
+                                    alt='Menu icon'
+                                    src={menuImg}
+                                    onClick={showMenu}
+                                />
+                    </div>
+                        <ul ref={refMenu}>
                             <Link href={'/home'}><li>Inicio</li></Link>
                             <Link href={'/sobre'}><li>Sobre</li></Link>
                             <Link href={'/contato'}><li>Contate-nos</li></Link>
@@ -399,7 +430,7 @@ export default function Simular(){
                     </div>
             </header>
             
-            <section className={style.content}>
+            <section className={style.content} ref={refContent}>
                 <span>Simule seu financiamento</span>
                 <span>Encontre a melhor opção para realizar o sonho da casa própria em poucas minutos</span>
                 <div className={style.steps}>
