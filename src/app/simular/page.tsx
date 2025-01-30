@@ -101,7 +101,6 @@ export default function Simular(){
 
     const refSearch = useRef<HTMLDivElement>(null)
     const refFirstForm = useRef<HTMLFormElement>(null)
-    const refPDF = useRef<HTMLDivElement>(null)
     const refSecondForm = useRef<HTMLFormElement>(null)
     const refFirstStep = useRef<HTMLDivElement>(null)
     const refSecondStep = useRef<HTMLDivElement>(null)
@@ -427,45 +426,6 @@ export default function Simular(){
                         </div>
                     <button onClick={createAndSavePDF}>Receber simulação</button>
                 </article>
-
-
-                <div ref={refPDF} className={style.containerPDF}>
-                    <div className={style.header}>
-                    <span>
-                        Logo
-                    </span>
-                    <h1>Sua simulação chegou</h1>
-                    </div>
-                    <div className={style.tableContainer}>
-                        <div className={style.headerTable}>
-                            <div>
-                                <p>Valor do imovel</p>
-                                <p>{houseValue}</p>
-                            </div>
-                            <div>
-                                <p>Valor de entrada</p>
-                                <p>{prohibitedValue}</p>
-                            </div>
-                            <div>
-                                <p>Numero de parcelas</p>
-                                <p>{parcelNumber}</p>
-                            </div>
-                            <div>
-                                <p>Tipo de amortização</p>
-                                <p>{amortization}</p>
-                            </div>
-                        </div>
-
-                        <table ref={refTable}>
-                            <tbody>
-                                <tr style={{color:'#FFF'}}>
-                                    <th>Numero da parcela</th>
-                                    <th>Valor da parcela</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </section>
 
            
