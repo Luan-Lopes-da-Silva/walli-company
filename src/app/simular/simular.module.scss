@@ -440,7 +440,7 @@ $black: #000000;
                     font-family: 'Label';
                 }
     
-                input,select{
+                input{
                     margin-top: .25rem;
                     margin-bottom: 1rem;
                     font-family: 'Text';
@@ -521,7 +521,7 @@ $black: #000000;
                     font-family: 'Label';
                 }
     
-                input{
+                input,select{
                     margin-top: .25rem;
                     margin-bottom: 1rem;
                     font-family: 'Text';
@@ -1011,7 +1011,7 @@ $black: #000000;
                     font-size: 1.2rem;
                 }
     
-                input,select{
+                input{
                     width: 200px;
                 }
             }
@@ -1021,7 +1021,7 @@ $black: #000000;
                     font-size: 1.2rem;
                 }
     
-                input{
+                input,select{
                     width: 200px;
                 }
             }

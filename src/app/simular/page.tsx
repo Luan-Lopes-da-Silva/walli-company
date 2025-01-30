@@ -31,6 +31,13 @@ const createPersonalDatasSchema = z.object({
 })
 
 export type firstFormData={
+    name:string,
+    email:string,
+    phone:string,
+    birthday:string
+}
+
+export type secondFormData={
     type: string,
     imobilleValue: string,
     financedValue: string,
@@ -38,27 +45,20 @@ export type firstFormData={
     amortization:string
 }
 
-export type secondFormData={
-    name:string,
-    email:string,
-    phone:string,
-    birthday:string
-}
-
 
 const undefinedForm = {
+    name : '',
+    email : '',
+    phone : '',
+    birthday:''
+}
+
+const undefinedSecondForm = {
     type: '',
     imobilleValue : '',
     financedValue : '',
     parcelnumber: '',
     amortization:''
-}
-
-const undefinedSecondForm = {
-    name : '',
-    email : '',
-    phone : '',
-    birthday:''
 }
 
 
@@ -141,14 +141,14 @@ export default function Simular(){
         handleSubmit: handleFirst,
         setValue,
         formState: { errors:errorsFirst }
-    } = useForm<firstFormData>({resolver:zodResolver(createFinancementSchema)})
+    } = useForm<firstFormData>({resolver:zodResolver(createPersonalDatasSchema)})
 
 
     const { 
         register: registerSecond,
         handleSubmit: handleSecond,
         formState: { errors:errorsSecond }
-    } = useForm<secondFormData>({resolver:zodResolver(createPersonalDatasSchema)})
+    } = useForm<secondFormData>({resolver:zodResolver(createFinancementSchema)})
 
     const generatedProtocols = new Set();
 
@@ -168,65 +168,6 @@ export default function Simular(){
         if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refNextStepImg.current && refBackStepImg.current){ 
             refText.current.innerText = `Durante o processo de financiamento, você receberá um número de protocolo exclusivo ${protocol}. Este número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário`
             refBackStepImg.current.src = backActiveSvg.src
-        }
-    }
-
-    function backStepModal(){
-        setCount(0)
-        if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refBackStepImg.current && refNextStepImg.current ){
-            refFirstStepCircle.current.style.backgroundColor = '#0091A4'
-            refSecondStepCircle.current.style.backgroundColor = 'transparent'
-            refText.current.innerText = 'Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!.'
-            refNextStepImg.current.addEventListener('click', nextStep)
-            refBackStepImg.current.src = backSvg.src
-        }
-    }
-
-    async function openModal(){
-        const converseImobileValue = firstFormDatas.imobilleValue.replace(/\D/g,"")
-        const converseFinancedValue = firstFormDatas.financedValue.replace(/\D/g,"")
-        const prohibitedValueConverse = Number(converseImobileValue) - Number(converseFinancedValue)
-        const newProtocol = generateProtocol()
-        setProtocol(newProtocol)
-
-        if(refFirstStepCircle.current){
-            refFirstStepCircle.current.style.backgroundColor = '#0091A4'  
-        }
-
-        const createNewProcess = await fetch('https://walli-processdb.onrender.com/process',{
-            method: 'POST',
-            body:JSON.stringify(
-                {
-                   clientname: secondFormDatas.name.replace(/^[A-Z\s]+$/, (match)=> match.toLowerCase().replace(/\b\w/g,(char)=>char.toUpperCase())),
-                   clientbirthday: secondFormDatas.birthday,
-                   clientemail:secondFormDatas.email,
-                   clientphone: secondFormDatas.phone,
-                   consultantname: '',
-                   consultantemail: '',
-                   consultantphone: '',
-                   numberparcels: firstFormDatas.parcelnumber,
-                   amortization: firstFormDatas.amortization,
-                   protocol: newProtocol,
-                   createdat: `${new Date()}`,
-                   statusprocess: 'Sem consultor',
-                   financementvalue: firstFormDatas.financedValue,
-                   prohibitedvalue: `${prohibitedValueConverse}`,
-                   valueimobille: firstFormDatas.imobilleValue, 
-                }
-            ),
-            headers:{
-                "Content-Type": "application/json"
-            }   
-        })
-        
-        if(refLoading.current && refModal.current){
-            if(createNewProcess.status!==201){
-                refLoading.current.style.display = 'block'
-            }else{
-                refLoading.current.style.display = 'none'
-                refModal.current.style.display = 'block'
-                refModal.current.focus()
-            }
         }
     }
 
@@ -293,37 +234,14 @@ export default function Simular(){
         setSecondFormDatas(data)
         if(refSummary.current && refTable.current){
             refSummary.current.style.display = 'block'
-            setHouseValue(firstFormDatas.imobilleValue)
-            setFinancementValue(firstFormDatas.financedValue)
-            setParcelNumber(firstFormDatas.parcelnumber)
-            setAmortization(firstFormDatas.amortization)
-            const formatFinanceValue = firstFormDatas.financedValue.replace(/\D/g, "")
-            const formatImobilleValue = firstFormDatas.imobilleValue.replace(/\D/g, "")
+            setHouseValue(data.imobilleValue)
+            setFinancementValue(data.financedValue)
+            setParcelNumber(data.parcelnumber)
+            setAmortization(data.amortization)
+            const formatFinanceValue = data.financedValue.replace(/\D/g, "")
+            const formatImobilleValue = data.imobilleValue.replace(/\D/g, "")
             const prohibited = Number(formatFinanceValue)-Number(formatImobilleValue)
             setProhibitedValue(formatToCustomDecimal(`${prohibited}`))    
-            const parcelValue = `${Number(formatFinanceValue)/Number(firstFormDatas.parcelnumber)}`
-            for(let i=0; i<Number(firstFormDatas.parcelnumber);i++){
-                const rowParcelNumber = document.createElement('tr')
-                const createTd = document.createElement('td')
-                const parcelValueTd = document.createElement('td')
-                createTd.style.textAlign ='center'
-                createTd.style.fontSize='24px'
-                createTd.style.padding='24px'
-                createTd.style.color='#FFF'
-                createTd.style.borderBottom = '2px solid #CCD360'
-                createTd.style.borderLeft = '2px solid #CCD360'
-                createTd.style.borderRight = '2px solid #CCD360'
-                createTd.innerText = `${i}`
-                parcelValueTd.style.textAlign ='center'
-                parcelValueTd.style.fontSize='24px'
-                parcelValueTd.style.padding='24px'
-                parcelValueTd.style.color='#FFF'
-                parcelValueTd.style.borderBottom = '2px solid #CCD360'
-                parcelValueTd.style.borderRight = '2px solid #CCD360'
-                parcelValueTd.innerText = `${formatToCustomDecimal(parcelValue)}`
-                rowParcelNumber.append(createTd,parcelValueTd)
-                refTable.current.append(rowParcelNumber)
-            }
         }
       }
 
@@ -447,58 +365,58 @@ export default function Simular(){
                     </div>
                 </div>
 
-                <form className={style.firstForm} onSubmit={handleFirst((ev)=>onSubmit(ev))} ref={refFirstForm}>
+                
+                <form className={style.firstForm} onSubmit={handleFirst(onSubmit)} ref={refFirstForm}>
+                    <label htmlFor="name">Nome</label>
+                    {errorsFirst.name && <span>{errorsFirst.name.message}</span>}
+                    <input type="text" {...registerFirst("name")}/>
+                    <label htmlFor="">Data de nascimento</label>
+                    {errorsFirst.birthday && <span>{errorsFirst.birthday.message}</span>}
+                    <input type="text" {...registerFirst("birthday")} />
+                    <label htmlFor="email">Email</label>
+                    {errorsFirst.email && <span>{errorsFirst.email.message}</span>}
+                    <input type="text" {...registerFirst(("email"))}/>
+                    <label htmlFor="">Telefone</label>
+                    {errorsFirst.phone && <span>{errorsFirst.phone.message}</span>}
+                    <input type="text" {...registerFirst("phone")} />
+                    
+                    <div>
+                        <button disabled={true}>Voltar</button>
+                        <button onClick={nextStep}>Avançar</button>
+                    </div>
+                </form>
+
+                <form className={style.secondForm} onSubmit={handleSecond((ev)=>onSubmitSecondForm(ev))} ref={refSecondForm}>
                     <label htmlFor="">Tipo de financiamento desejado</label>
-                    {errorsFirst.type && <span>{errorsFirst.type.message}</span>}
-                    <select {...registerFirst("type")}>
+                    {errorsSecond.type && <span>{errorsSecond.type.message}</span>}
+                    <select {...registerSecond("type")}>
                         <option value="">Selecione um metodo de financiamento</option>
                         <option value="Financiamento imobililiario">Financiamento imobiliario</option>
                         <option value="Crédito com garantia">Crédito com garantia de imovel</option>
                     </select>
                     <label htmlFor="imobilleValue">Valor do imovel desejado</label>
-                    {errorsFirst.imobilleValue && <span>{errorsFirst.imobilleValue.message}</span>}
-                    <input type="text"  {...registerFirst("imobilleValue")} onChange={handleInputChange} name='imobilleValue'/>
+                    {errorsSecond.imobilleValue && <span>{errorsSecond.imobilleValue.message}</span>}
+                    <input type="text"  {...registerSecond("imobilleValue")} onChange={handleInputChange} name='imobilleValue'/>
                     <label htmlFor="financedValue">Valor a ser financiado</label>
-                    {errorsFirst.financedValue && <span>{errorsFirst.financedValue.message}</span>}
-                    <input type="text" {...registerFirst("financedValue")} onChange={handleInputChange} name='financedValue'/>
+                    {errorsSecond.financedValue && <span>{errorsSecond.financedValue.message}</span>}
+                    <input type="text" {...registerSecond("financedValue")} onChange={handleInputChange} name='financedValue'/>
                     <label htmlFor='parcelnumber'>Numero de parcelas</label>
-                    {errorsFirst.parcelnumber && <span>{errorsFirst.parcelnumber.message}</span>}
-                    <input type="text" {...registerFirst("parcelnumber")} name='parcelnumber'/>
+                    {errorsSecond.parcelnumber && <span>{errorsSecond.parcelnumber.message}</span>}
+                    <input type="text" {...registerSecond("parcelnumber")} name='parcelnumber'/>
                     <label htmlFor=''>Amortização</label>
-                    {errorsFirst.amortization && <span>{errorsFirst.amortization.message}</span>}
-                    <input type="text" {...registerFirst("amortization")}/>
+                    {errorsSecond.amortization && <span>{errorsSecond.amortization.message}</span>}
+                    <input type="text" {...registerSecond("amortization")}/>
                     <div>
-                        <button disabled>Voltar</button>
+                        <button onClick={backStep}>Voltar</button>
                         <button>Avançar</button>
                     </div>
                 </form>
 
-                <form className={style.secondForm} onSubmit={handleSecond(onSubmitSecondForm)} ref={refSecondForm}>
-                    <label htmlFor="name">Nome</label>
-                    {errorsSecond.name && <span>{errorsSecond.name.message}</span>}
-                    <input type="text" {...registerSecond("name")}/>
-                    <label htmlFor="email">Email</label>
-                    {errorsSecond.email && <span>{errorsSecond.email.message}</span>}
-                    <input type="text" {...registerSecond(("email"))}/>
-                    <label htmlFor="">Telefone</label>
-                    {errorsSecond.phone && <span>{errorsSecond.phone.message}</span>}
-                    <input type="text" {...registerSecond("phone")} />
-                    <label htmlFor="">Data de nascimento</label>
-                    {errorsSecond.birthday && <span>{errorsSecond.birthday.message}</span>}
-                    <input type="text" {...registerSecond("birthday")} />
-                    <div>
-                        <button onClick={(ev)=>{
-                            ev.preventDefault()
-                            backStep()
-                            }}>Voltar</button>
-                        <button>Avançar</button>
-                    </div>
-                </form>
 
               
 
                 <article className={style.summary} ref={refSummary}>
-                    <button onClick={openModal}>Dar inicio a processo de financiamento</button>
+                    <button>Dar inicio a processo de financiamento</button>
                     <h3>Resumo</h3>
                         <div className={style.infos}>
                          <p>Valor do imóvel: {houseValue}</p>
@@ -552,35 +470,6 @@ export default function Simular(){
 
            
         </main>
-        
-        <div className={style.modal} ref={refModal}>
-                     <p ref={refText}>Obrigado por escolher a [nome da empresa] como sua parceira no processo de financiamento imobiliário! Estamos comprometidos em ajudá-lo a realizar o sonho da casa própria, oferecendo um atendimento personalizado e soluções que atendam às suas necessidades. Se precisar de qualquer suporte ou informação adicional, não hesite em entrar em contato conosco. Juntos, faremos desse momento uma conquista memorável!</p>
-                   <div>
-                     <Image
-                    width={60}
-                    height={60}
-                    alt='Back svg'
-                    src={backSvg}
-                    className={style.backStep}
-                    onClick={backStepModal}
-                    ref={refBackStepImg}
-                    />
-                    <Image
-                    width={60}
-                    height={60}
-                    alt='Forward svg'
-                    src={forwardSvg}
-                    className={style.forwardStep}
-                    onClick={nextStep}
-                    ref={refNextStepImg}
-                    />
-                   </div>
-
-                    <div className={style.steps}>
-                        <div className={style.step} ref={refFirstStepCircle}></div>
-                        <div className={style.step} ref={refSecondStepCircle}></div>
-                    </div>
-        </div>
 
         <div className={style.loading} ref={refLoading}>
             <p>Baixando a sua simulação</p>
