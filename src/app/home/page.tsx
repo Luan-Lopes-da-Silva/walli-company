@@ -20,6 +20,10 @@ export default function Home(){
     const refError = useRef<HTMLDivElement>(null)
     const refContainer = useRef<HTMLDivElement>(null)
     const refSpan = useRef<HTMLSpanElement>(null)
+    const refContent = useRef<HTMLElement>(null)
+    const refMenu = useRef<HTMLUListElement>(null)
+    const refMenuContainer = useRef<HTMLDivElement>(null)
+    const [count,setCount] = useState(0)
 
     async function searchProcess(){
         const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
@@ -54,6 +58,22 @@ export default function Home(){
         }
     }
 
+    function showMenu(){
+        setCount(prevCount=>prevCount+1)
+        if(count%2==1 && refMenuContainer.current && refContent.current && refMenu.current){
+            refMenuContainer.current.style.backgroundColor='#028DA5'
+            refContent.current.style.filter='brightness(0.5)'
+            refMenu.current.style.display='block'
+        }else{
+            if(refMenuContainer.current && refContent.current && refMenu.current ){
+                refMenuContainer.current.style.backgroundColor='transparent'
+                refContent.current.style.filter='brightness(1)'
+                refMenu.current.style.display='none'
+            }
+
+        }
+    }
+
     return(            
             <div className={style.box}>
                 <div className={style.container} ref={refContainer}>
@@ -62,16 +82,16 @@ export default function Home(){
                     <nav>
                     <h1>LOGO</h1>
 
-                    <div className={style.menu}>
+                    <div className={style.menu} ref={refMenuContainer}>
                                 <Image
                                     width={24}
                                     height={24}
                                     alt='Menu icon'
                                     src={menuImg}
+                                    onClick={showMenu}
                                 />
                             </div>
-                        <ul>
-                            
+                        <ul ref={refMenu}>
                             <Link href={'/home'}><li>Inicio</li></Link>
                             <Link href={'/sobre'}><li>Sobre</li></Link>
                             <Link href={'/contato'}><li>Contate-nos</li></Link>
@@ -103,7 +123,7 @@ export default function Home(){
 
               
                
-                <main>
+                <main ref={refContent}>
 
                <div className={style.presentation}>
                     <div className={style.textPresentation}>

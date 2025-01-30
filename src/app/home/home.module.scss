@@ -499,7 +499,6 @@ $black: #000000;
                         position: absolute;
                         z-index: 980000000;
                         padding: 12px;
-                        background-color: $secondary-color;
                         height: 190px;
                         margin-top: 120px;
                         right: 12px ;
@@ -512,7 +511,7 @@ $black: #000000;
                     }
             
                     ul{
-                        display: block;
+                        display: none;
                         position: absolute;
                         flex-direction: column;
                         align-items: start;
@@ -573,8 +572,9 @@ $black: #000000;
             }
             
             .presentation{ 
+                position: relative;
                 .textPresentation{
-                    padding:15.5rem 2rem;
+                    padding:2rem 2rem;
         
                     span{
                         font-size: 3rem;
@@ -599,7 +599,7 @@ $black: #000000;
             .benefits{
                 background-color: $secondary-color;
                 padding: 3rem 2rem;
-                margin-top: 39rem;
+                margin-top: 0;
     
                 span{
                     font-size: 3rem;
