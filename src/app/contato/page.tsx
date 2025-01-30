@@ -20,7 +20,6 @@ export default function Contate(){
     const refError = useRef<HTMLDivElement>(null)
     const refLoading = useRef<HTMLDivElement>(null)
     const [search,setSearch] = useState('')
-    const refTest = useRef<HTMLDivElement>(null)
     const refMenuContainer = useRef<HTMLDivElement>(null)
     const refMenu = useRef<HTMLUListElement>(null)
     const [count,setCount] = useState(0)
