@@ -7,6 +7,8 @@ import Image from 'next/image'
 import svgTech from '@/../public/assets/computer.svg'
 import { Financement } from '@/utils/types'
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+
 
 export default function Sobre(){
     useEffect(()=>{
@@ -18,6 +20,10 @@ export default function Sobre(){
     const refContainer = useRef<HTMLDivElement>(null)
     const refError = useRef<HTMLDivElement>(null)
     const [search, setSearch] = useState('')
+    const refContent = useRef<HTMLElement>(null)
+    const refMenu = useRef<HTMLUListElement>(null)
+    const refMenuContainer = useRef<HTMLDivElement>(null)
+    const [count,setCount] = useState(0)
     
     
     async function searchProcess(){
@@ -43,6 +49,22 @@ export default function Sobre(){
             }, 2000);
            }else{
             alert('Digite um numero de protocolo')    
+        }
+    }
+
+    function showMenu(){
+        setCount(prevCount=>prevCount+1)
+        if(count%2==1 && refMenuContainer.current && refContent.current && refMenu.current){
+            refMenuContainer.current.style.backgroundColor='#028DA5'
+            refContent.current.style.filter='brightness(0.5)'
+            refMenu.current.style.display='block'
+        }else{
+            if(refMenuContainer.current && refContent.current && refMenu.current ){
+                refMenuContainer.current.style.backgroundColor='transparent'
+                refContent.current.style.filter='brightness(1)'
+                refMenu.current.style.display='none'
+            }
+
         }
     }
 
@@ -76,7 +98,16 @@ export default function Sobre(){
             <header className={style.header}>
                     <nav>
                     <h1>LOGO</h1>
-                        <ul>
+                    <div className={style.menu} ref={refMenuContainer}>
+                                <Image
+                                    width={24}
+                                    height={24}
+                                    alt='Menu icon'
+                                    src={menuImg}
+                                    onClick={showMenu}
+                                />
+                    </div>
+                        <ul ref={refMenu}>
                             <Link href={'/home'}><li>Inicio</li></Link>
                             <Link href={'/sobre'}><li>Sobre</li></Link>
                             <Link href={'/contato'}><li>Contate-nos</li></Link>
@@ -109,7 +140,7 @@ export default function Sobre(){
                  
                 </header>
 
-            <main className={style.contentContainer}>
+            <main className={style.contentContainer} ref={refContent}>
                 <div className={style.presentation}>
                     <span>Nome da empresa</span>
                     <p>Transformando o Mercado Imobiliário com Automação e Transparência</p>

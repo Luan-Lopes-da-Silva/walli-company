@@ -90,7 +90,7 @@ export default function Home(){
                                     src={menuImg}
                                     onClick={showMenu}
                                 />
-                            </div>
+                    </div>
                         <ul ref={refMenu}>
                             <Link href={'/home'}><li>Inicio</li></Link>
                             <Link href={'/sobre'}><li>Sobre</li></Link>

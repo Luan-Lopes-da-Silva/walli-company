@@ -114,9 +114,7 @@ $black: #000000;
     
     .contentContainer{
        position: relative;
-       width: 100%;
-       height: 100%;
-       background-color: $primary-color;
+       
     
         .header{
             display: flex;
@@ -231,14 +229,10 @@ $black: #000000;
         }
     
         main{
-            .pdfContent{
-               display: none; 
-
-               @media print{
-                display: block;
-               }
-            }
-
+            width: 100%;
+       height: 100%;
+       padding-bottom: 60px;
+       background-color: $primary-color;
             span{
                 display: block;
                 padding: 15.5rem 5rem;
@@ -325,5 +319,138 @@ $black: #000000;
 
     100%{
         margin-left: 100px;
+    }
+}
+
+@media(max-width:600px){
+    .box{
+        .contentContainer{
+            padding-bottom: 60px;
+            .header{
+                display: flex;
+
+                .input{
+                    margin-top: 175px;
+                    left: 10%;
+    
+    
+                    span{
+                        margin-left: 4px;
+                    }
+            
+                       
+                    input{
+                        font-family: 'Text';
+                        font-size: 0.825rem;
+                        padding: .5rem .5rem;
+                        background-color:#1b263b;
+                        border-radius: .75rem;
+                        border: .125rem solid #415a77;
+                        color: #0d1b2a;
+                        transition: .4s;
+                        width: 75px;
+                       
+            
+            
+                        &:focus{
+                            border-color: #1b263b;
+                            background-color: #415a77;
+                            color: #778da9;
+                            animation: 1s width forwards;
+                        }
+                    }
+                }
+                
+                nav{
+                    justify-content: start;
+                    height: 13.75rem;
+
+                    h1{
+                        font-size:1.2rem;
+                        padding: 3rem 2rem;
+                    }
+                                  
+                    button{
+                        display: none;
+                    }
+
+                    .menu{
+                        display: block;
+                        position: absolute;
+                        z-index: 980000000;
+                        padding: 12px;
+                        height: 190px;
+                        margin-top: 120px;
+                        right: 12px ;
+                        width: 160px;
+                        
+
+                        img{
+                        margin-left: 100px;
+                        }
+                    }
+            
+                    ul{
+                        display: none;
+                        position: absolute;
+                        flex-direction: column;
+                        align-items: start;
+                        right: 40px;
+                        top: 130px;
+                        z-index: 700000000000;
+                        
+                        
+                       
+            
+                        li{
+                            margin: 0rem .75rem;
+                            font-size: 1rem;
+                            font-family: 'Lis';
+                            transition: .4s;
+                            color: $white;
+            
+                            &:hover{
+                                text-decoration: underline;
+                                cursor: pointer;
+                                color: $black;
+                            }
+                        }
+                    }
+                }
+            }
+
+            main{
+                span{
+                    
+                    padding: 15.5rem 2rem;
+                    padding-bottom: 1rem;
+                    font-size: 3rem;
+                    width: 250px;
+                }
+        
+                form{
+                    label{
+                        font-family: 'Label';
+                        font-size: 1.2rem;
+                        display: block;
+                        padding: 0 2rem;
+                        margin-bottom: .25rem;
+                        color: $black;
+                    }
+        
+                    input,textarea{
+                        margin: 0 2rem;
+                        margin-bottom: 40px;
+                    }
+                    textarea{
+                        height: 7.75rem;
+                    }
+        
+                    button{
+                        margin-left:-14.5rem; 
+                    }
+                }
+            }
+        }
     }
 }
