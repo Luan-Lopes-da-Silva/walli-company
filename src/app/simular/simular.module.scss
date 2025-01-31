@@ -89,9 +89,6 @@ $black: #000000;
 
 
     .container{
-        
-      
-
         .header{
             display: flex;
             
@@ -582,7 +579,7 @@ $black: #000000;
         }
     
         .summary{
-            background-color: #CCD360;
+            background-color: $secondary-grey;
             width: 25rem;
             margin-top: 3.75rem;
             padding: 1.25rem 2.5rem;
@@ -635,95 +632,6 @@ $black: #000000;
         }
     }
 
-    .modal{
-        position: absolute;
-        z-index: 8000000;
-        top: 2%;
-        left: 30%;
-        background-color: #CCD360;
-        width: 37.5rem;
-        height: max-content;
-        text-align: center;
-        padding: 1.25rem;
-        border: .75rem double #393738;
-        border-radius: 2.5rem;
-        display: none;
-
-        .backStep{
-            position: absolute;
-            top: 12.5rem;
-            left: 1.25rem;
-            cursor: pointer;
-        }
-
-        .forwardStep{
-            position: absolute;
-            top: 12.5rem;
-            right: 1.25rem;
-            cursor: pointer;
-        }
-
-        .steps{
-            display: flex;
-            gap: .75rem;
-            justify-content: center;
-            margin-top: .75rem;
-            
-            .step{
-                width: 1.5rem;
-                height: 1.5rem;
-                border-radius: 50%;
-                border: .25rem solid #393738;
-            }
-            .active{
-                width: 1.5rem;
-                height: 1.5rem;
-                border-radius: 50%;
-                border: .25rem solid #393738;
-                background-color: #0091A4;
-            }
-        }
-        button{
-            width: 2.25rem;
-            height: 2.25rem;
-            position: absolute;
-            right: .625rem;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            background-image: url('../../../public/assets/close_hover.svg');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: 2.25rem;
-            transition: .4s;
-
-            &:hover{
-            background-image: url('../../../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg');
-            }
-        }
-
-        h1{
-            font-size: 2rem;
-            text-transform: uppercase;
-            margin-bottom: .75rem;
-            color: #FFF;
-            margin-top: 2.5rem;
-        }
-
-        p{
-            width: 18.75rem;
-            margin: auto auto;
-            text-align: justify;
-            font-size: 1.2rem;
-            font-family: 'Text';
-            color: #FFF;
-
-            span{
-                color: #CCD360;
-            }
-        }
-    }
-
     .loading{
         position: absolute;
         top: 3%;
@@ -737,99 +645,6 @@ $black: #000000;
         padding: 1.25rem;
         color: #FFFFFF;
         display: none;
-        
-        
-.ldsRoller,
-.ldsRoller div,
-.ldsRoller div:after {
-  box-sizing: border-box;
-}
-.ldsRoller {
-  display: inline-block;
-  position: relative;
-  width: 5rem;
-  height: 5rem;
-}
-.ldsRoller div {
-  animation: ldsRoller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  transform-origin: 2.5rem 2.5rem;
-}
-.ldsRoller div:after {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: .45rem;
-  height: .45rem;
-  border-radius: 50%;
-  background: currentColor;
-  margin: -0.225rem 0 0 -0.225rem;
-}
-.ldsRoller div:nth-child(1) {
-  animation-delay: -0.036s;
-}
-.ldsRoller div:nth-child(1):after {
-  top: 3.9142rem;
-  left: 3.9142rem;
-}
-.ldsRoller div:nth-child(2) {
-  animation-delay: -0.072s;
-}
-.ldsRoller div:nth-child(2):after {
-  top: 4.2321rem;
-  left: 3.5rem
-}
-.ldsRoller div:nth-child(3) {
-  animation-delay: -0.108s;
-}
-.ldsRoller div:nth-child(3):after {
-  top: 4.4319rem;
-  left: 3.0176rem;
-}
-.ldsRoller div:nth-child(4) {
-  animation-delay: -0.144s;
-}
-.ldsRoller div:nth-child(4):after {
-  top: 4.5rem;
-  left: 2.5rem;
-}
-.ldsRoller div:nth-child(5) {
-  animation-delay: -0.18s;
-}
-.ldsRoller div:nth-child(5):after {
-  top: 4.4319rem;
-  left: 1.9824rem;
-}
-.ldsRoller div:nth-child(6) {
-  animation-delay: -0.216s;
-}
-.ldsRoller div:nth-child(6):after {
-  top: 4.2321rem;
-  left: 1.5rem;
-}
-.ldsRoller div:nth-child(7) {
-  animation-delay: -0.252s;
-}
-.ldsRoller div:nth-child(7):after {
-  top: 3.9142rem;
-  left: 1.0858rem;
-}
-.ldsRoller div:nth-child(8) {
-  animation-delay: -0.288s;
-}
-.ldsRoller div:nth-child(8):after {
-  top: 3.5rem;
-  left: .7679rem;
-}
-@keyframes ldsRoller {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
     }
 }
 
@@ -854,6 +669,14 @@ $black: #000000;
 
 @media(max-width:600px){
     .box{
+        
+    .searchLoading{
+            left: 20%;             
+    }
+
+    .error{
+        left: 20%;
+    }
         .container{
             .header{
                 display: flex;

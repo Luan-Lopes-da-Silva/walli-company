@@ -4,12 +4,12 @@ import {  useForm } from 'react-hook-form'
 import {z} from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import {useEffect, useRef, useState } from 'react'
-import backActiveSvg from '@/../public/assets/Vector2.svg'
 import Image from 'next/image'
 import Link from 'next/link';
 import { Financement } from '@/utils/types';
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import { formatToCustomDecimal } from '@/utils/formatToDecimal';
 
 
 
@@ -28,14 +28,14 @@ const createPersonalDatasSchema = z.object({
     birthday:z.string().min(1,'A sua data de nascimento é obrigatório')
 })
 
-export type firstFormData={
+export type personalDataForm={
     name:string,
     email:string,
     phone:string,
     birthday:string
 }
 
-export type secondFormData={
+export type financeDataForm={
     type: string,
     imobilleValue: string,
     financedValue: string,
@@ -44,14 +44,14 @@ export type secondFormData={
 }
 
 
-const undefinedForm = {
+const undefinedPersonalForm = {
     name : '',
     email : '',
     phone : '',
     birthday:''
 }
 
-const undefinedSecondForm = {
+const undefinedFinanceForm = {
     type: '',
     imobilleValue : '',
     financedValue : '',
@@ -59,9 +59,26 @@ const undefinedSecondForm = {
     amortization:''
 }
 
-
-
 export default function Simular(){
+    const [personalInfoData,setPersonalInfoData] = useState<personalDataForm>(undefinedPersonalForm)
+    const [financeInfoData,setFinanceInfoData] = useState<financeDataForm>(undefinedFinanceForm)
+    const [prohibitedValue,setProhibitedValue] = useState('')
+    const [count,setCount] = useState(0)
+    const [search,setSearch] = useState('') 
+    const refSearch = useRef<HTMLDivElement>(null)
+    const refInforForm = useRef<HTMLFormElement>(null)
+    const refFinanceForm = useRef<HTMLFormElement>(null)
+    const refFirstStepContainer = useRef<HTMLDivElement>(null)
+    const refSecondStepContainer = useRef<HTMLDivElement>(null)
+    const refSummary = useRef<HTMLDivElement>(null)
+    const refContainer = useRef<HTMLElement>(null)
+    const refSpan = useRef<HTMLSpanElement>(null)
+    const refError = useRef<HTMLDivElement>(null)
+    const refMenuContainer = useRef<HTMLDivElement>(null)
+    const refMenu = useRef<HTMLUListElement>(null)
+    const refContent = useRef<HTMLElement>(null)
+
+
     useEffect(()=>{
         window.document.title = 'Simular'   
     })
@@ -99,88 +116,43 @@ export default function Simular(){
         }
     }
 
-    const refSearch = useRef<HTMLDivElement>(null)
-    const refFirstForm = useRef<HTMLFormElement>(null)
-    const refSecondForm = useRef<HTMLFormElement>(null)
-    const refFirstStep = useRef<HTMLDivElement>(null)
-    const refSecondStep = useRef<HTMLDivElement>(null)
-    const refSummary = useRef<HTMLDivElement>(null)
-    const refLoading = useRef<HTMLDivElement>(null)
-    const refContainer = useRef<HTMLElement>(null)
-    const refTable = useRef<HTMLTableElement>(null)
-    const [houseValue,setHouseValue] = useState('')
-    const [financementValue,setFinancementValue] = useState('')
-    const [prohibitedValue,setProhibitedValue] = useState('')
-    const [parcelNumber,setParcelNumber] = useState('')
-    const [amortization,setAmortization] = useState('')
-    const refFirstStepCircle = useRef<HTMLDivElement>(null)
-    const refSecondStepCircle = useRef<HTMLDivElement>(null)
-    const refText = useRef<HTMLParagraphElement>(null)
-    const [count,setCount] = useState(0)
-    const refBackStepImg = useRef<HTMLImageElement>(null)
-    const refNextStepImg = useRef<HTMLImageElement>(null)
-    const [protocol,setProtocol] = useState('')
-    const refSpan = useRef<HTMLSpanElement>(null)
-    const [search,setSearch] = useState('') 
-    const refError = useRef<HTMLDivElement>(null)
-    const refMenuContainer = useRef<HTMLDivElement>(null)
-    const refMenu = useRef<HTMLUListElement>(null)
-    const refContent = useRef<HTMLElement>(null)
+    function showSucefullMsg(){
+        console.log(personalInfoData)
+    }
+
+  
 
     
-    const [firstFormDatas,setFirstFormDatas] = useState<firstFormData>(undefinedForm)
-    const [secondFormDatas,setSecondFormDatas] = useState<secondFormData>(undefinedSecondForm)
+   
 
     const { 
-        register: registerFirst,
-        handleSubmit: handleFirst,
+        register: registerPersonalInfos,
+        handleSubmit: handlePersonalForm,
         setValue,
-        formState: { errors:errorsFirst }
-    } = useForm<firstFormData>({resolver:zodResolver(createPersonalDatasSchema)})
+        formState: { errors:errorsPersonalForm }
+    } = useForm<personalDataForm>({resolver:zodResolver(createPersonalDatasSchema)})
 
 
     const { 
-        register: registerSecond,
-        handleSubmit: handleSecond,
-        formState: { errors:errorsSecond }
-    } = useForm<secondFormData>({resolver:zodResolver(createFinancementSchema)})
+        register: registerFinanceInfos,
+        handleSubmit: handleFinanceForm,
+        formState: { errors:errorsFinanceForm }
+    } = useForm<financeDataForm>({resolver:zodResolver(createFinancementSchema)})
 
-    const generatedProtocols = new Set();
-
-    function generateProtocol() {
-        let protocol;
-        do {
-          protocol = Math.random().toString(36).substring(2, 10).toUpperCase();
-        } while (generatedProtocols.has(protocol));
-        generatedProtocols.add(protocol);
-      
-        return protocol;
-    }
-
-    function nextStep(){
-        setCount(1)
-        console.log(count)
-        console.log(firstFormDatas,secondFormDatas)
-        const protocol2 = generateProtocol()
-        setProtocol(protocol2)
-        console.log(protocol)
-        if(refFirstStepCircle.current && refSecondStepCircle.current && refText.current && refNextStepImg.current && refBackStepImg.current){ 
-            refText.current.innerText = `Durante o processo de financiamento, você receberá um número de protocolo exclusivo ${protocol}. Este número é muito importante, pois permite que você acompanhe o andamento do seu processo de maneira rápida e prática. Guarde com cuidado e informe-o sempre que entrar em contato conosco. Isso nos ajudará a localizar suas informações de forma ágil e garantir um atendimento ainda mais eficiente. Estamos à disposição para esclarecer quaisquer dúvidas ou oferecer o suporte necessário`
-            refBackStepImg.current.src = backActiveSvg.src
-        }
-    }
+ 
 
 
-    function onSubmit(data:firstFormData){
-        if(refFirstForm.current && refSecondForm.current && refFirstStep.current && refSecondStep.current){
-            refFirstForm.current.style.display = 'none'
-            refSecondForm.current.style.display = 'block'
-            const p = refFirstStep.current.querySelector('p')
-            const span = refFirstStep.current.querySelector('span')
-            const div = refFirstStep.current.querySelector('div')
-            const secondP = refSecondStep.current.querySelector('p')
-            const secondSpan = refSecondStep.current.querySelector('span')
-            const secondDiv = refSecondStep.current.querySelector('div')
+
+    function createPersonalInfos(data:personalDataForm){
+        if(refInforForm.current && refFinanceForm.current && refFirstStepContainer.current && refSecondStepContainer.current){
+            refInforForm.current.style.display = 'none'
+            refFinanceForm.current.style.display = 'block'
+            const p = refFirstStepContainer.current.querySelector('p')
+            const span = refFirstStepContainer.current.querySelector('span')
+            const div = refFirstStepContainer.current.querySelector('div')
+            const secondP = refSecondStepContainer.current.querySelector('p')
+            const secondSpan = refSecondStepContainer.current.querySelector('span')
+            const secondDiv = refSecondStepContainer.current.querySelector('div')
             
             if(p && span && div && secondP && secondSpan && secondDiv){
                 div.style.borderColor = '#868686'
@@ -191,75 +163,53 @@ export default function Simular(){
                 secondP.style.color = '#028DA5'
                 secondSpan.style.color = '#028DA5'
             }
-            setFirstFormDatas(data)
+            setPersonalInfoData(data)
         }
       }
 
-      const formatToCustomDecimal = (value: string) => {
-        const cleanValue = value.replace(/[^\d]/g, "");
-        if (!cleanValue) return "";
-        const numericValue = parseFloat(cleanValue) / 100;
-        const formattedValue = numericValue
-          .toFixed(2)
-          .replace(".", ",")
-          .replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
-      
-        return formattedValue;
-      };
-
       async function createAndSavePDF(){
-        const formatImobilleValue = houseValue.replace('.','')
+        const formatImobilleValue = financeInfoData.imobilleValue.replace('.','')
         const formatImobilleValue2 = formatImobilleValue.replace(',','')
-        const formatFinancementValue = financementValue.replace(',','')
+        const formatFinancementValue = financeInfoData.financedValue.replace(',','')
         const formatFinancementValue2 = formatFinancementValue.replace('.','')
         const expanseValue = (5*Number(formatImobilleValue2))/100
-        window.open(`/api/generate-pdf?imobillevalue=${formatImobilleValue2}&financementvalue=${formatFinancementValue2}&parcels=${Number(parcelNumber)}&expanse=${expanseValue}&amortization=${amortization}`, '_blank')
+        window.open(`/api/generate-pdf?imobillevalue=${formatImobilleValue2}&financementvalue=${formatFinancementValue2}&parcels=${Number(financeInfoData.parcelnumber)}&expanse=${expanseValue}&amortization=${financeInfoData.amortization}`, '_blank')
       }
-
-      
-
-    
 
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const handleInputChange = (event: { target: { name: any; value: any } }) => {
+      const changeInputFormat = (event: { target: { name: any; value: any } }) => {
         const { name, value } = event.target;
       
         const formattedValue = formatToCustomDecimal(value);
         setValue(name, formattedValue, { shouldValidate: true });
       };
       
-      async function onSubmitSecondForm(data:secondFormData){
-        setSecondFormDatas(data)
-        if(refSummary.current && refTable.current){
+      async function createFinanceInfos(data:financeDataForm){
+        if(refSummary.current){
             refSummary.current.style.display = 'block'
-            setHouseValue(data.imobilleValue)
-            setFinancementValue(data.financedValue)
-            setParcelNumber(data.parcelnumber)
-            setAmortization(data.amortization)
-            const formatFinanceValue = data.financedValue.replace(/\D/g, "")
-            const formatImobilleValue = data.imobilleValue.replace(/\D/g, "")
-            const prohibited = Number(formatFinanceValue)-Number(formatImobilleValue)
-            setProhibitedValue(formatToCustomDecimal(`${prohibited}`))    
+            const prohibited = Number(data.imobilleValue)-Number(data.financedValue)
+            setProhibitedValue(formatToCustomDecimal(`${prohibited}`))   
         }
+        setFinanceInfoData(data)
       }
 
-      function backStep(){
-        if(refFirstForm.current && refSecondForm.current && refFirstStep.current && refSecondStep.current){
-            refFirstForm.current.style.display = 'block'
-            refSecondForm.current.style.display = 'none'
+      function backStepForm(){
+        if(refInforForm.current && refFinanceForm.current && refFirstStepContainer.current && refSecondStepContainer.current){
+            refInforForm.current.style.display = 'block'
+            refFinanceForm.current.style.display = 'none'
 
-            const button = refFirstForm.current.querySelector('button')
-            const p = refFirstStep.current.querySelector('p')
-            const span = refFirstStep.current.querySelector('span')
-            const div = refFirstStep.current.querySelector('div')
-            const secondP = refSecondStep.current.querySelector('p')
-            const secondSpan = refSecondStep.current.querySelector('span')
-            const secondDiv = refSecondStep.current.querySelector('div')
+            const button = refInforForm.current.querySelector('button')
+            const p = refFirstStepContainer.current.querySelector('p')
+            const span = refFirstStepContainer.current.querySelector('span')
+            const div = refFirstStepContainer.current.querySelector('div')
+            const secondP = refSecondStepContainer.current.querySelector('p')
+            const secondSpan = refSecondStepContainer.current.querySelector('span')
+            const secondDiv = refSecondStepContainer.current.querySelector('div')
             
             if(p && span && div && secondP && secondSpan && secondDiv && button){
                 button.disabled = true
-                button.removeEventListener('click', backStep)
+                button.removeEventListener('click', backStepForm)
                 div.style.borderColor = '#028DA5'
                 p.style.color = '#028DA5'
                 span.style.color = '#028DA5'
@@ -351,12 +301,12 @@ export default function Simular(){
                 <span>Simule seu financiamento</span>
                 <span>Encontre a melhor opção para realizar o sonho da casa própria em poucas minutos</span>
                 <div className={style.steps}>
-                    <div ref={refFirstStep}>
+                    <div ref={refFirstStepContainer}>
                     <div className={style.circle}><span>1</span></div>
                     <p>Dados de financiamento</p>
                     </div>
 
-                    <div ref={refSecondStep}>
+                    <div ref={refSecondStepContainer}>
                         <div className={style.circle}>
                         <span>2</span>
                         </div>
@@ -365,48 +315,48 @@ export default function Simular(){
                 </div>
 
                 
-                <form className={style.firstForm} onSubmit={handleFirst(onSubmit)} ref={refFirstForm}>
+                <form className={style.firstForm} onSubmit={handlePersonalForm(createPersonalInfos)} ref={refInforForm}>
                     <label htmlFor="name">Nome</label>
-                    {errorsFirst.name && <span>{errorsFirst.name.message}</span>}
-                    <input type="text" {...registerFirst("name")}/>
+                    {errorsPersonalForm.name && <span>{errorsPersonalForm.name.message}</span>}
+                    <input type="text" {...registerPersonalInfos("name")}/>
                     <label htmlFor="">Data de nascimento</label>
-                    {errorsFirst.birthday && <span>{errorsFirst.birthday.message}</span>}
-                    <input type="text" {...registerFirst("birthday")} />
+                    {errorsPersonalForm.birthday && <span>{errorsPersonalForm.birthday.message}</span>}
+                    <input type="text" {...registerPersonalInfos("birthday")} />
                     <label htmlFor="email">Email</label>
-                    {errorsFirst.email && <span>{errorsFirst.email.message}</span>}
-                    <input type="text" {...registerFirst(("email"))}/>
+                    {errorsPersonalForm.email && <span>{errorsPersonalForm.email.message}</span>}
+                    <input type="text" {...registerPersonalInfos(("email"))}/>
                     <label htmlFor="">Telefone</label>
-                    {errorsFirst.phone && <span>{errorsFirst.phone.message}</span>}
-                    <input type="text" {...registerFirst("phone")} />
+                    {errorsPersonalForm.phone && <span>{errorsPersonalForm.phone.message}</span>}
+                    <input type="text" {...registerPersonalInfos("phone")} />
                     
                     <div>
                         <button disabled={true}>Voltar</button>
-                        <button onClick={nextStep}>Avançar</button>
+                        <button onClick={showSucefullMsg}>Avançar</button>
                     </div>
                 </form>
 
-                <form className={style.secondForm} onSubmit={handleSecond((ev)=>onSubmitSecondForm(ev))} ref={refSecondForm}>
+                <form className={style.secondForm} onSubmit={handleFinanceForm(createFinanceInfos)} ref={refFinanceForm}>
                     <label htmlFor="">Tipo de financiamento desejado</label>
-                    {errorsSecond.type && <span>{errorsSecond.type.message}</span>}
-                    <select {...registerSecond("type")}>
+                    {errorsFinanceForm.type && <span>{errorsFinanceForm.type.message}</span>}
+                    <select {...registerFinanceInfos("type")}>
                         <option value="">Selecione um metodo de financiamento</option>
                         <option value="Financiamento imobililiario">Financiamento imobiliario</option>
                         <option value="Crédito com garantia">Crédito com garantia de imovel</option>
                     </select>
                     <label htmlFor="imobilleValue">Valor do imovel desejado</label>
-                    {errorsSecond.imobilleValue && <span>{errorsSecond.imobilleValue.message}</span>}
-                    <input type="text"  {...registerSecond("imobilleValue")} onChange={handleInputChange} name='imobilleValue'/>
+                    {errorsFinanceForm.imobilleValue && <span>{errorsFinanceForm.imobilleValue.message}</span>}
+                    <input type="text"  {...registerFinanceInfos("imobilleValue")} onChange={ev=>formatToCustomDecimal(ev.currentTarget.value)} name='imobilleValue'/>
                     <label htmlFor="financedValue">Valor a ser financiado</label>
-                    {errorsSecond.financedValue && <span>{errorsSecond.financedValue.message}</span>}
-                    <input type="text" {...registerSecond("financedValue")} onChange={handleInputChange} name='financedValue'/>
+                    {errorsFinanceForm.financedValue && <span>{errorsFinanceForm.financedValue.message}</span>}
+                    <input type="text" {...registerFinanceInfos("financedValue")} onChange={changeInputFormat} name='financedValue'/>
                     <label htmlFor='parcelnumber'>Numero de parcelas</label>
-                    {errorsSecond.parcelnumber && <span>{errorsSecond.parcelnumber.message}</span>}
-                    <input type="text" {...registerSecond("parcelnumber")} name='parcelnumber'/>
+                    {errorsFinanceForm.parcelnumber && <span>{errorsFinanceForm.parcelnumber.message}</span>}
+                    <input type="text" {...registerFinanceInfos("parcelnumber")} name='parcelnumber'/>
                     <label htmlFor=''>Amortização</label>
-                    {errorsSecond.amortization && <span>{errorsSecond.amortization.message}</span>}
-                    <input type="text" {...registerSecond("amortization")}/>
+                    {errorsFinanceForm.amortization && <span>{errorsFinanceForm.amortization.message}</span>}
+                    <input type="text" {...registerFinanceInfos("amortization")}/>
                     <div>
-                        <button onClick={backStep}>Voltar</button>
+                        <button onClick={backStepForm}>Voltar</button>
                         <button>Avançar</button>
                     </div>
                 </form>
@@ -418,8 +368,8 @@ export default function Simular(){
                     <button>Dar inicio a processo de financiamento</button>
                     <h3>Resumo</h3>
                         <div className={style.infos}>
-                         <p>Valor do imóvel: {houseValue}</p>
-                         <p>Valor financiado: {financementValue}</p>
+                         <p>Valor do imóvel: {formatToCustomDecimal(financeInfoData.imobilleValue)}</p>
+                         <p>Valor financiado: {formatToCustomDecimal(financeInfoData.financedValue)}</p>
                          <p>Valor de entrada: {prohibitedValue}</p>
                          <p>Primeira parcela: </p>
                          <p>Ultima parcela: </p>
@@ -430,11 +380,6 @@ export default function Simular(){
 
            
         </main>
-
-        <div className={style.loading} ref={refLoading}>
-            <p>Baixando a sua simulação</p>
-            <div className={style.ldsRoller} ><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        </div>
         </div>
 
     )

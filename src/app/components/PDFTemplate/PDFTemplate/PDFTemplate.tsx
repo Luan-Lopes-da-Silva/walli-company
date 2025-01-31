@@ -1,3 +1,4 @@
+import { formatToCustomDecimal } from '@/utils/formatToDecimal';
 import { PdfProps } from '@/utils/pdfProps'
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
 
@@ -159,9 +160,9 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels ,expanse,
                 </View>
                 <View>
                   <View style={styles.secondTrDiv}>
-                    <Text style={styles.thText}>R$ {imobilleValue},00</Text>
-                    <Text style={styles.thText}>R$ {imobilleValue - financementValue},00</Text>
-                    <Text style={styles.thText}>R$ {financementValue},00</Text>
+                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${imobilleValue}`)}</Text>
+                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${(imobilleValue - financementValue)}`)}</Text>
+                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${financementValue}`)}</Text>
                   </View>
                 </View>
               </View>
@@ -199,7 +200,7 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels ,expanse,
                 </View>
                 <View>
                   <View style={styles.secondTrDiv}>
-                    <Text style={styles.thText}>R$ {expanse}</Text>
+                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${expanse}`)}</Text>
                     <Text style={styles.thText}>R$ 00,00</Text>
                     <Text style={styles.thText}>R$ 00,00</Text>
                   </View>
