@@ -476,6 +476,16 @@ $black: #000000;
 
 @media(max-width:600px){
     .box{
+        .error{
+            left: 20%;
+            top: 40%;
+        }
+        
+        .loading{
+                left: 20%;
+                top: 40%;
+        }   
+
         .container{
             .header{
                 display: flex;

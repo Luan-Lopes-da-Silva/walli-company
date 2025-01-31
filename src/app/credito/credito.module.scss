@@ -301,6 +301,16 @@ $black: #000000;
 
 @media(max-width:600px){
     .container{
+        .error{
+            left: 20%;
+            top: 10%;
+        }
+        
+        .loading{
+                left: 20%;
+                top: 10%;
+        } 
+
         .content{
             .header{
                 display: flex;

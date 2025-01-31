@@ -324,6 +324,16 @@ $black: #000000;
 
 @media(max-width:600px){
     .box{
+        .error{
+            left: 20%;
+            top: 20%;
+        }
+        
+        .loading{
+                left: 20%;
+                top: 20%;
+        } 
+
         .contentContainer{
             padding-bottom: 60px;
             .header{
