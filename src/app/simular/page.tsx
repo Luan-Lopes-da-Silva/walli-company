@@ -162,6 +162,8 @@ export default function Simular(){
                 "Content-Type": "application/json"
             }   
         })
+
+        console.log(createNewProcess)
         
         setTimeout(() => {
             if(refSucefullMsg.current){
