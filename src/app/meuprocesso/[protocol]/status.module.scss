@@ -256,72 +256,28 @@ $black: #000000;
 
 @media(max-width:600px){
     .main{
-        height: 100%;
-        p{
-            font-size: 1.5rem;
-            width: 21.875rem;
-        }
+        
         .button{
             display: block;
+            right: 20px;
         }
-
-        .header{
-            nav{
-                width: 21.875rem;
-                border-radius: 0rem;
-                margin: 0 auto;
-
-                button{
-                    display: none;
-                }
-
-                h1{
-                    font-size: 2rem;
-                }
-            }
-        }
-
-        h2{
-            width: 21.875rem;
-        }
-
         .container{
+            margin-top: -200px;
+        padding-bottom:200px ;
+            
+            
             .errorContainer{
-                margin-top: -3.75rem;
                 img{
-                    width: 21.875rem;
-                    height: 18.75rem;
+                    width: 200px;
+                    height: 200px;
+                    display: block;
+                    margin-left: -20px;
                 }
-            }
-            .status{
-                .statusContainer{
-                    flex-direction: column;
-                    gap: .75rem;
-                    align-items: center;
-                    div{
-                        flex-direction: row;
-                        text-align: center;
-                        p{
-                            width: 9.375rem;
-                        }
-                        
-                        span{
-                            top: 90%;
-                            transform: rotate(90deg);
-                        }
-    
-                        span:nth-child(1){
-                            margin-left: 10.3125rem;
-                        }
-    
-                        div{
-                            padding: 1.25rem;
-                            img{
-                                width: 3.75rem;
-                                height: 3.75rem;
-                            }
-                        }
-                    }
+
+                p{
+                    font-size:1.2rem;
+                    width: 200px;
+                    margin-left: -20px;
                 }
             }
         }

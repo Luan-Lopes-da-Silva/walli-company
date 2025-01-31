@@ -96,3 +96,51 @@ $btn-secondary:#D3D664;
   
     }
 }
+
+@media(max-width:600px){
+    .container{
+        .error{
+            display: flex;
+            font-family: 'Error';
+            justify-content: center;
+            color: $text-color;
+            gap: 0.5rem;
+            
+            h2{
+                font-size: 4rem;
+                text-align: center;
+            }
+    
+            h2:nth-child(2){
+                margin-top: 4rem;
+            }
+        }
+
+        p{
+            font-size: 1.2rem;
+        }
+
+        button{
+           width: 200px;
+            margin: 1rem auto;
+        }
+
+        .logo{
+            width: 100%;
+            display: flex;
+            place-content: end;
+    
+            h2{
+                font-family: 'Text';
+                font-size: 1rem;
+                background-color: $btn-primary;
+                padding: 2.5rem 2rem;
+                margin-right: 0.50rem;
+                border-radius: 50%;
+                text-transform: uppercase;
+                color: $btn-secondary;
+            }
+      
+        }
+    }
+}
