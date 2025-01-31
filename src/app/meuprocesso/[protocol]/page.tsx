@@ -2,7 +2,8 @@ import { Financement, ProtocolPage } from "@/utils/types";
 import style from './status.module.scss'
 import Link from "next/link";
 import Image from "next/image";
-import errorImg from '../../../../public/assets/undraw_page-not-found_6wni.svg'
+import errorImg from '@/../public/assets/undraw_page-not-found_6wni.svg'
+
 import {Metadata} from 'next'
 
 export const metadata:Metadata={

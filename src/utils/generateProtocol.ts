@@ -10,4 +10,8 @@ export function createNewProtocol(){
   
         return protocol;
     }
+
+    const createProtocol = generateProtocol()
+
+    return createProtocol
 }

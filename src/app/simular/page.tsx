@@ -10,6 +10,7 @@ import { Financement } from '@/utils/types';
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import { formatToCustomDecimal } from '@/utils/formatToDecimal';
+import { createNewProtocol } from '@/utils/generateProtocol';
 
 
 
@@ -65,6 +66,7 @@ export default function Simular(){
     const [prohibitedValue,setProhibitedValue] = useState('')
     const [count,setCount] = useState(0)
     const [search,setSearch] = useState('') 
+    const [protocol,setProtocol] = useState('')
     const refSearch = useRef<HTMLDivElement>(null)
     const refInforForm = useRef<HTMLFormElement>(null)
     const refFinanceForm = useRef<HTMLFormElement>(null)
@@ -77,6 +79,21 @@ export default function Simular(){
     const refMenuContainer = useRef<HTMLDivElement>(null)
     const refMenu = useRef<HTMLUListElement>(null)
     const refContent = useRef<HTMLElement>(null)
+    const refSucefullMsg = useRef<HTMLDivElement>(null)
+
+    const { 
+        register: registerPersonalInfos,
+        handleSubmit: handlePersonalForm,
+        setValue,
+        formState: { errors:errorsPersonalForm }
+    } = useForm<personalDataForm>({resolver:zodResolver(createPersonalDatasSchema)})
+
+
+    const { 
+        register: registerFinanceInfos,
+        handleSubmit: handleFinanceForm,
+        formState: { errors:errorsFinanceForm }
+    } = useForm<financeDataForm>({resolver:zodResolver(createFinancementSchema)})
 
 
     useEffect(()=>{
@@ -116,32 +133,42 @@ export default function Simular(){
         }
     }
 
-    function showSucefullMsg(){
-        console.log(personalInfoData)
+    async function showSucefullMsg(){
+        const newProtocol = createNewProtocol()
+        setProtocol(newProtocol)
+
+        const createNewProcess = await fetch('https://walli-processdb.onrender.com/process',{
+            method: 'POST',
+            body:JSON.stringify(
+                {
+                   clientname: personalInfoData.name.replace(/^[A-Z\s]+$/, (match)=> match.toLowerCase().replace(/\b\w/g,(char)=>char.toUpperCase())),
+                   clientbirthday: personalInfoData.birthday,
+                   clientemail:personalInfoData.email,
+                   clientphone: personalInfoData.phone,
+                   consultantname: '',
+                   consultantemail: '',
+                   consultantphone: '',
+                   numberparcels: financeInfoData.parcelnumber,
+                   amortization: financeInfoData.amortization,
+                   protocol: newProtocol,
+                   createdat: `${new Date()}`,
+                   statusprocess: 'Sem consultor',
+                   financementvalue: financeInfoData.financedValue,
+                   prohibitedvalue: `${(Number(financeInfoData.imobilleValue)-Number(financeInfoData.financedValue))}`,
+                   valueimobille: financeInfoData.imobilleValue, 
+                }
+            ),
+            headers:{
+                "Content-Type": "application/json"
+            }   
+        })
+        
+        setTimeout(() => {
+            if(refSucefullMsg.current){
+                refSucefullMsg.current.style.display = 'block'
+            }
+        }, 2000);
     }
-
-  
-
-    
-   
-
-    const { 
-        register: registerPersonalInfos,
-        handleSubmit: handlePersonalForm,
-        setValue,
-        formState: { errors:errorsPersonalForm }
-    } = useForm<personalDataForm>({resolver:zodResolver(createPersonalDatasSchema)})
-
-
-    const { 
-        register: registerFinanceInfos,
-        handleSubmit: handleFinanceForm,
-        formState: { errors:errorsFinanceForm }
-    } = useForm<financeDataForm>({resolver:zodResolver(createFinancementSchema)})
-
- 
-
-
 
     function createPersonalInfos(data:personalDataForm){
         if(refInforForm.current && refFinanceForm.current && refFirstStepContainer.current && refSecondStepContainer.current){
@@ -245,6 +272,14 @@ export default function Simular(){
                 <p>Buscando seu numero de protocolo</p>
             </div>
 
+            <div style={{display:"none", position:"absolute", top:"50%"}} ref={refSucefullMsg}>
+                <p>
+                Parabens seu processo foi criado com sucesso, 
+                agora fique atento a seu email e guarde seu numero de protocolo para que possa acompanha-lo.
+                Protocolo {protocol}
+                </p>
+            </div>
+
             <div className={style.error} ref={refError}>
                 <Image
                 width={32}
@@ -331,7 +366,7 @@ export default function Simular(){
                     
                     <div>
                         <button disabled={true}>Voltar</button>
-                        <button onClick={showSucefullMsg}>Avançar</button>
+                        <button>Avançar</button>
                     </div>
                 </form>
 
@@ -365,7 +400,7 @@ export default function Simular(){
               
 
                 <article className={style.summary} ref={refSummary}>
-                    <button>Dar inicio a processo de financiamento</button>
+                    <button onClick={showSucefullMsg}>Dar inicio a processo de financiamento</button>
                     <h3>Resumo</h3>
                         <div className={style.infos}>
                          <p>Valor do imóvel: {formatToCustomDecimal(financeInfoData.imobilleValue)}</p>
