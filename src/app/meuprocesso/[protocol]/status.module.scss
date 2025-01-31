@@ -145,7 +145,7 @@ $black: #000000;
         }
         
         .container{
-            margin-top: 8.75rem;
+            margin-top: 2.75rem;
             padding: 0rem 1.25rem;
             width: 100%;
             background-color: $secondary-color;
@@ -162,6 +162,20 @@ $black: #000000;
                 p{
                     font-size: 1.5rem;
                     width: 420px;
+                }
+            }
+
+            .consultant{
+                ul{
+                    padding: 0px 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    list-style: none;
+                    li{
+                        font-size: 1.2rem;
+                        font-family: 'Text';
+                    }
                 }
             }
     
@@ -210,40 +224,84 @@ $black: #000000;
     
             .status{
                 .statusContainer{
+                
                     display: flex;
-                    gap: 3.75rem;
-                    justify-content: center;      
-                    div{
+                    align-items: center;
+                    gap: 4rem;
+                    justify-content: center;
+                    
+                    .firstStep,
+                    .secondStep,
+                    .thirdStep,
+                    .fourthStep,
+                    .fifthStep{
+                        position: relative;
                         display: flex;
                         flex-direction: column;
+                        gap: 12px;
                         align-items: center;
-                        gap: .75rem;
-                        position: relative;
-    
-                        span{
-                            width: 6.25rem;
-                            height: .5rem;
-                            background-color: #000;
-                            position: absolute;
-                            top: 50%;
-                        }
-    
-                        span:nth-child(1){
-                            margin-left: 18.125rem;
-                        }
-    
-                        p{
-                            font-size: 1rem;
-                            font-family: 'Text';
-                        }
-    
+
                         div{
-                            background-color: #0091A4;
-                                padding: 2.5rem;
+                            background-color: $secondary-grey;
+                            padding: 12px;
                             border-radius: 50%;
                         }
+                        
+                        p{
+                            font-size: 1.2rem;
+                            width: max-content;
+                            font-family: 'Text';
+                        }
                     }
-    
+
+                    .firstStep{   
+                        div{
+                            background-color: $primary-color;
+                        }   
+                        span{
+                            position: absolute;
+                            width: 120px;
+                            height: 2px;
+                            background-color: $primary-color;
+                            top: -25px;
+                            left: 120px;
+                        }
+                    }
+
+                    .secondStep{
+                        span{
+                            position: absolute;
+                            width: 80px;
+                            height: 2px;
+                            background-color: $secondary-grey;
+                            top: -25px;
+                            left: 66px;
+                        }
+                    }
+
+                    .thirdStep{
+                        span{
+                            position: absolute;
+                            width: 80px;
+                            height: 2px;
+                            background-color: $secondary-grey;
+                            top: -25px;
+                            left: 80px;
+                        }
+                    }
+
+                    .fourthStep{
+                        span{
+                            position: absolute;
+                            width: 66px;
+                            height: 2px;
+                            background-color: $secondary-grey;
+                            top: -25px;
+                            left: 67px;
+                        }
+                    }
+                    
+                   
                 }
             }
         }
@@ -257,6 +315,7 @@ $black: #000000;
             nav{
                 justify-content: start;
                 height: 13.75rem;
+                width: 320px;
 
                 h1{
                     font-size:1.2rem;
@@ -268,14 +327,9 @@ $black: #000000;
                 }
         
                 ul{
-                    
-                    
-                    
-                   
-        
                     li{
-                        margin: 0rem .75rem;
-                        font-size: 1rem;
+                        margin: 0rem 0.4rem;
+                        font-size: 0.825rem;
                         font-family: 'Lis';
                         transition: .4s;
                         color: $white;
@@ -292,7 +346,7 @@ $black: #000000;
 
         .button{
             display: block;
-            left:250px;
+            left:200px;
             width: max-content;
         }
 
@@ -366,39 +420,90 @@ $black: #000000;
                 .status{
                     .statusContainer{
                         display: flex;
-                        gap: 3.75rem;
-                        justify-content: center;      
-                        div{
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: .75rem;
+                        align-items: start;
+                        gap: 6rem;
+                        margin-top: 12px;
+                        flex-direction: column;
+                        justify-content: start;
+                        
+                        .firstStep,
+                        .secondStep,
+                        .thirdStep,
+                        .fourthStep,
+                        .fifthStep{
                             position: relative;
-        
-                            span{
-                                width: 6.25rem;
-                                height: .5rem;
-                                background-color: #000;
-                                position: absolute;
-                                top: 50%;
+                            flex-direction: row;
+                            align-items: center;
+    
+                            div{
+                                background-color: $secondary-grey;
+                                padding: 12px;
+                                border-radius: 50%;
+
+                                img{
+                                    width: 20px;
+                                    height: 20px;
+                                }
                             }
-        
-                            span:nth-child(1){
-                                margin-left: 18.125rem;
-                            }
-        
+                            
                             p{
-                                font-size: 1rem;
+                                font-size: 1.2rem;
+                                width: max-content;
                                 font-family: 'Text';
                             }
-        
+                        }
+    
+                        .firstStep{   
                             div{
-                                background-color: #0091A4;
-                                    padding: 2.5rem;
-                                border-radius: 50%;
+                                background-color: $primary-color;
+                            }   
+                            span{
+                                position: absolute;
+                                width: 2px;
+                                height: 120px;
+                                background-color: $primary-color;
+                                top: -25px;
+                                left: 22px;
+                            }
+                            p{
+                                color: $primary-color;
                             }
                         }
-        
+    
+                        .secondStep{
+                            span{
+                                position: absolute;
+                                width: 2px;
+                                height: 120px;
+                                background-color: $secondary-grey;
+                                top: -25px;
+                                left: 22px;
+                            }
+                        }
+    
+                        .thirdStep{
+                            span{
+                                position: absolute;
+                                width: 2px;
+                                height: 120px;
+                                background-color: $secondary-grey;
+                                top: -25px;
+                                left: 22px;
+                            }
+                        }
+    
+                        .fourthStep{
+                            span{
+                                position: absolute;
+                                width: 2px;
+                                height: 120px;
+                                background-color: $secondary-grey;
+                                top: -25px;
+                                left: 22px;
+                            }
+                        }
+                        
+                       
                     }
                 } 
         }

@@ -3,6 +3,11 @@ import style from './status.module.scss'
 import Link from "next/link";
 import Image from "next/image";
 import errorImg from '@/../public/assets/undraw_page-not-found_6wni.svg'
+import fileSvg from '@/../public/assets/folder_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import searchSvg from '@/../public/assets/manage_search_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import engineerSvg from '@/../public/assets/engineering_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import gavelSvg from '@/../public/assets/gavel_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import emissionSvg from '@/../public/assets/assignment_turned_in_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 
 import {Metadata} from 'next'
 
@@ -134,7 +139,69 @@ export default async function MeuProcesso({ params }:any) {
           <section className={style.status}>
             <span>Status</span>
               <div className={style.statusContainer}>
+                  <div className={style.firstStep}>
+                    <div>
+                    <Image
+                    width={42}
+                    height={42}
+                    alt="Search svg"
+                    src={searchSvg}
+                    />
+                    </div>
+                    <p>Pesquisa e simulação</p>
+                    <span></span>
+                  </div>
 
+                  <div className={style.secondStep}>
+                    <div>
+                    <Image
+                    width={42}
+                    height={42}
+                    alt="File svg"
+                    src={fileSvg}
+                    />
+                    </div>
+                    <p>Pasta</p>
+                    <span></span>
+                  </div>
+
+                  <div className={style.thirdStep}>
+                    <div>
+                    <Image
+                    width={42}
+                    height={42}
+                    alt="Engineer svg"
+                    src={engineerSvg}
+                    />
+                    </div>
+                    <p>Engenharia</p>
+                    <span></span>
+                  </div>
+
+                  <div className={style.fourthStep}>
+                    <div>
+                    <Image
+                    width={42}
+                    height={42}
+                    alt="Gavel svg"
+                    src={gavelSvg}
+                    />
+                    </div>
+                    <p>Juridico</p>
+                    <span></span>
+                  </div>
+
+                  <div className={style.fifthStep}>
+                   <div>
+                   <Image
+                    width={42}
+                    height={42}
+                    alt="Emission svg"
+                    src={emissionSvg}
+                    />
+                   </div>
+                    <p>Emissão</p>
+                  </div>
               </div>
           </section>
         )}
