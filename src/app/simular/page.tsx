@@ -405,11 +405,11 @@ export default function Simular(){
                     <button onClick={showSucefullMsg}>Dar inicio a processo de financiamento</button>
                     <h3>Resumo</h3>
                         <div className={style.infos}>
-                         <p>Valor do imóvel: {formatToCustomDecimal(financeInfoData.imobilleValue)}</p>
-                         <p>Valor financiado: {formatToCustomDecimal(financeInfoData.financedValue)}</p>
-                         <p>Valor de entrada: {prohibitedValue}</p>
-                         <p>Primeira parcela: </p>
-                         <p>Ultima parcela: </p>
+                         <p>Valor do imóvel: R$ {formatToCustomDecimal(financeInfoData.imobilleValue)}</p>
+                         <p>Valor financiado: R$ {formatToCustomDecimal(financeInfoData.financedValue)}</p>
+                         <p>Valor de entrada: R$ {prohibitedValue}</p>
+                         <p>Primeira parcela: R$ {formatToCustomDecimal(`${Number(financeInfoData.financedValue)/Number(financeInfoData.parcelnumber)}`)}</p>
+                         <p>Ultima parcela: R$ {formatToCustomDecimal(`${Number(financeInfoData.financedValue)/Number(financeInfoData.parcelnumber)}`)}</p>
                         </div>
                     <button onClick={createAndSavePDF}>Receber simulação</button>
                 </article>

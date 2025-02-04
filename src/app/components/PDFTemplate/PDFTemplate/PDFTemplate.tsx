@@ -101,192 +101,218 @@ const styles = StyleSheet.create({
     
   });
 
-export function PDFTemplate({ financementValue, imobilleValue, parcels ,expanse,amortization}: PdfProps) {
-  const itemsPerPage = 20
-  const finalArray: number[] = []
-  const arrayDueBalance: string[] = []
-  const now = new Date()
-  const formatDate = `${now.getDate()}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`
+  export function PDFTemplate({ financementValue, imobilleValue, parcels ,expanse,amortization}: PdfProps) {
+    const itemsPerPage = 20
+    const finalArray: number[] = []
+    const arrayDueBalance: string[] = []
+    const arrayJuros: string[] = []
+    const now = new Date()
+    const formatDate = `${now.getDate()}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`
+    const arrayParcelas:string[] = []
+    const arrayTest:number[] = []
 
-  for (let i = 0; i < parcels; i++) {
-    finalArray.push(financementValue / parcels)
-  }
+  
+    // Taxa de juros anual de 11.90%
+    const taxaJurosAnual = 0.1190
+    const taxaJurosMensal =  Math.pow(1+taxaJurosAnual,1/12)-1
+  
+    let saldoDevedor = financementValue // Inicializa o saldo devedor com o valor financiado
+    let reduceDueBalance = financementValue // Usado para reduzir o saldo devedor a cada parcela
+  
+    // Amortização fixa (método SAC)
+    const amortizacaoMensal = financementValue / parcels
+  
+    // Calcular o saldo devedor e os juros para cada parcela
+    for (let i = 0; i < parcels; i++) {
+      // Calculando os juros para o mês
+      const jurosMes = saldoDevedor * taxaJurosMensal
+      arrayTest.push(jurosMes)
+  
+      // Ajustando o valor dos juros para não ser um número gigante
+      const jurosMesFormatado = jurosMes.toString().slice(0,6)
+      arrayJuros.push(`${Number(jurosMesFormatado)}`)
 
-  let reduceDueBalance = financementValue
-  for (let i = 0; i < finalArray.length; i++) {
-    reduceDueBalance -= finalArray[i]
-    arrayDueBalance.push(Number(reduceDueBalance).toFixed(2))
-  }
-
-  const pages = Array.from({ length: Math.ceil(parcels / itemsPerPage) }, (_, pageIndex) => {
-    const start = pageIndex * itemsPerPage
-    const end = Math.min(start + itemsPerPage, parcels)
-
-    return (
-      <View key={pageIndex}>
-        {arrayDueBalance.slice(start, end).map((balance, index) => (
-          <View key={index} style={styles.secondTrDivAmortization}>
-            <Text style={styles.thText}>{start + index + 1}</Text>
-            <Text style={styles.thText}>R$ 0,00</Text>
-            <Text style={styles.thText}>R$ 0,00</Text>
-            <Text style={styles.thText}>R$ 0,00</Text>
-            <Text style={styles.thText}>R$ 0,00</Text>
-            <Text style={styles.thText}>R$ 0,00</Text>
-            <Text style={styles.thText}>R$ {(financementValue / parcels)}</Text>
-            <Text style={styles.thText}>R$ {balance}</Text>
-          </View>
-        ))}
-      </View>
-    )
-  })
-
-  return (
-    <Document>
-      {/* Primeira página: Resumo */}
-      <Page size="A3" style={styles.page}>
-        <View style={styles.container}>
-          <View style={styles.summary}>
-            <View style={styles.section}>
-              <View style={styles.table}>
-                <View style={styles.secondTrDivAlternative}>
-                    <Text style={styles.thTextAlternative}>VALORES</Text>
-                </View>
-                <View>
-                  <View style={styles.firstTrDiv}>
-                    <Text style={styles.thText}>Valor do imóvel</Text>
-                    <Text style={styles.thText}>Valor da entrada</Text>
-                    <Text style={styles.thText}>Valor financiado</Text>
-                  </View>
-                </View>
-                <View>
-                  <View style={styles.secondTrDiv}>
-                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${imobilleValue}`)}</Text>
-                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${(imobilleValue - financementValue)}`)}</Text>
-                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${financementValue}`)}</Text>
-                  </View>
-                </View>
-              </View>
+      const parcelaMensal = (jurosMes+amortizacaoMensal).toString().slice(0,6)
+      arrayParcelas.push(formatToCustomDecimal(`${parcelaMensal}`))
+  
+      // Atualizando o saldo devedor
+      reduceDueBalance -= amortizacaoMensal
+      arrayDueBalance.push(`${reduceDueBalance}`)
+  
+      // Adicionando amortização + juros ao array final (valor da parcela)
+      finalArray.push(amortizacaoMensal + jurosMes)
+      saldoDevedor -= amortizacaoMensal
+    }
+  
+    const pages = Array.from({ length: Math.ceil(parcels / itemsPerPage) }, (_, pageIndex) => {
+      const start = pageIndex * itemsPerPage
+      const end = Math.min(start + itemsPerPage, parcels)
+  
+      return (
+        <View key={pageIndex}>
+          {arrayDueBalance.slice(start, end).map((balance, index) => (
+            <View key={index} style={styles.secondTrDivAmortization}>
+              <Text style={styles.thText}>{start + index + 1}</Text>
+              <Text style={styles.thText}>R$ {formatToCustomDecimal(`${amortizacaoMensal.toString().slice(0,6)}`)}</Text>
+              <Text style={styles.thText}>R$ {formatToCustomDecimal(arrayJuros[start + index])}</Text>
+              <Text style={styles.thText}>R$ 0,00</Text>
+              <Text style={styles.thText}>R$ 0,00</Text>
+              <Text style={styles.thText}>R$ 0,00</Text>
+              <Text style={styles.thText}>R$ {arrayParcelas[start + index]}</Text>
+              <Text style={styles.thText}>R$ {formatToCustomDecimal(`${balance.toString().slice(0,8)}`)}</Text>
             </View>
-
-            <View style={styles.section}>
-          <View style={styles.table}>
-                <View style={styles.secondTrDivAlternative}>
-                    <Text style={styles.thTextAlternative}>TAXAS</Text>
-                </View>
-                <View>
-                  <View style={styles.firstTrDiv}>
-                    <Text style={styles.thTextAlternative}>Taxa juros (nominal juros a.a)</Text>
-                    <Text style={styles.thTextAlternative}>Taxa juros (efetiva a.a)</Text>
-                    <Text style={styles.thText}>CET - Anual</Text>
-                  </View>
-                </View>
-                <View>
-                  <View style={styles.secondTrDiv}>
-                    <Text style={styles.thText}>R$ 00,00</Text>
-                    <Text style={styles.thText}>R$ 00,00</Text>
-                    <Text style={styles.thText}>R$ 00,00</Text>
-                  </View>
-                </View>
-              </View>
-          </View>
-          <View style={styles.section}>
-          <View style={styles.table}>
-                <View>
-                  <View style={styles.firstTrDiv}>
-                    <Text style={styles.thText}>Despesas</Text>
-                    <Text style={styles.thText}>Vistoria</Text>
-                    <Text style={styles.thText}>IOF</Text>
-                  </View>
-                </View>
-                <View>
-                  <View style={styles.secondTrDiv}>
-                    <Text style={styles.thText}>R$ {formatToCustomDecimal(`${expanse}`)}</Text>
-                    <Text style={styles.thText}>R$ 00,00</Text>
-                    <Text style={styles.thText}>R$ 00,00</Text>
-                  </View>
-                </View>
-              </View>
-          </View>
-          <View style={styles.section}>
-          <View style={styles.table}>
-                <View>
-                  <View style={styles.firstTrDiv}>
-                    <Text style={styles.thTextAlternative}>Renda informada</Text>
-                    <Text style={styles.thTextAlternative}>Prazo(meses)</Text>
-                    <Text style={styles.thTextAlternative}>Sistema amortização</Text>
-                  </View>
-                </View>
-                <View>
-                  <View style={styles.secondTrDiv}>
-                    <Text style={styles.thText}>R$ 00,00</Text>
-                    <Text style={styles.thText}>{parcels}</Text>
-                    <Text style={styles.thText}>{amortization}</Text>
-                  </View>
-                </View>
-              </View>
-          </View>
-
-          <View style={styles.section}>
-          <View style={styles.table}>
-                <View>
-                  <View style={styles.firstTrDiv}>
-                    <Text style={styles.thTextAlternative}>Tipo de imóvel</Text>
-                  </View>
-                </View>
-                <View>
-                  <View style={styles.secondTrDiv}>
-                    <Text style={styles.thTextAlternative}>Residencial</Text>
-                  </View>
-                </View>
-              </View>
-          </View>
-
-          <View style={styles.section}>
-          <View style={styles.table}>
-                <View>
-                  <View style={styles.firstTrDiv}>
-                    <Text style={styles.thText}>Seguradora</Text>
-                    <Text style={styles.thText}>Data da simulação</Text>
-                  </View>
-                </View>
-                <View>
-                  <View style={styles.secondTrDiv}>
-                    <Text style={styles.thText}>Não informado</Text>
-                    <Text style={styles.thText}>{formatDate}</Text>
-                  </View>
-                </View>
-              </View>
-          </View>
-          </View>
-          
-          
+          ))}
         </View>
-      </Page>
-
-      {pages.map((pageItems, pageIndex) => (
-        <Page key={pageIndex} size="A3" style={styles.page}>
+      )
+    })
+  
+    return (
+      <Document>
+        <Page size="A3" style={styles.page}>
           <View style={styles.container}>
-            <Text>Tabela de Parcelas</Text>
-            <View style={styles.section}>
-              <View>
-                <View>
-                  <View style={styles.firstTrDivAmortization}>
-                    <Text style={styles.thText}>Parcela</Text>
-                    <Text style={styles.thText}>Amortização</Text>
-                    <Text style={styles.thText}>Juros</Text>
-                    <Text style={styles.thText}>Seguro MIP</Text>
-                    <Text style={styles.thText}>Seguro DFI</Text>
-                    <Text style={styles.thText}>TSA</Text>
-                    <Text style={styles.thText}>Valor parcela</Text>
-                    <Text style={styles.thText}>Saldo devedor</Text>
+            <View style={styles.summary}>
+              <View style={styles.section}>
+                <View style={styles.table}>
+                  <View style={styles.secondTrDivAlternative}>
+                      <Text style={styles.thTextAlternative}>VALORES</Text>
+                  </View>
+                  <View>
+                    <View style={styles.firstTrDiv}>
+                      <Text style={styles.thText}>Valor do imóvel</Text>
+                      <Text style={styles.thText}>Valor da entrada</Text>
+                      <Text style={styles.thText}>Valor financiado</Text>
+                      <Text>{taxaJurosMensal}</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View style={styles.secondTrDiv}>
+                      <Text style={styles.thText}>R$ {formatToCustomDecimal(`${imobilleValue}`)}</Text>
+                      <Text style={styles.thText}>R$ {formatToCustomDecimal(`${(imobilleValue - financementValue)}`)}</Text>
+                      <Text style={styles.thText}>R$ {formatToCustomDecimal(`${financementValue}`)}</Text>
+                    </View>
                   </View>
                 </View>
-                <View>{pageItems}</View>
               </View>
+  
+              <View style={styles.section}>
+            <View style={styles.table}>
+                  <View style={styles.secondTrDivAlternative}>
+                      <Text style={styles.thTextAlternative}>TAXAS</Text>
+                  </View>
+                  <View>
+                    <View style={styles.firstTrDiv}>
+                      <Text style={styles.thTextAlternative}>Taxa juros (nominal juros a.a)</Text>
+                      <Text style={styles.thTextAlternative}>Taxa juros (efetiva a.a)</Text>
+                      <Text style={styles.thText}>CET - Anual</Text>
+                      <Text>{taxaJurosMensal}</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View style={styles.secondTrDiv}>
+                      <Text style={styles.thText}>R$ 11,90</Text>
+                      <Text style={styles.thText}>R$ 00,00</Text>
+                      <Text style={styles.thText}>R$ 00,00</Text>
+                    </View>
+                  </View>
+                </View>
             </View>
+            <View style={styles.section}>
+            <View style={styles.table}>
+                  <View>
+                    <View style={styles.firstTrDiv}>
+                      <Text style={styles.thText}>Despesas</Text>
+                      <Text style={styles.thText}>Vistoria</Text>
+                      <Text style={styles.thText}>IOF</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View style={styles.secondTrDiv}>
+                      <Text style={styles.thText}>R$ {formatToCustomDecimal(`${expanse}`)}</Text>
+                      <Text style={styles.thText}>R$ 00,00</Text>
+                      <Text style={styles.thText}>R$ 00,00</Text>
+                    </View>
+                  </View>
+                </View>
+            </View>
+            <View style={styles.section}>
+            <View style={styles.table}>
+                  <View>
+                    <View style={styles.firstTrDiv}>
+                      <Text style={styles.thTextAlternative}>Renda minima</Text>
+                      <Text style={styles.thTextAlternative}>Prazo(meses)</Text>
+                      <Text style={styles.thTextAlternative}>Sistema amortização</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View style={styles.secondTrDiv}>
+                      <Text style={styles.thText}>R$ 00,00</Text>
+                      <Text style={styles.thText}>{parcels}</Text>
+                      <Text style={styles.thText}>{amortization}</Text>
+                    </View>
+                  </View>
+                </View>
+            </View>
+  
+            <View style={styles.section}>
+            <View style={styles.table}>
+                  <View>
+                    <View style={styles.firstTrDiv}>
+                      <Text style={styles.thTextAlternative}>Tipo de imóvel</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View style={styles.secondTrDiv}>
+                      <Text style={styles.thTextAlternative}>Residencial</Text>
+                    </View>
+                  </View>
+                </View>
+            </View>
+  
+            <View style={styles.section}>
+            <View style={styles.table}>
+                  <View>
+                    <View style={styles.firstTrDiv}>
+                      <Text style={styles.thText}>Seguradora</Text>
+                      <Text style={styles.thText}>Data da simulação</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View style={styles.secondTrDiv}>
+                      <Text style={styles.thText}>Não informado</Text>
+                      <Text style={styles.thText}>{formatDate}</Text>
+                    </View>
+                  </View>
+                </View>
+            </View>
+            </View>
+  
           </View>
         </Page>
-      ))}
-    </Document>
-  )
-}
+  
+        {pages.map((pageItems, pageIndex) => (
+          <Page key={pageIndex} size="A3" style={styles.page}>
+            <View style={styles.container}>
+              <Text>Tabela de Parcelas</Text>
+              <View style={styles.section}>
+                <View>
+                  <View>
+                    <View style={styles.firstTrDivAmortization}>
+                      <Text style={styles.thText}>Parcela</Text>
+                      <Text style={styles.thText}>Amortização</Text>
+                      <Text style={styles.thText}>Juros</Text>
+                      <Text style={styles.thText}>Seguro MIP</Text>
+                      <Text style={styles.thText}>Seguro DFI</Text>
+                      <Text style={styles.thText}>TSA</Text>
+                      <Text style={styles.thText}>Valor parcela</Text>
+                      <Text style={styles.thText}>Saldo devedor</Text>
+                    </View>
+                  </View>
+                  <View>{pageItems}</View>
+                </View>
+              </View>
+            </View>
+          </Page>
+        ))}
+      </Document>
+    )
+  }
