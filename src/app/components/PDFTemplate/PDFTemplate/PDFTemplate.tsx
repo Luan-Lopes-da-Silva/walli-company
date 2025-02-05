@@ -104,37 +104,37 @@ const styles = StyleSheet.create({
   export function PDFTemplate({ financementValue, imobilleValue, parcels ,expanse,amortization}: PdfProps) {
     const itemsPerPage = 20
     const finalArray: number[] = []
-    const arrayDueBalance: string[] = []
-    const arrayJuros: string[] = []
+    const dueBalanceArray: string[] = []
+    const taxArray: string[] = []
     const now = new Date()
     const formatDate = `${now.getDate()}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`
-    const arrayParcelas:string[] = []
-    const arrayTest:number[] = []
+    const parcelArray:string[] = []
+    const monthTaxArray:number[] = []
 
-    const taxaJurosAnual = 0.1190
-    const taxaJurosMensal =  Math.pow(1+taxaJurosAnual,1/12)-1
+    const taxYear = 0.1190
+    const taxMonth =  Math.pow(1+taxYear,1/12)-1
   
-    let saldoDevedor = financementValue 
+    let startDueBalance = financementValue 
     let reduceDueBalance = financementValue 
   
-    const amortizacaoMensal = financementValue / parcels
+    const monthAmortization = financementValue / parcels
   
   
     for (let i = 0; i < parcels; i++) {
-      const jurosMes = saldoDevedor * taxaJurosMensal
-      arrayTest.push(jurosMes)
+      const monthTax = startDueBalance * taxMonth
+      monthTaxArray.push(monthTax)
   
-      const jurosMesFormatado = jurosMes.toString().slice(0,6)
-      arrayJuros.push(`${Number(jurosMesFormatado)}`)
+      const formatedMonthTax = monthTax.toString().slice(0,6)
+      taxArray.push(`${Number(formatedMonthTax)}`)
 
-      const parcelaMensal = (jurosMes+amortizacaoMensal).toString().slice(0,6)
-      arrayParcelas.push(formatToCustomDecimal(`${parcelaMensal}`))
+      const monthParcel = (monthTax+monthAmortization).toString().slice(0,6)
+      parcelArray.push(formatToCustomDecimal(`${monthParcel}`))
   
-      reduceDueBalance -= amortizacaoMensal
-      arrayDueBalance.push(`${reduceDueBalance}`)
+      reduceDueBalance -= monthAmortization
+      dueBalanceArray.push(`${reduceDueBalance}`)
   
-      finalArray.push(amortizacaoMensal + jurosMes)
-      saldoDevedor -= amortizacaoMensal
+      finalArray.push(monthAmortization + monthTax)
+      startDueBalance -= monthAmortization
     }
   
     const pages = Array.from({ length: Math.ceil(parcels / itemsPerPage) }, (_, pageIndex) => {
@@ -143,15 +143,15 @@ const styles = StyleSheet.create({
   
       return (
         <View key={pageIndex}>
-          {arrayDueBalance.slice(start, end).map((balance, index) => (
+          {dueBalanceArray.slice(start, end).map((balance, index) => (
             <View key={index} style={styles.secondTrDivAmortization}>
               <Text style={styles.thText}>{start + index + 1}</Text>
-              <Text style={styles.thText}>R$ {formatToCustomDecimal(`${amortizacaoMensal.toString().slice(0,6)}`)}</Text>
-              <Text style={styles.thText}>R$ {formatToCustomDecimal(arrayJuros[start + index])}</Text>
+              <Text style={styles.thText}>R$ {formatToCustomDecimal(`${monthAmortization.toString().slice(0,6)}`)}</Text>
+              <Text style={styles.thText}>R$ {formatToCustomDecimal(taxArray[start + index])}</Text>
               <Text style={styles.thText}>R$ 0,00</Text>
               <Text style={styles.thText}>R$ 0,00</Text>
               <Text style={styles.thText}>R$ 0,00</Text>
-              <Text style={styles.thText}>R$ {arrayParcelas[start + index]}</Text>
+              <Text style={styles.thText}>R$ {parcelArray[start + index]}</Text>
               <Text style={styles.thText}>R$ {formatToCustomDecimal(`${balance.toString().slice(0,8)}`)}</Text>
             </View>
           ))}
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
                       <Text style={styles.thText}>Valor do imóvel</Text>
                       <Text style={styles.thText}>Valor da entrada</Text>
                       <Text style={styles.thText}>Valor financiado</Text>
-                      <Text>{taxaJurosMensal}</Text>
+                      <Text>{taxMonth}</Text>
                     </View>
                   </View>
                   <View>
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
                       <Text style={styles.thTextAlternative}>Taxa juros (nominal juros a.a)</Text>
                       <Text style={styles.thTextAlternative}>Taxa juros (efetiva a.a)</Text>
                       <Text style={styles.thText}>CET - Anual</Text>
-                      <Text>{taxaJurosMensal}</Text>
+                      <Text>{taxMonth}</Text>
                     </View>
                   </View>
                   <View>
