@@ -111,35 +111,28 @@ const styles = StyleSheet.create({
     const arrayParcelas:string[] = []
     const arrayTest:number[] = []
 
-  
-    // Taxa de juros anual de 11.90%
     const taxaJurosAnual = 0.1190
     const taxaJurosMensal =  Math.pow(1+taxaJurosAnual,1/12)-1
   
-    let saldoDevedor = financementValue // Inicializa o saldo devedor com o valor financiado
-    let reduceDueBalance = financementValue // Usado para reduzir o saldo devedor a cada parcela
+    let saldoDevedor = financementValue 
+    let reduceDueBalance = financementValue 
   
-    // Amortização fixa (método SAC)
     const amortizacaoMensal = financementValue / parcels
   
-    // Calcular o saldo devedor e os juros para cada parcela
+  
     for (let i = 0; i < parcels; i++) {
-      // Calculando os juros para o mês
       const jurosMes = saldoDevedor * taxaJurosMensal
       arrayTest.push(jurosMes)
   
-      // Ajustando o valor dos juros para não ser um número gigante
       const jurosMesFormatado = jurosMes.toString().slice(0,6)
       arrayJuros.push(`${Number(jurosMesFormatado)}`)
 
       const parcelaMensal = (jurosMes+amortizacaoMensal).toString().slice(0,6)
       arrayParcelas.push(formatToCustomDecimal(`${parcelaMensal}`))
   
-      // Atualizando o saldo devedor
       reduceDueBalance -= amortizacaoMensal
       arrayDueBalance.push(`${reduceDueBalance}`)
   
-      // Adicionando amortização + juros ao array final (valor da parcela)
       finalArray.push(amortizacaoMensal + jurosMes)
       saldoDevedor -= amortizacaoMensal
     }
@@ -307,7 +300,20 @@ const styles = StyleSheet.create({
                       <Text style={styles.thText}>Saldo devedor</Text>
                     </View>
                   </View>
-                  <View>{pageItems}</View>
+                  {amortization=='PRICE'?(
+                    <View>
+                      <Text style={styles.thText}>Parcela</Text>
+                      <Text style={styles.thText}>Amortização</Text>
+                      <Text style={styles.thText}>Juros</Text>
+                      <Text style={styles.thText}>Seguro MIP</Text>
+                      <Text style={styles.thText}>Seguro DFI</Text>
+                      <Text style={styles.thText}>TSA</Text>
+                      <Text style={styles.thText}>Valor parcela</Text>
+                      <Text style={styles.thText}>Saldo devedor</Text>
+                    </View>
+                  ):(
+                    <View>{pageItems}</View>
+                  )}
                 </View>
               </View>
             </View>
