@@ -6,9 +6,8 @@ export async function GET(request:NextRequest) {
       const imobillevalue = request.nextUrl.searchParams.get('imobillevalue')
       const financementvalue = request.nextUrl.searchParams.get('financementvalue')
       const parcels = request.nextUrl.searchParams.get('parcels')
-      const expanses = request.nextUrl.searchParams.get('expanse')
       const amortization = request.nextUrl.searchParams.get('amortization')
-        const pdfStream = await generatePdfStream(Number(imobillevalue),Number(financementvalue),Number(parcels),Number(expanses),`${amortization}`)
+        const pdfStream = await generatePdfStream(Number(imobillevalue),Number(financementvalue),Number(parcels),`${amortization}`)
         
         const headers = new Headers({
             'Content-Type': 'application/pdf',
