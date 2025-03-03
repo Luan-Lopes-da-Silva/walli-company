@@ -18,8 +18,11 @@ export const metadata:Metadata={
 
 
 
+
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function MeuProcesso({ params }:any) {
+
   const formatToCustomDecimal = (value: string) => {
     const cleanValue = value.replace(/[^\d]/g, "");
     if (!cleanValue) return "";
@@ -67,6 +70,8 @@ export default async function MeuProcesso({ params }:any) {
 
   const getDatas = await getInfos()
   console.log(getDatas)
+
+  
   
 
   return (

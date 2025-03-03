@@ -313,23 +313,44 @@ $black: #000000;
             display: flex;
             
             nav{
-                justify-content: start;
                 height: 13.75rem;
-                width: 320px;
-
+                position: relative;
+    
                 h1{
                     font-size:1.2rem;
                     padding: 3rem 2rem;
                 }
-                 
+                              
                 button{
                     display: none;
                 }
+    
+                .menu{
+                    display: block;
+                    position: absolute;
+                    z-index: 980000000;
+                    padding: 12px;
+                    height: 190px;
+                    margin-top: 120px;
+                    right: 12px ;
+                    width: 160px;
+                    
+    
+                    img{
+                    margin-left: 100px;
+                    }
+                }
         
                 ul{
+                    display: flex;
+                    flex-direction: row;
+                    
+                    
+                   
+        
                     li{
-                        margin: 0rem 0.4rem;
-                        font-size: 0.825rem;
+                        margin: 0rem .75rem;
+                        font-size: 1rem;
                         font-family: 'Lis';
                         transition: .4s;
                         color: $white;
@@ -346,8 +367,9 @@ $black: #000000;
 
         .button{
             display: block;
-            left:200px;
+            left:21.875rem;
             width: max-content;
+            bottom: 2rem;
         }
 
         span{
@@ -355,6 +377,7 @@ $black: #000000;
         }
 
         .container{
+                margin-top: 0rem;
                 padding: 8.5rem 2rem;
                 
                 p{
