@@ -367,7 +367,7 @@ $black: #000000;
 
         .button{
             display: block;
-            left:21.875rem;
+            left:16.875rem;
             width: max-content;
             bottom: 2rem;
         }
@@ -378,7 +378,11 @@ $black: #000000;
 
         .container{
                 margin-top: 0rem;
-                padding: 8.5rem 2rem;
+                padding: 6.5rem 2rem;
+
+                ul{
+                    margin-top: 8px;
+                }
                 
                 p{
                     font-family: 'Text';
