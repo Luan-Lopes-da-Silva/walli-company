@@ -192,7 +192,7 @@ export default function Simular(){
         const filterInDb = await searchInDb(data.name,data.email)
         const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}`
         try {
-                if(filterInDb > 0){
+                if(filterInDb!==undefined && filterInDb> 0){
                     console.log('Não inserir no banco')
                 }else{
                     const createNewClientInDb = await fetch(`${apiUrl}/client`,{
