@@ -247,7 +247,7 @@ export default function Simular(){
         const formatFinancementValue = financeInfoData.financedValue.replace(',','')
         const formatFinancementValue2 = formatFinancementValue.replace('.','')
         const expanseValue = (5*Number(formatImobilleValue2))/100
-        window.open(`${apiUrl}?imobillevalue=${financeInfoData.imobilleValue}&financementvalue=${formatFinancementValue2}&parcels=${Number(financeInfoData.parcelnumber)}&expanse=${expanseValue}&amortization=${financeInfoData.amortization}`, '_blank')
+        window.open(`${apiUrl}?imobillevalue=${Number(financeInfoData.imobilleValue)}&financementvalue=${formatFinancementValue2}&parcels=${Number(financeInfoData.parcelnumber)}&expanse=${expanseValue}&amortization=${financeInfoData.amortization}`, '_blank')
       }
 
 
