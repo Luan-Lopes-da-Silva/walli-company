@@ -18,11 +18,8 @@ export const metadata:Metadata={
 
 
 
-
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function MeuProcesso({ params }:any) {
-
   const formatToCustomDecimal = (value: string) => {
     const cleanValue = value.replace(/[^\d]/g, "");
     if (!cleanValue) return "";
@@ -36,8 +33,9 @@ export default async function MeuProcesso({ params }:any) {
   };
 
   async function getInfos() {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL2}`
     try {
-    const getProcess = await fetch('https://walli-processdb.onrender.com/process')
+    const getProcess = await fetch(`${apiUrl}/process`)
     const converseProcess:Financement[] = await getProcess.json()
     const searchProcess = converseProcess.filter(p=>(p.protocol === params.protocol))
 
@@ -70,8 +68,6 @@ export default async function MeuProcesso({ params }:any) {
 
   const getDatas = await getInfos()
   console.log(getDatas)
-
-  
   
 
   return (

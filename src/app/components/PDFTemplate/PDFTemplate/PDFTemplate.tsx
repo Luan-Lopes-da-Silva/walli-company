@@ -130,9 +130,24 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels,amortizat
   const day = today.getDate()
   const year = today.getFullYear()
   const taxYearSac = 11.90
-  const taxMonthInSac = taxYearSac/100
+  const taxMonthInSac = Math.pow(1 + taxYearSac / 100, 1 / 12) - 1
   const efetiveTaxMonthSac = Math.pow(1+taxMonthInSac,1/12)-1
   const efetiveTaxMonthSacPercent = efetiveTaxMonthSac*100
+  const parcelInPrice = financementValue * (efetiveTaxMonthSac * Math.pow(1 + efetiveTaxMonthSac, parcels)) /(Math.pow(1 + efetiveTaxMonthSac, parcels) - 1);
+
+  function calcularParcelaPrice(valorFinanciado, taxaAnual, numeroParcelas) {
+    // Converter taxa anual para decimal
+    let taxaAnualDecimal = taxaAnual / 100;
+    
+    // Converter taxa anual para taxa mensal efetiva
+    let taxaMensal = Math.pow(1 + taxaAnualDecimal, 1 / 12) - 1;
+
+    // Calcular parcela utilizando a fórmula da Tabela Price
+    let parcela = valorFinanciado * (taxaMensal * Math.pow(1 + taxaMensal, numeroParcelas)) / 
+                  (Math.pow(1 + taxaMensal, numeroParcelas) - 1);
+
+    return parcela.toFixed(2); // Retorna o valor arredondado para 2 casas decimais
+}
 
   
   if(day<10){
@@ -143,25 +158,45 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels,amortizat
 
 
   const calculateAmortization = ()=>{
-    
     const amortizationMonthInSac = financementValue/parcels
     let dueBalanceIteration = financementValue
 
-      if(amortization === "PRICE"){
-        for(let i=0; i<parcels; i++){
+      if(amortization == "PRICE"){
+        const parcelPrice = calcularParcelaPrice(financementValue,taxYearSac,parcels)
+        const taxs = dueBalanceIteration*taxMonthInSac
+        const amortizationInPrice = parcelInPrice-taxs
+
+        const firstItem:TableProps={
+          amortization:0.00,
+          Dfi: 'R$ 0,00',
+          Mip: 'R$ 0,00',
+          Tsa: 'R$ 0,00',
+          dueBalance:financementValue,
+          parcel: 0,
+          parcelValue: 0,
+          taxs:0.00
+        }
+        itemsArray.push(firstItem)
+
+
+        for(let i=1; i<parcels; i++){
+        dueBalanceIteration-=Number(amortizationInPrice)
           const createNewItem:TableProps={
-            amortization:0,
-            Dfi: '',
+            amortization:Number(amortizationInPrice),
+            Dfi: `R$ 0,00`,
             Mip: '',
             Tsa: '',
-            dueBalance:0,
+            dueBalance:dueBalanceIteration,
             parcel: i,
-            parcelValue: 0,
-            taxs:0
+            parcelValue:Number(parcelPrice),
+            taxs:Number(taxs)
           }
-
         itemsArray.push(createNewItem)
         }
+
+
+
+
 
       }else{
         const firstItem:TableProps={

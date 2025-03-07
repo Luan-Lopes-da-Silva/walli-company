@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import style from './simular.module.scss'
 import {  useForm } from 'react-hook-form'
@@ -101,7 +102,8 @@ export default function Simular(){
     })
 
     async function searchProcess(){
-        const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL2}`
+        const findInDb = await fetch(`${apiUrl}/process/${search}`)
         const converseDb:Financement[]= await findInDb.json()
         const findProcess = converseDb.filter(p=>p.protocol === search)
         if(findProcess.length<1 && refContainer.current && refSearch.current ){
@@ -134,10 +136,11 @@ export default function Simular(){
     }
 
     async function showSucefullMsg(){
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL2}`
         const newProtocol = createNewProtocol()
         setProtocol(newProtocol)
 
-        const createNewProcess = await fetch('https://walli-processdb.onrender.com/process',{
+        const createNewProcess = await fetch(`${apiUrl}/process`,{
             method: 'POST',
             body:JSON.stringify(
                 {
@@ -172,37 +175,77 @@ export default function Simular(){
         }, 2000);
     }
 
-    function createPersonalInfos(data:personalDataForm){
-        if(refInforForm.current && refFinanceForm.current && refFirstStepContainer.current && refSecondStepContainer.current){
-            refInforForm.current.style.display = 'none'
-            refFinanceForm.current.style.display = 'block'
-            const p = refFirstStepContainer.current.querySelector('p')
-            const span = refFirstStepContainer.current.querySelector('span')
-            const div = refFirstStepContainer.current.querySelector('div')
-            const secondP = refSecondStepContainer.current.querySelector('p')
-            const secondSpan = refSecondStepContainer.current.querySelector('span')
-            const secondDiv = refSecondStepContainer.current.querySelector('div')
-            
-            if(p && span && div && secondP && secondSpan && secondDiv){
-                div.style.borderColor = '#868686'
-                p.style.color = '#868686'
-                span.style.color = '#868686'
+    async function searchInDb(name:string,email:string) {
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}`
+        try {
+            const clientInDb = await fetch(`${apiUrl}/clients`)
+            const converseDb:any[] = await clientInDb.json()
+            const findClient = converseDb.filter(client=>client.clientname === name)
+            const findClientEmail = findClient.filter(clientEmail=> clientEmail.clientemail === email)
+            return findClientEmail.length
+        } catch (error) {
+            console.error('Erro na busca', error)
+        }
+    }
 
-                secondDiv.style.borderColor = '#028DA5'
-                secondP.style.color = '#028DA5'
-                secondSpan.style.color = '#028DA5'
+    async function createPersonalInfos(data:personalDataForm){
+        const filterInDb = await searchInDb(data.name,data.email)
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}`
+        try {
+                if(filterInDb > 0){
+                    console.log('Não inserir no banco')
+                }else{
+                    const createNewClientInDb = await fetch(`${apiUrl}/client`,{
+                        method: 'POST',
+                        body:JSON.stringify(
+                            {
+                               clientname: data.name,
+                               clientbirthday: data.birthday,
+                               clientemail:data.email,
+                               clientphone: data.phone,
+                            }
+                        ),
+                            headers:{
+                            "Content-Type": "application/json"
+                            }
+                        }) 
+                            console.log('Client criado com sucesso' , createNewClientInDb)
+                }
+            
+            if(refInforForm.current && refFinanceForm.current && refFirstStepContainer.current && refSecondStepContainer.current){
+                refInforForm.current.style.display = 'none'
+                refFinanceForm.current.style.display = 'block'
+                const p = refFirstStepContainer.current.querySelector('p')
+                const span = refFirstStepContainer.current.querySelector('span')
+                const div = refFirstStepContainer.current.querySelector('div')
+                const secondP = refSecondStepContainer.current.querySelector('p')
+                const secondSpan = refSecondStepContainer.current.querySelector('span')
+                const secondDiv = refSecondStepContainer.current.querySelector('div')
+                
+                if(p && span && div && secondP && secondSpan && secondDiv){
+                    div.style.borderColor = '#868686'
+                    p.style.color = '#868686'
+                    span.style.color = '#868686'
+    
+                    secondDiv.style.borderColor = '#028DA5'
+                    secondP.style.color = '#028DA5'
+                    secondSpan.style.color = '#028DA5'
+                }
+                setPersonalInfoData(data)
             }
-            setPersonalInfoData(data)
+        } catch (error) {
+            console.error('Erro na criação do cliente', error)
         }
       }
 
       async function createAndSavePDF(){
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL3}`
         const formatImobilleValue = financeInfoData.imobilleValue.replace('.','')
         const formatImobilleValue2 = formatImobilleValue.replace(',','')
         const formatFinancementValue = financeInfoData.financedValue.replace(',','')
         const formatFinancementValue2 = formatFinancementValue.replace('.','')
         const expanseValue = (5*Number(formatImobilleValue2))/100
-        window.open(`/api/generate-pdf?imobillevalue=${formatImobilleValue2}&financementvalue=${formatFinancementValue2}&parcels=${Number(financeInfoData.parcelnumber)}&expanse=${expanseValue}&amortization=${financeInfoData.amortization}`, '_blank')
+        window.open(`${apiUrl}imobillevalue=${formatImobilleValue2}&financementvalue=${formatFinancementValue2}&parcels=${Number(financeInfoData.parcelnumber)}&expanse=${expanseValue}&amortization=${financeInfoData.amortization}`, '_blank')
       }
 
 

@@ -28,7 +28,8 @@ export default function Financiamento(){
    
 
     async function searchProcess(){
-            const findInDb = await fetch(`https://walli-processdb.onrender.com/process/${search}`)
+            const apiUrl = `${process.env.NEXT_PUBLIC_API_URL2}`
+            const findInDb = await fetch(`${apiUrl}/process/${search}`)
             const converseDb:Financement[]= await findInDb.json()
             const findProcess = converseDb.filter(p=>p.protocol === search)
             if(findProcess.length<1 && refContainer.current && refLoading.current ){
