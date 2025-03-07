@@ -198,6 +198,8 @@ export default function Simular(){
                     const createNewClientInDb = await fetch(`${apiUrl}/client`,{
                         method: 'POST',
                         body:JSON.stringify(
+                            
+                            
                             {
                                clientname: data.name,
                                clientbirthday: data.birthday,
