@@ -61,6 +61,7 @@ export default function Home(){
 
     function showMenu(){
         setCount(prevCount=>prevCount+1)
+        console.log('Olá')
         if(count%2==1 && refMenuContainer.current && refContent.current && refMenu.current){
             refMenuContainer.current.style.backgroundColor='#028DA5'
             refContent.current.style.filter='brightness(0.5)'
