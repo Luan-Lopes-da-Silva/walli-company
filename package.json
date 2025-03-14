@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@maskito/core": "^3.4.0",
+    "@maskito/kit": "^3.4.0",
+    "@maskito/phone": "^3.4.0",
     "@radix-ui/react-toast": "^1.2.4",
     "@react-email/components": "^0.0.32",
     "@react-email/render": "^1.0.4",
