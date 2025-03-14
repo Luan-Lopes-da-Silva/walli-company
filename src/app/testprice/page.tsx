@@ -1,15 +1,23 @@
 'use client'
 
-import { useRef, useState } from "react"
+import {useRef, useState } from "react"
 import style from './test.module.scss'
 import {maskitoTransform} from '@maskito/core'
 import {maskitoNumberOptionsGenerator} from '@maskito/kit'
+import parsePhoneNumber from 'libphonenumber-js'
+
 
 export default function TestPrice(){
     const [financementValue,setFinancementValue] = useState('')
     const [imobilleValue,setImobilleValue] = useState('')
     const [parcelsValue,setParcelsValue] = useState('')
     const refPdf = useRef<HTMLDivElement>(null)
+    const [phone,setPhone] = useState('')
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function formatNumber(ev:any){
+        setPhone(`${parsePhoneNumber(ev.currentTarget.value,'BR')?.format('NATIONAL')}`)
+    }
 
     const maskitoOptions = maskitoNumberOptionsGenerator({
         thousandSeparator:'.'
@@ -71,6 +79,11 @@ export default function TestPrice(){
 
     return(
         <>
+        <input
+        value={phone}
+        onChange={(ev)=>setPhone(ev.currentTarget.value)}
+        onBlur={(ev)=>formatNumber(ev)}
+        />
         <label htmlFor="">Valor do imovel</label>
         <input 
         type="text" 
