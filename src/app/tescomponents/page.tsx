@@ -29,7 +29,7 @@ export default function TestComponents() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            to: 'lopesluan431@gmail.com',
+            to: 'kaiques.goncalves@gmail.com',
             name: clientName,
             subject: 'Seja Bem-Vindo!',
             templateHtml: ReactDOMServer.renderToStaticMarkup(<StatusEmail 
