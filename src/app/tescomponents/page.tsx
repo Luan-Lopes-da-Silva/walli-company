@@ -19,9 +19,7 @@ export default function TestComponents() {
 
   async function sendEmail() {
     console.log('Enviando email...');
-    console.log('olá')
-
-    // Envolver a operação assíncrona com startTransition
+    
     startTransition(async () => {
       try {
         const response = await fetch(`https://email-generator-1-dnt9.onrender.com/send-email`, {
@@ -48,7 +46,6 @@ export default function TestComponents() {
 
   return (
     <>
-      <input type="text" placeholder="Nome do cliente" value={clientName} onChange={(ev)=>setClientName(ev.currentTarget.value)}/>
       <input type="text" placeholder="Nome do cliente" value={clientName} onChange={(ev)=>setClientName(ev.currentTarget.value)}/>
       <input type="text" placeholder="Nome da empresa Matriz" value={companyName} onChange={(ev)=>setCompanyName(ev.currentTarget.value)}/>
       <input type="text" placeholder="Telefone da empresa Matriz" value={companyPhone} onChange={(ev)=>setCompanyPhone(ev.currentTarget.value)}/>
