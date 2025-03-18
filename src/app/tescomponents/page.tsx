@@ -1,14 +1,10 @@
 'use client'
 
 import { useState, startTransition } from "react";
-import { WelcomeEmail } from "../components/Email/Welcome";
 import ReactDOMServer from 'react-dom/server';
 import StatusEmail from "../components/Email/StatusEmail";
-import NewProcess from "../components/Email/NewProcess";
 
 export default function TestComponents() {
-  const [value, setValue] = useState('');
-  const [phone, setPhone] = useState('');
   const [clientName,setClientName] = useState('')
   const [companyName,setCompanyName] = useState('')
   const [workerCompany,setWorkerCompany] = useState('')
