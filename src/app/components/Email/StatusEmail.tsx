@@ -84,11 +84,6 @@ Atenciosamente, [Seu Nome] [Nome da Empresa] [Informações de Contato]
     color:'#000'
   }
 
-  const list = {
-    display:'flex',
-    flexDirection:'column',
-    gap:'12'
-  }
   
   const textContent = {
   fontSize:'14px',

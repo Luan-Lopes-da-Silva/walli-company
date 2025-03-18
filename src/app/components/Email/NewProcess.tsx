@@ -108,11 +108,3 @@ Atenciosamente, {workerCompany}, {companyName}, {companyPhone}
       marginTop:'20px',
       width:'300px'
   }
-
-  const list = {
-    padding:'0px 12px',
-    display:'flex',
-    gap:'12px',
-    flexDirection:'row'
-  }
-  
