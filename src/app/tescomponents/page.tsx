@@ -49,6 +49,7 @@ export default function TestComponents() {
   return (
     <>
       <input type="text" placeholder="Nome do cliente" value={clientName} onChange={(ev)=>setClientName(ev.currentTarget.value)}/>
+      <input type="text" placeholder="Nome do cliente" value={clientName} onChange={(ev)=>setClientName(ev.currentTarget.value)}/>
       <input type="text" placeholder="Nome da empresa Matriz" value={companyName} onChange={(ev)=>setCompanyName(ev.currentTarget.value)}/>
       <input type="text" placeholder="Telefone da empresa Matriz" value={companyPhone} onChange={(ev)=>setCompanyPhone(ev.currentTarget.value)}/>
       <input type="text" placeholder="Nome do consultor" value={consultantName} onChange={(ev)=>setConsultantName(ev.currentTarget.value)}/>
