@@ -19,6 +19,7 @@ export default function TestComponents() {
 
   async function sendEmail() {
     console.log('Enviando email...');
+    console.log('olá')
 
     // Envolver a operação assíncrona com startTransition
     startTransition(async () => {
