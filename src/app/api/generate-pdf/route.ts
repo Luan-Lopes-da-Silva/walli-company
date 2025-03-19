@@ -3,7 +3,6 @@ import { generatePdfStream } from "@/utils/pdfStream";
 
 export async function GET(request: NextRequest) {
   try {
-    // Extrai os parâmetros de consulta da URL
     const imobillevalue = request.nextUrl.searchParams.get("imobillevalue");
     const financementvalue = request.nextUrl.searchParams.get("financementvalue");
     const parcels = request.nextUrl.searchParams.get("parcels");
