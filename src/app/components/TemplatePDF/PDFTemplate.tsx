@@ -6,7 +6,7 @@ import { Page, Text, View, Document, StyleSheet,Font} from '@react-pdf/renderer'
 
 Font.register({
     family: 'Title',
-    src: '/fonts/Diamonds-Regular.otf',
+    src: 'walli.finance/fonts/Diamonds-Regular.otf',
 });
 
 const styles = StyleSheet.create({
