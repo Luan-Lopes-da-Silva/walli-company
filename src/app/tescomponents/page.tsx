@@ -12,7 +12,7 @@ export default function TestComponents() {
   const [companyPhone, setCompanyPhone] = useState('')
 
   function testAmortizationSAC() {        
-    window.open(`/api/generate-pdf?imobillevalue=${50000000}&financementvalue=${40000000}&parcels=${320}&amortization=${"PRICE"}`, '_blank')
+    window.open(`/api/generate-pdf?imobillevalue=${500000}&financementvalue=${400000}&parcels=${30}&amortization=${"PRICE"}`, '_blank')
   }
 
 

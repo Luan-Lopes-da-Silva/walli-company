@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { PdfProps } from '@/utils/pdfProps'
 import { TableProps } from '@/utils/tableProps';
+import { maskitoNumberOptionsGenerator } from '@maskito/kit';
+import {maskitoTransform} from '@maskito/core'
+
 import { Page, Text, View, Document, StyleSheet} from '@react-pdf/renderer'
 
 
@@ -83,17 +86,116 @@ const styles = StyleSheet.create({
         backgroundColor:'#028DA6'
     },
     rowTd:{
-        fontSize:18,
-        color: '#FFF'
+        fontSize:14,
+        color: '#FFF',
+        marginLeft:20,
+        marginRight:45
+    },
+    rowTdNumber:{
+        fontSize:14,
+        color: '#FFF',
+        marginLeft:15,
+        marginRight:57
+    },
+    rowTdAmortization:{
+        marginRight:60,
+        fontSize:14,
+        color:'#FFF'
+    },
+    rowAmortizationAlternative:{
+        marginRight:20,
+        fontSize:14,
+        color:'#FFF'
+    },
+    rowTdTax:{
+        fontSize:14,
+        color: '#FFF',
+        marginRight:5
+    },
+    rowTdTaxAlternative:{
+        fontSize:14,
+        color: '#FFF',
+        marginRight:40
+    },
+    rowTdMipSecure:{
+        fontSize:14,
+        color: '#FFF',
+        marginRight:50
+    },
+    rowTdMipSecureAlternative:{
+        fontSize:14,
+        color: '#FFF',
+        marginRight:40
+    },
+    rowTdDfiSecure:{
+        fontSize:14,
+        color: '#FFF',
+        marginRight:40
+    },
+    rowTdDfiAlternative:{
+        fontSize:14,
+        color: '#FFF',
+        marginRight:70
+    },
+    rowTdParcel:{
+        fontSize:14,
+        color: '#FFF',
+        marginLeft:10
+    },
+    rowTdParcelAlternative:{
+        fontSize:14,
+        color: '#FFF',
+        marginLeft:180
+    },
+  
+    rowTd3:{
+        marginLeft:0,
+        fontSize:14,
+        color:'#FFF',
+        backgroundColor:'#000'
     },
     rowTh:{
         fontSize:16,
         color:'#FFF'
+    },
+    rowTsa:{
+        fontSize:14,
+        color:'#FFF',
+    },
+    rowTsaAlternative:{
+        fontSize:14,
+        color:'#FFF',
+    },
+    rowTdBalance:{
+        fontSize:14,
+        color:'#FFF',
+    },
+    rowTdBalanceAlternative:{
+        fontSize:14,
+        color:'#FFF',
     }
   });
 
+  function formatNumber(value:string) {
+    value = value.replace(/[^\d.-]/g, '');
+
+    let num = parseFloat(value);
+
+    if (isNaN(num)) return '';
+
+    return num.toLocaleString('pt-BR', { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2  
+    });
+}
+
   export function PDFTemplate({ financementValue, imobilleValue, parcels, amortization }: PdfProps) {
 
+     const maskitoOptions = maskitoNumberOptionsGenerator({
+            thousandSeparator:'.'
+     })
+     
+     
     const arrayEachRowDiv = []
     const expanses = (5/100)*imobilleValue
     let dueBalance = financementValue
@@ -219,14 +321,29 @@ const styles = StyleSheet.create({
                 </View>
                 {arrayEachRowDiv.map((item,index)=>(
                     <View key={index} style={styles.rowDiv2}>
-                        <Text style={styles.rowTd}>{item.parcel}</Text>
-                        <Text style={styles.rowTd}>{`${item.amortization}`}</Text>
-                        <Text style={styles.rowTd}>{`${item.taxs.toFixed(2)}`}</Text>
-                        <Text style={styles.rowTd}>{item.Mip}</Text>
-                        <Text style={styles.rowTd}>{item.Dfi}</Text>
-                        <Text style={styles.rowTd}>{item.Tsa}</Text>
-                        <Text style={styles.rowTd}>{`${item.parcelValue}`}</Text>
-                        <Text style={styles.rowTd}>{`${item.dueBalance}`}</Text>
+                        {index>9?(
+                            <View style={styles.rowDiv2}>
+                                <Text style={styles.rowTdNumber}>{item.parcel}</Text>
+                                <Text style={styles.rowTdAmortization}>R$ {`${formatNumber(item.amortization.toString())}`}</Text>
+                                <Text style={styles.rowTdTaxAlternative}>R$ {`${formatNumber(item.taxs.toString())}`}</Text>
+                                <Text style={styles.rowTdMipSecureAlternative}>R$ 0,00</Text>
+                                <Text style={styles.rowTdDfiAlternative}>R$ 0,00</Text>
+                                <Text style={styles.rowTsaAlternative}>R$ 0,00</Text>
+                                <Text style={styles.rowTdParcelAlternative}>R$ {`${formatNumber(item.parcelValue.toString())}`}</Text>
+                                <Text style={styles.rowTdBalanceAlternative}>R$ {`${formatNumber(item.dueBalance.toString())}`}</Text>
+                            </View>
+                        ):(
+                            <View style={styles.rowDiv2}>
+                                <Text style={styles.rowTd}>{item.parcel}</Text>
+                                <Text style={styles.rowAmortizationAlternative}>R$ {`${formatNumber(item.amortization.toString())}`}</Text>
+                                <Text style={styles.rowTdTax}>R$ {`${formatNumber(item.taxs.toString())}`}</Text>
+                                <Text style={styles.rowTdMipSecure}>R$ 0,00</Text>
+                                <Text style={styles.rowTdDfiSecure}>R$ 0,00</Text>
+                                <Text style={styles.rowTsa}>R$ 0,00</Text>
+                                <Text style={styles.rowTdParcel}>R$ {`${formatNumber(item.parcelValue.toString())}`}</Text>
+                                <Text style={styles.rowTdBalance}>R$ {`${formatNumber(item.dueBalance.toString())}`}</Text>
+                            </View>
+                        )}
                     </View>
                 ))}
           </View>
