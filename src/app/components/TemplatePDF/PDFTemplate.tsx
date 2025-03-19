@@ -4,11 +4,6 @@ import { TableProps } from '@/utils/tableProps';
 import { Page, Text, View, Document, StyleSheet,Font} from '@react-pdf/renderer'
 
 
-Font.register({
-    family: 'Title',
-    src: 'walli.finance/fonts/Diamonds-Regular.otf',
-});
-
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
@@ -40,7 +35,6 @@ const styles = StyleSheet.create({
     },
     headerTitle:{
         fontSize:46,
-        fontFamily:'Title',
         color:'#FFF'
     },
     rowHeaders:{
@@ -52,7 +46,6 @@ const styles = StyleSheet.create({
         backgroundColor:'#D3D664'
     },
     headerSubTitles:{
-        fontFamily:'Title',
         fontSize:16,
         color:'#000'
     },
@@ -69,7 +62,6 @@ const styles = StyleSheet.create({
         textAlign:'center',
         justifyContent:'center',
         marginBottom:20,
-        fontFamily:'Title',
         color:'#FFF'
     },
     rowHeaderTable:{
@@ -92,12 +84,10 @@ const styles = StyleSheet.create({
     },
     rowTd:{
         fontSize:18,
-        fontFamily:'Title',
         color: '#FFF'
     },
     rowTh:{
         fontSize:16,
-        fontFamily:'Title',
         color:'#FFF'
     }
   });
