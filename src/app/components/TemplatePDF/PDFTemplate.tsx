@@ -6,7 +6,7 @@ import { Page, Text, View, Document, StyleSheet,Font} from '@react-pdf/renderer'
 
 Font.register({
     family: 'Title',
-    src: 'http://localhost:3000/fonts/Diamonds-Regular.otf',
+    src: '/fonts/Diamonds-Regular.otf',
 });
 
 const styles = StyleSheet.create({
