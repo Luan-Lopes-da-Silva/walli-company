@@ -12,6 +12,7 @@ import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_o
 import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import { formatToCustomDecimal } from '@/utils/formatToDecimal';
 import { createNewProtocol } from '@/utils/generateProtocol';
+import parsePhoneNumber from 'libphonenumber-js'
 
 
 
@@ -44,6 +45,9 @@ export type financeDataForm={
     parcelnumber:string,
     amortization:string
 }
+export type ParcelValue={
+    parcelValue:number
+}
 
 
 const undefinedPersonalForm = {
@@ -61,6 +65,23 @@ const undefinedFinanceForm = {
     amortization:''
 }
 
+
+
+ 
+ function aplicarMascara(value:number,cutTarget:number) {
+    let valorStr = value.toString().slice(0, cutTarget);
+    
+    let [parteInteira, parteDecimal] = valorStr.split('.');
+    
+    parteInteira = parteInteira.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    
+    if (parteDecimal) {
+        return `${parteInteira},${parteDecimal}`;
+    } else {
+        return parteInteira;
+    }
+  }
+
 export default function Simular(){
     const [personalInfoData,setPersonalInfoData] = useState<personalDataForm>(undefinedPersonalForm)
     const [financeInfoData,setFinanceInfoData] = useState<financeDataForm>(undefinedFinanceForm)
@@ -68,6 +89,7 @@ export default function Simular(){
     const [count,setCount] = useState(0)
     const [search,setSearch] = useState('') 
     const [protocol,setProtocol] = useState('')
+    const [phone,setPhone] = useState('')
     const refSearch = useRef<HTMLDivElement>(null)
     const refInforForm = useRef<HTMLFormElement>(null)
     const refFinanceForm = useRef<HTMLFormElement>(null)
@@ -81,7 +103,8 @@ export default function Simular(){
     const refMenu = useRef<HTMLUListElement>(null)
     const refContent = useRef<HTMLElement>(null)
     const refSucefullMsg = useRef<HTMLDivElement>(null)
-
+    const [firstAndLastParcelSac,setFirstAndLastParcelSac] = useState<ParcelValue[]>([])
+    let priceTableArray = []
     const { 
         register: registerPersonalInfos,
         handleSubmit: handlePersonalForm,
@@ -241,13 +264,9 @@ export default function Simular(){
       }
 
       async function createAndSavePDF(){
-        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL3}`
-        const formatImobilleValue = financeInfoData.imobilleValue.replace('.','')
-        const formatImobilleValue2 = formatImobilleValue.replace(',','')
         const formatFinancementValue = financeInfoData.financedValue.replace(',','')
         const formatFinancementValue2 = formatFinancementValue.replace('.','')
-        const expanseValue = (5*Number(formatImobilleValue2))/100
-        window.open(`${apiUrl}?imobillevalue=${Number(financeInfoData.imobilleValue)}&financementvalue=${formatFinancementValue2}&parcels=${Number(financeInfoData.parcelnumber)}&expanse=${expanseValue}&amortization=${financeInfoData.amortization}`, '_blank')
+        window.open(`/api/generate-pdf?imobillevalue=${Number(financeInfoData.imobilleValue)}&financementvalue=${formatFinancementValue2}&parcels=${Number(financeInfoData.parcelnumber)}&amortization=${financeInfoData.amortization}`, '_blank')
       }
 
 
@@ -260,13 +279,35 @@ export default function Simular(){
       };
       
       async function createFinanceInfos(data:financeDataForm){
+        let dueBalance = Number(data.financedValue)
+        const amortizationInSac = Number(data.financedValue) / Number(data.parcelnumber);
+            for (let index = 0; index<Number(data.parcelnumber); index++) {
+             const taxsMonth = (dueBalance * 0.119).toString().slice(0, 3);
+                const createNewItem = {
+                  amortization: amortizationInSac,
+                  Dfi: `0`,
+                  Mip: `0`,
+                  Tsa: `0`,
+                  dueBalance: dueBalance -= amortizationInSac,
+                  parcel: index + 1,
+                  taxs: Number(taxsMonth),
+                  parcelValue: amortizationInSac + Number(taxsMonth),
+            };
+
+             
+            setFirstAndLastParcelSac(prevValues=>[...prevValues,createNewItem])
+          }
+
         if(refSummary.current){
             refSummary.current.style.display = 'block'
             const prohibited = Number(data.imobilleValue)-Number(data.financedValue)
-            setProhibitedValue(formatToCustomDecimal(`${prohibited}`))   
+            setProhibitedValue(aplicarMascara(prohibited,6))   
         }
         setFinanceInfoData(data)
       }
+
+      const priceTable = calcularTabelaPrice(Number(financeInfoData.financedValue),11.90,Number(financeInfoData.parcelnumber))
+
 
       function backStepForm(){
         if(refInforForm.current && refFinanceForm.current && refFirstStepContainer.current && refSecondStepContainer.current){
@@ -309,6 +350,33 @@ export default function Simular(){
             }
 
         }
+    }
+
+    function calcularTabelaPrice(valorFinanciado:number, taxaJurosAnual:number, prazo:number) {
+        const taxaJurosMensal = (taxaJurosAnual / 100) / 12;
+        const numeroParcelas = prazo;
+        
+        const parcela = valorFinanciado * (taxaJurosMensal * Math.pow(1 + taxaJurosMensal, numeroParcelas)) / 
+                        (Math.pow(1 + taxaJurosMensal, numeroParcelas) - 1);
+    
+        let saldoDevedor = valorFinanciado;
+        const tabela = [];
+    
+        for (let i = 1; i <= numeroParcelas; i++) {
+            const juros = saldoDevedor * taxaJurosMensal;
+            const amortizacao = parcela - juros;
+            saldoDevedor -= amortizacao;
+    
+            tabela.push({
+                parcela: i,
+                valorParcela:parcela.toFixed(3),
+                juros: juros.toFixed(3),
+                amortizacao: amortizacao.toFixed(3),
+                saldoDevedor: saldoDevedor.toFixed(5)
+            });
+        }
+    
+        return tabela;
     }
 
 
@@ -409,7 +477,10 @@ export default function Simular(){
                     <input type="text" {...registerPersonalInfos(("email"))}/>
                     <label htmlFor="">Telefone</label>
                     {errorsPersonalForm.phone && <span>{errorsPersonalForm.phone.message}</span>}
-                    <input type="text" {...registerPersonalInfos("phone")} />
+                    <input 
+                    type="text"
+                    {...registerPersonalInfos("phone")} 
+                    />
                     
                     <div>
                         <button disabled={true}>Voltar</button>
@@ -450,11 +521,19 @@ export default function Simular(){
                     <button onClick={showSucefullMsg}>Dar inicio a processo de financiamento</button>
                     <h3>Resumo</h3>
                         <div className={style.infos}>
-                         <p>Valor do imóvel: {formatToCustomDecimal(financeInfoData.imobilleValue)}</p>
-                         <p>Valor financiado: {formatToCustomDecimal(financeInfoData.financedValue)}</p>
-                         <p>Valor de entrada: {prohibitedValue}</p>
-                         <p>Primeira parcela: </p>
-                         <p>Ultima parcela: </p>
+                         <p>Valor do imóvel: R$ {aplicarMascara(Number(financeInfoData.imobilleValue),9)}</p>
+                         <p>Valor financiado: R$ {aplicarMascara(Number(financeInfoData.financedValue),9)}</p>
+                         <p>Valor de entrada: R$ {prohibitedValue}</p>
+
+                         {firstAndLastParcelSac.length>0?(
+                           <>
+                             <p>Primeira parcela: R$ {aplicarMascara(firstAndLastParcelSac[0].parcelValue,7)}</p>
+                             <p>Ultima parcela: R$ {aplicarMascara(firstAndLastParcelSac[firstAndLastParcelSac.length-1].parcelValue,7)}</p>
+                           </>
+
+                         ):(
+                            <></>
+                         )}
                         </div>
                     <button onClick={createAndSavePDF}>Receber simulação</button>
                 </article>

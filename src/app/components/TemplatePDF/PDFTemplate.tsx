@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   rowTh: {
     fontSize: 14,
     color: '#FFF',
-    width: '12%', // Define largura para um melhor alinhamento
+    width: '12%',
     textAlign: 'center',
   },
 
@@ -165,7 +165,6 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels, amortiza
   const expanses = (5 / 100) * imobilleValue;
   let dueBalance = financementValue;
   const amortizationInSac = financementValue / parcels;
-
 
 
   const currentDate = new Date()
@@ -188,10 +187,10 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels, amortiza
     } else {
         return parteInteira;
     }
-}
+  }
 
-  function calcularTabelaPrice(valorFinanciado:number, taxaJurosAnual:number, prazo:number) {
-    const taxaJurosMensal = (taxaJurosAnual / 100) / 12;
+  function calcularTabelaPrice(valorFinanciado:number, prazo:number) {
+    const taxaJurosMensal = 0.0094136514
     const numeroParcelas = prazo;
     
     const parcela = valorFinanciado * (taxaJurosMensal * Math.pow(1 + taxaJurosMensal, numeroParcelas)) / 
@@ -220,9 +219,10 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels, amortiza
     return tabela;
 }
 
-const priceTable = calcularTabelaPrice(financementValue,11.90,parcels)
+const priceTable = calcularTabelaPrice(financementValue,parcels)
+
   for (let index = 0; index < parcels; index++) {
-    const taxsMonth = (dueBalance * 0.119).toString().slice(0, 3);
+    const taxMonth = (dueBalance*0.0094136514)
     const createNewItem: TableProps = {
       amortization: amortizationInSac,
       Dfi: `0`,
@@ -230,8 +230,8 @@ const priceTable = calcularTabelaPrice(financementValue,11.90,parcels)
       Tsa: `0`,
       dueBalance: dueBalance -= amortizationInSac,
       parcel: index + 1,
-      taxs: Number(taxsMonth),
-      parcelValue: amortizationInSac + Number(taxsMonth),
+      taxs: taxMonth,
+      parcelValue: amortizationInSac + taxMonth,
     };
     arrayEachRowDiv.push(createNewItem);
   }
@@ -358,7 +358,7 @@ const priceTable = calcularTabelaPrice(financementValue,11.90,parcels)
                 {priceTable.map((item,index)=>(
                   <View style={styles.rowDiv2} key={index}>
                       <Text style={styles.rowTd}>{item.parcel}</Text>
-                      <Text style={styles.rowTd}>R$ {aplicarMascara(item.amortization,7)}</Text>
+                      <Text style={styles.rowTd}>R$ {aplicarMascara(item.amortization,6)}</Text>
                       <Text style={styles.rowTd}>R$ {aplicarMascara(item.taxs,7)}</Text>
                       <Text style={styles.rowTd}>R$ 0,00</Text>
                       <Text style={styles.rowTd}>R$ 0,00</Text>
