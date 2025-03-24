@@ -176,8 +176,9 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels, amortiza
 
 
   function aplicarMascara(value:number,cutTarget:number) {
-    let valorStr = value.toString().slice(0, cutTarget);
+    const valorStr = value.toString().slice(0, cutTarget);
     
+    // eslint-disable-next-line prefer-const
     let [parteInteira, parteDecimal] = valorStr.split('.');
     
     parteInteira = parteInteira.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -189,37 +190,37 @@ export function PDFTemplate({ financementValue, imobilleValue, parcels, amortiza
     }
   }
 
-  function calcularTabelaPrice(valorFinanciado:number, prazo:number) {
-    const taxaJurosMensal = 0.0094136514
-    const numeroParcelas = prazo;
+  function tablePriceCalculate(financementValue:number, parcelNumber:number) {
+    const taxMonth = 0.0094136514
+    const numberOfParcels = parcelNumber;
     
-    const parcela = valorFinanciado * (taxaJurosMensal * Math.pow(1 + taxaJurosMensal, numeroParcelas)) / 
-                    (Math.pow(1 + taxaJurosMensal, numeroParcelas) - 1);
+    const parcelValue = financementValue * (taxMonth * Math.pow(1 + taxMonth, numberOfParcels)) / 
+                    (Math.pow(1 + taxMonth, numberOfParcels) - 1);
 
-    let saldoDevedor = valorFinanciado;
-    const tabela:TableProps[] = [];
+    let dueBalanceValue = financementValue;
+    const table:TableProps[] = [];
 
-    for (let i = 1; i <= numeroParcelas; i++) {
-        const juros = saldoDevedor * taxaJurosMensal;
-        const amortizacao = parcela - juros;
-        saldoDevedor -= amortizacao;
+    for (let i = 1; i <= numberOfParcels; i++) {
+        const tax = dueBalanceValue * taxMonth;
+        const amortization = parcelValue - tax;
+        dueBalanceValue -= amortization;
 
-        tabela.push({
+        table.push({
             parcel: i,
-            parcelValue:parcela,
-            taxs: juros,
-            amortization: amortizacao,
-            dueBalance: saldoDevedor,
+            parcelValue:parcelValue,
+            taxs: tax,
+            amortization: amortization,
+            dueBalance: dueBalanceValue,
             Dfi: `0`,
             Mip:`0`,
             Tsa:`0`
         });
     }
 
-    return tabela;
+    return table;
 }
 
-const priceTable = calcularTabelaPrice(financementValue,parcels)
+const priceTable = tablePriceCalculate(financementValue,parcels)
 
   for (let index = 0; index < parcels; index++) {
     const taxMonth = (dueBalance*0.0094136514)

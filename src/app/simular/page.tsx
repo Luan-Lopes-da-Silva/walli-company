@@ -12,7 +12,6 @@ import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_o
 import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import { formatToCustomDecimal } from '@/utils/formatToDecimal';
 import { createNewProtocol } from '@/utils/generateProtocol';
-import parsePhoneNumber from 'libphonenumber-js'
 
 
 
@@ -68,17 +67,18 @@ const undefinedFinanceForm = {
 
 
  
- function aplicarMascara(value:number,cutTarget:number) {
-    let valorStr = value.toString().slice(0, cutTarget);
+ function maskNumber(value:number,cutTarget:number) {
+    let valueStr = value.toString().slice(0, cutTarget);
     
-    let [parteInteira, parteDecimal] = valorStr.split('.');
+    // eslint-disable-next-line prefer-const
+    let [integerPart, decimalPart] = valueStr.split('.');
     
-    parteInteira = parteInteira.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     
-    if (parteDecimal) {
-        return `${parteInteira},${parteDecimal}`;
+    if (decimalPart) {
+        return `${integerPart},${decimalPart}`;
     } else {
-        return parteInteira;
+        return integerPart;
     }
   }
 
@@ -89,7 +89,6 @@ export default function Simular(){
     const [count,setCount] = useState(0)
     const [search,setSearch] = useState('') 
     const [protocol,setProtocol] = useState('')
-    const [phone,setPhone] = useState('')
     const refSearch = useRef<HTMLDivElement>(null)
     const refInforForm = useRef<HTMLFormElement>(null)
     const refFinanceForm = useRef<HTMLFormElement>(null)
@@ -104,7 +103,7 @@ export default function Simular(){
     const refContent = useRef<HTMLElement>(null)
     const refSucefullMsg = useRef<HTMLDivElement>(null)
     const [firstAndLastParcelSac,setFirstAndLastParcelSac] = useState<ParcelValue[]>([])
-    let priceTableArray = []
+    
     const { 
         register: registerPersonalInfos,
         handleSubmit: handlePersonalForm,
@@ -301,13 +300,10 @@ export default function Simular(){
         if(refSummary.current){
             refSummary.current.style.display = 'block'
             const prohibited = Number(data.imobilleValue)-Number(data.financedValue)
-            setProhibitedValue(aplicarMascara(prohibited,6))   
+            setProhibitedValue(maskNumber(prohibited,6))   
         }
         setFinanceInfoData(data)
       }
-
-      const priceTable = calcularTabelaPrice(Number(financeInfoData.financedValue),11.90,Number(financeInfoData.parcelnumber))
-
 
       function backStepForm(){
         if(refInforForm.current && refFinanceForm.current && refFirstStepContainer.current && refSecondStepContainer.current){
@@ -350,33 +346,6 @@ export default function Simular(){
             }
 
         }
-    }
-
-    function calcularTabelaPrice(valorFinanciado:number, taxaJurosAnual:number, prazo:number) {
-        const taxaJurosMensal = (taxaJurosAnual / 100) / 12;
-        const numeroParcelas = prazo;
-        
-        const parcela = valorFinanciado * (taxaJurosMensal * Math.pow(1 + taxaJurosMensal, numeroParcelas)) / 
-                        (Math.pow(1 + taxaJurosMensal, numeroParcelas) - 1);
-    
-        let saldoDevedor = valorFinanciado;
-        const tabela = [];
-    
-        for (let i = 1; i <= numeroParcelas; i++) {
-            const juros = saldoDevedor * taxaJurosMensal;
-            const amortizacao = parcela - juros;
-            saldoDevedor -= amortizacao;
-    
-            tabela.push({
-                parcela: i,
-                valorParcela:parcela.toFixed(3),
-                juros: juros.toFixed(3),
-                amortizacao: amortizacao.toFixed(3),
-                saldoDevedor: saldoDevedor.toFixed(5)
-            });
-        }
-    
-        return tabela;
     }
 
 
@@ -521,14 +490,14 @@ export default function Simular(){
                     <button onClick={showSucefullMsg}>Dar inicio a processo de financiamento</button>
                     <h3>Resumo</h3>
                         <div className={style.infos}>
-                         <p>Valor do imóvel: R$ {aplicarMascara(Number(financeInfoData.imobilleValue),9)}</p>
-                         <p>Valor financiado: R$ {aplicarMascara(Number(financeInfoData.financedValue),9)}</p>
+                         <p>Valor do imóvel: R$ {maskNumber(Number(financeInfoData.imobilleValue),9)}</p>
+                         <p>Valor financiado: R$ {maskNumber(Number(financeInfoData.financedValue),9)}</p>
                          <p>Valor de entrada: R$ {prohibitedValue}</p>
 
                          {firstAndLastParcelSac.length>0?(
                            <>
-                             <p>Primeira parcela: R$ {aplicarMascara(firstAndLastParcelSac[0].parcelValue,7)}</p>
-                             <p>Ultima parcela: R$ {aplicarMascara(firstAndLastParcelSac[firstAndLastParcelSac.length-1].parcelValue,7)}</p>
+                             <p>Primeira parcela: R$ {maskNumber(firstAndLastParcelSac[0].parcelValue,7)}</p>
+                             <p>Ultima parcela: R$ {maskNumber(firstAndLastParcelSac[firstAndLastParcelSac.length-1].parcelValue,7)}</p>
                            </>
 
                          ):(
