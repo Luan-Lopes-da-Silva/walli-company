@@ -18,11 +18,12 @@ export default function TestComponents() {
 
 
   async function sendEmail() {
+    const url = process.env.NEXT_PUBLIC_API_URL4
     console.log('Enviando email...');
     
     startTransition(async () => {
       try {
-        const response = await fetch(`https://email-generator-1-dnt9.onrender.com/send-email`, {
+        const response = await fetch(`${url}/send-email`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

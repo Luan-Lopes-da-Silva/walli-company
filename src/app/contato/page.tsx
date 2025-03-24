@@ -2,18 +2,45 @@
 
 import Link from 'next/link'
 import style from './contato.module.scss'
-import { useEffect, useRef, useState } from 'react'
+import { startTransition, useEffect, useRef, useState } from 'react'
 import { Financement } from '@/utils/types'
 import closeImg from '@/../public/assets/close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
 import Image from 'next/image'
 import menuImg from '@/../public/assets/menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg'
+import {z} from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
+import ReactDOMServer from 'react-dom/server';
+import { useForm } from 'react-hook-form'
+import SuportEmail from '../components/Email/SuportEmail'
+
+const createContactSchema = z.object({
+    name: z.string().min(1,'O nome é obrigatório'),
+    email:z.string().email('Tipo de email invalido').min(1,'O email é obrigatório'),
+    subject:z.string().min(1,'O assunto do email é obrigatório'),
+    messageEmail:z.string().min(1,'A mensagem do email é obrigatório')
+})
 
 
+export type contacType = {
+    name:string,
+    email:string,
+    subject:string,
+    messageEmail:string
+}
 
 export default function Contate(){
     useEffect(()=>{
         window.document.title = 'Contate-nos'   
     })
+
+    const { 
+           register,
+           handleSubmit,
+           formState: { errors}
+       } = useForm<contacType>({resolver:zodResolver(createContactSchema)})
+
+
+      
 
     const refSpan = useRef<HTMLSpanElement>(null)
     const refContentContainer = useRef<HTMLDivElement>(null)
@@ -73,6 +100,37 @@ export default function Contate(){
             }
 
         }
+    }
+
+
+    async function sendEmail(data:contacType) {
+        const url = process.env.NEXT_PUBLIC_API_URL4
+        console.log('Enviando email...');
+        
+        startTransition(async () => {
+          try {
+            const response = await fetch(`${url}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                to: 'lopesluan431@gmail.com',
+                name: data.name,
+                subject: data.subject,
+                templateHtml: ReactDOMServer.renderToStaticMarkup(<SuportEmail messageEmail={data.messageEmail} name={data.name}/>),
+              }),
+            });
+            
+            console.log(response.status)
+            const dataResponse:any = await response.json();
+            
+            console.log(dataResponse)
+            alert('Email enviado com sucesso aguarde o nosso time de suporte entrar em contato')
+          } catch (error) {
+            console.error('Erro ao enviar e-mail:', error);
+          }
+        });
     }
 
 
@@ -140,25 +198,34 @@ export default function Contate(){
             <main ref={refContent}>
                 <span>Contate-nos</span>
 
-                <form>
+                <form onSubmit={handleSubmit(sendEmail)}>
                     <label htmlFor="name">Nome</label>
+                    {errors.name && <span className={style.errors}>{errors.name.message}</span>}
                     <input 
                     type="text" 
                     placeholder='Seu nome'
+                    {...register("name")}
                     />
                     <label htmlFor="email">Email</label>
+                    {errors.email && <span className={style.errors}>{errors.email.message}</span>}
                     <input 
                     type="text" 
                     placeholder='Seu email'
+                    {...register("email")}
                     />
                     <label htmlFor="about">Assunto</label>
+                    {errors.subject && <span className={style.errors}>{errors.subject.message}</span>}
                     <input 
                     type="text" 
                     placeholder='Assunto da mensagem'
+                    {...register("subject")}
                     />
                     <label htmlFor="message">Mensagem</label>
-                    <textarea 
-                    placeholder='Deixe aqui sua mensagem'></textarea>
+                    {errors.messageEmail && <span className={style.errors}>{errors.messageEmail.message}</span>}
+                    <textarea
+                    placeholder='Deixe aqui sua mensagem'
+                    {...register("messageEmail")}
+                    ></textarea>
                     <button>Enviar</button>
                 </form>
             </main>
