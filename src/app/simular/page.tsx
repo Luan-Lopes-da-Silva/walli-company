@@ -68,7 +68,7 @@ const undefinedFinanceForm = {
 
  
  function maskNumber(value:number,cutTarget:number) {
-    let valueStr = value.toString().slice(0, cutTarget);
+    const valueStr = value.toString().slice(0, cutTarget);
     
     // eslint-disable-next-line prefer-const
     let [integerPart, decimalPart] = valueStr.split('.');
