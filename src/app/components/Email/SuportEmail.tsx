@@ -83,7 +83,4 @@ import {
     color:'#000'
   }
   
-  const welcomeContainer = {
-      marginTop:'20px',
-      width:'300px'
-  }
+ 

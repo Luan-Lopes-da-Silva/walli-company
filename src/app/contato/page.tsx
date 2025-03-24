@@ -123,6 +123,8 @@ export default function Contate(){
             });
             
             console.log(response.status)
+
+             // eslint-disable-next-line no-explicit-any
             const dataResponse:any = await response.json();
             
             console.log(dataResponse)
